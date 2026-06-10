@@ -77,8 +77,8 @@ Nine tools your agent can call. Each is written so the model picks the right one
 | | Scans | Create issues & projects |
 |---|---|---|
 | **Free** | 3 / day, forever | — |
-| **14-day trial** | unlimited | yes |
-| **Paid** | unlimited | yes, with export to Linear / Jira / Asana / Notion |
+| **14-day trial** | 30 / day | yes |
+| **Paid** | 10-30 / day by plan, unlimited on Pro | yes, with export to Linear / Jira / Asana / Notion |
 
 See [overlayqa.com/pricing](https://overlayqa.com/pricing).
 
@@ -86,7 +86,7 @@ See [overlayqa.com/pricing](https://overlayqa.com/pricing).
 
 **Which editors does it work with?** Claude Code, Cursor, Windsurf, and any MCP-compatible client (it speaks standard stdio MCP).
 
-**Is it free?** Yes to start: 3 accessibility/contrast scans per day with no card. A 14-day trial unlocks unlimited scans plus issue and project creation. After that, creating issues and projects needs a paid plan.
+**Is it free?** Yes to start: 3 accessibility/contrast scans per day with no card. A 14-day trial raises that to 30 scans per day and unlocks issue and project creation. After that, creating issues and projects needs a paid plan (Pro has unlimited scans).
 
 **What does it actually scan?** Any public URL. Accessibility uses axe-core mapped to WCAG success criteria; contrast checks foreground/background ratios and returns the failing element pairs.
 

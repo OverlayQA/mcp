@@ -10,7 +10,7 @@ interface ToolResponse {
 export const auditTokensTool = {
   name: 'audit_tokens',
   description:
-    'Audit a live URL for design token usage and compliance. Optionally compares against a Figma file.',
+    'Coming soon — not yet implemented; the server returns a not-implemented notice (use the OverlayQA browser extension for design-token audits today). Will audit a live URL for design token usage and compliance, optionally against a Figma file.',
   inputSchema: AuditTokensInput,
   async handler(input: { url: string; figmaFileKey?: string }): Promise<ToolResponse> {
     const { status, data } = await mcpFetch('/audit/tokens', {

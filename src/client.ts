@@ -85,7 +85,8 @@ export async function mcpFetch(
       data: {
         error: true,
         code: 'AUTH_REQUIRED',
-        message: 'Not authenticated. Run the MCP server to authenticate.',
+        message:
+          'Not authenticated with OverlayQA. A sign-in tab should have opened in your browser when this server started — complete it and retry. If not, restart the MCP server to relaunch sign-in.',
       },
     };
   }

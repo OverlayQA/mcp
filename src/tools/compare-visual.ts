@@ -10,7 +10,7 @@ interface ToolResponse {
 export const compareVisualTool = {
   name: 'compare_visual',
   description:
-    'Compare a live URL against a Figma frame. Returns visual differences and a match score.',
+    'Coming soon — not yet implemented; the server returns a not-implemented notice (use the OverlayQA browser extension for visual comparison today). Will compare a live URL against a Figma frame and return visual differences and a match score.',
   inputSchema: CompareVisualInput,
   async handler(input: {
     url: string;

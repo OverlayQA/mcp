@@ -19,11 +19,17 @@
  * unexpected throw becomes a structured MCP error response instead of
  * crashing the stdio process.
  */
+import { createRequire } from 'node:module';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 import { getStoredAuth } from './client.js';
 import { authenticate } from './auth.js';
+
+// Keep the advertised server version in lockstep with package.json (dist/
+// sits one level below the package root, so ../package.json resolves there).
+const require = createRequire(import.meta.url);
+const { version: PACKAGE_VERSION } = require('../package.json') as { version: string };
 
 import { scanAccessibilityTool } from './tools/scan-accessibility.js';
 import { scanContrastTool } from './tools/scan-contrast.js';
@@ -64,26 +70,29 @@ const ALL_TOOLS: AnyTool[] = [
 ] as unknown as AnyTool[];
 
 async function main(): Promise<void> {
-  // Ensure we have credentials before opening stdio.
+  // Connect stdio FIRST, authenticate in the background. Blocking startup on
+  // the OAuth browser flow meant headless environments (registry sandboxes,
+  // CI, directory installability checks) could never even answer tools/list:
+  // open() fails, the flow waits out its 5-minute timeout, and the process
+  // exited. Now the server always comes up; tool calls made before auth
+  // completes return a structured AUTH_REQUIRED error, and mcpFetch re-reads
+  // ~/.overlayqa/auth.json on every call so it picks up the token the moment
+  // the browser flow finishes. (stderr only — stdout is the stdio protocol.)
   if (!getStoredAuth()) {
-    // OAuth via the browser. authenticate() throws on timeout or fetch error.
-    // We deliberately log to stderr (stdout is reserved for the stdio protocol).
     console.error('No OverlayQA credentials found. Starting authentication...');
-    try {
-      await authenticate();
-      console.error('Authentication successful!');
-    } catch (err) {
-      console.error(
-        'Authentication failed:',
-        err instanceof Error ? err.message : err,
+    void authenticate()
+      .then(() => console.error('Authentication successful!'))
+      .catch((err) =>
+        console.error(
+          'Authentication failed (tools will return AUTH_REQUIRED):',
+          err instanceof Error ? err.message : err,
+        ),
       );
-      process.exit(1);
-    }
   }
 
   const server = new McpServer({
     name: 'overlayqa',
-    version: '0.1.0',
+    version: PACKAGE_VERSION,
   });
 
   for (const tool of ALL_TOOLS) {

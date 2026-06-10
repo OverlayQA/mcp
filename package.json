@@ -1,0 +1,67 @@
+{
+  "name": "@overlayqa/mcp",
+  "version": "0.1.4",
+  "mcpName": "com.overlayqa/mcp",
+  "description": "MCP server for WCAG accessibility and color-contrast audits plus QA issue tracking in Claude Code, Cursor, and Windsurf.",
+  "type": "module",
+  "bin": {
+    "overlayqa-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "open": "^10.1.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "claude",
+    "cursor",
+    "windsurf",
+    "accessibility",
+    "a11y",
+    "wcag",
+    "accessibility-testing",
+    "color-contrast",
+    "axe-core",
+    "design-qa",
+    "design-system",
+    "visual-testing",
+    "qa",
+    "bug-tracking",
+    "bug-reporting",
+    "issue-tracking",
+    "overlayqa"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OverlayQA/mcp.git"
+  },
+  "homepage": "https://overlayqa.com",
+  "bugs": {
+    "url": "https://github.com/OverlayQA/mcp/issues"
+  }
+}

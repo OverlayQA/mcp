@@ -1,0 +1,112 @@
+# OverlayQA MCP
+
+[![Install in Cursor](https://img.shields.io/badge/Install_in-Cursor-3468F8)](https://cursor.com/en/install-mcp?name=overlayqa&config=eyJ0eXBlIjoic3RkaW8iLCJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBvdmVybGF5cWEvbWNwQGxhdGVzdCJdfQ==)
+[![Install in VS Code](https://img.shields.io/badge/Install_in-VS_Code-3468F8)](https://vscode.dev/redirect/mcp/install?name=overlayqa&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40overlayqa%2Fmcp%40latest%22%5D%7D)
+[![npm](https://img.shields.io/npm/v/@overlayqa/mcp?color=3468F8&label=npm)](https://www.npmjs.com/package/@overlayqa/mcp)
+[![license](https://img.shields.io/npm/l/@overlayqa/mcp?color=3468F8)](https://www.npmjs.com/package/@overlayqa/mcp)
+[![MCP](https://img.shields.io/badge/MCP-compatible-3468F8)](https://modelcontextprotocol.io)
+
+**OverlayQA MCP is a Model Context Protocol server that gives your AI coding agent accessibility and design-QA superpowers.** Ask Claude Code, Cursor, or Windsurf to audit any URL for WCAG and color-contrast issues, then file dev-ready issues straight into your OverlayQA projects, without leaving your editor.
+
+```
+You:   Scan staging.acme.com for accessibility issues, then open issues for the criticals.
+Agent: scan_accessibility → 7 violations (2 critical, 3 high), score 71/100.
+       scan_and_create_issues → created 2 issues in "Acme Web":
+       - Buttons missing accessible names (WCAG 4.1.2) — critical
+       - Insufficient text contrast on .cta (WCAG 1.4.3) — high
+You:   List the open criticals.
+Agent: list_issues(status=open, severity=critical) → 2 issues.
+```
+
+## Install
+
+One click:
+
+- [Install in Cursor](https://cursor.com/en/install-mcp?name=overlayqa&config=eyJ0eXBlIjoic3RkaW8iLCJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBvdmVybGF5cWEvbWNwQGxhdGVzdCJdfQ==)
+- [Install in VS Code](https://vscode.dev/redirect/mcp/install?name=overlayqa&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40overlayqa%2Fmcp%40latest%22%5D%7D)
+
+Or add it to your editor's MCP config manually:
+
+**Claude Code** (`.mcp.json` in your project root) / **Cursor** (`~/.cursor/mcp.json`) / **Windsurf** (`~/.codeium/windsurf/mcp_config.json`):
+```json
+{
+  "mcpServers": {
+    "overlayqa": { "command": "npx", "args": ["@overlayqa/mcp@latest"] }
+  }
+}
+```
+
+Any MCP-compatible client works the same way. On first run a browser tab opens to connect your OverlayQA account (free, no card). The token caches at `~/.overlayqa/auth.json` for 30 days.
+
+## Tools
+
+Nine tools your agent can call. Each is written so the model picks the right one from natural language.
+
+**Audit**
+| Tool | What it does |
+|------|-------------|
+| `scan_accessibility` | Run a WCAG audit (axe-core) on any URL. Returns violations with severity, WCAG success criteria, and an overall score. |
+| `scan_contrast` | Check color-contrast ratios across a page. Returns the failing foreground/background element pairs. |
+
+**File and manage issues**
+| Tool | What it does |
+|------|-------------|
+| `scan_and_create_issues` | Scan a URL and auto-create an issue for every violation above a severity threshold. |
+| `create_issue` | File a QA issue with title, severity, type, and description. |
+| `list_issues` | List issues in a project, filtered by status and severity. |
+| `create_project` | Create a project for a site URL. |
+| `list_projects` | List all projects on your team. |
+
+**Coming soon**
+| Tool | What it does |
+|------|-------------|
+| `compare_visual` | Compare a live page against a Figma frame. |
+| `audit_tokens` | Audit a page's design tokens against a Figma file. |
+
+## Example prompts
+
+- "Scan example.com for accessibility issues."
+- "Check the contrast on our pricing page and tell me what's failing."
+- "Scan staging.acme.com and create issues for anything critical or high."
+- "Create a high-severity accessibility issue: the login button has no focus ring."
+- "List the open critical issues in the Acme Web project."
+- "Create a project for shop.acme.com, then scan it."
+
+## Pricing
+
+| | Scans | Create issues & projects |
+|---|---|---|
+| **Free** | 3 / day, forever | — |
+| **14-day trial** | unlimited | yes |
+| **Paid** | unlimited | yes, with export to Linear / Jira / Asana / Notion |
+
+See [overlayqa.com/pricing](https://overlayqa.com/pricing).
+
+## FAQ
+
+**Which editors does it work with?** Claude Code, Cursor, Windsurf, and any MCP-compatible client (it speaks standard stdio MCP).
+
+**Is it free?** Yes to start: 3 accessibility/contrast scans per day with no card. A 14-day trial unlocks unlimited scans plus issue and project creation. After that, creating issues and projects needs a paid plan.
+
+**What does it actually scan?** Any public URL. Accessibility uses axe-core mapped to WCAG success criteria; contrast checks foreground/background ratios and returns the failing element pairs.
+
+**Do I need an account?** Yes, a free OverlayQA account. On first run a browser tab opens to connect it; the token caches locally for 30 days.
+
+**Does it work with the OverlayQA Chrome extension?** Yes. The MCP server and the extension share the same projects and issues, so anything you file from your editor shows up in the extension and the dashboard, and vice versa.
+
+## Prefer clicking to typing? Meet the extension
+
+The MCP server is one way into OverlayQA. The **[Chrome extension](https://chromewebstore.google.com/detail/overlayqa/pbnjikbncbjaaimelhlkfihgdkocmmei)** is the other: click any element on a live page and it captures a screenshot plus the CSS, DOM, and metadata into a dev-ready issue in seconds, and runs AI accessibility and design-system audits right on the page. Same projects, same issues, shared with this server.
+
+## Links
+
+- Website: [overlayqa.com](https://overlayqa.com)
+- Chrome extension: [Chrome Web Store](https://chromewebstore.google.com/detail/overlayqa/pbnjikbncbjaaimelhlkfihgdkocmmei)
+- Free accessibility checker (no account): [overlayqa.com/accessibility-checker](https://overlayqa.com/accessibility-checker/)
+- Free color-contrast checker (no account): [overlayqa.com/color-contrast-checker](https://overlayqa.com/color-contrast-checker/)
+- Pricing: [overlayqa.com/pricing](https://overlayqa.com/pricing)
+- Model Context Protocol: [modelcontextprotocol.io](https://modelcontextprotocol.io)
+
+## License
+
+MIT

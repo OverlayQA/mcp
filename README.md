@@ -47,6 +47,7 @@ Nine tools your agent can call. Each is written so the model picks the right one
 |------|-------------|
 | `scan_accessibility` | Run a WCAG audit (axe-core) on any URL. Returns violations with severity, WCAG success criteria, and an overall score. |
 | `scan_contrast` | Check color-contrast ratios across a page. Returns the failing foreground/background element pairs. |
+| `audit_tokens` | Audit a live URL's design-system tokens. Returns a 0-100 token-health score and findings (inconsistent font sizes, text colors, spacing, font families, border radii) with severity. Audits the live page only. |
 
 **File and manage issues**
 | Tool | What it does |
@@ -61,7 +62,6 @@ Nine tools your agent can call. Each is written so the model picks the right one
 | Tool | What it does |
 |------|-------------|
 | `compare_visual` | Compare a live page against a Figma frame. |
-| `audit_tokens` | Audit a page's design tokens against a Figma file. |
 
 ## Example prompts
 

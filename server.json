@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "com.overlayqa/mcp",
-  "description": "Run accessibility, contrast, and design-system token audits and file QA issues from Claude Code, Cursor, and Windsurf.",
+  "description": "Run accessibility, contrast, and design token audits and file QA issues from your AI coding tool.",
   "version": "0.1.7",
   "packages": [
     {

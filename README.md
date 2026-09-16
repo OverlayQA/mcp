@@ -40,7 +40,7 @@ Any MCP-compatible client works the same way. On first run a browser tab opens t
 
 ## Tools
 
-Nine tools your agent can call. Each is written so the model picks the right one from natural language.
+Ten tools your agent can call. Each is written so the model picks the right one from natural language.
 
 **Audit**
 | Tool | What it does |
@@ -55,6 +55,7 @@ Nine tools your agent can call. Each is written so the model picks the right one
 | `scan_and_create_issues` | Scan a URL and auto-create an issue for every violation above a severity threshold. |
 | `create_issue` | File a QA issue with title, severity, type, and description. |
 | `list_issues` | List issues in a project, filtered by status and severity. |
+| `update_issue` | Change an issue's status (open, in-progress, resolved, verified or closed), for example to mark it resolved after you fixed it. Takes the issue id or its display id such as OQ-12. |
 | `create_project` | Create a project for a site URL. |
 | `list_projects` | List all projects on your team. |
 
@@ -62,6 +63,10 @@ Nine tools your agent can call. Each is written so the model picks the right one
 | Tool | What it does |
 |------|-------------|
 | `compare_visual` | Compare a live page against a Figma frame. |
+
+## What the server records
+
+Every tool also accepts an optional `context` argument: one sentence on why the agent is calling it. OverlayQA records that sentence, the tool name, your account, project and issue ids, counts and scores, the URL a scan runs on, and your editor's name and version (from the MCP handshake) as product analytics. The sentence is capped and stripped of email addresses and credential-like strings before it is stored. Nothing else travels: not your conversation, not your code, not the tool's replies. Full detail: [overlayqa.com/privacy](https://overlayqa.com/privacy/).
 
 ## Example prompts
 

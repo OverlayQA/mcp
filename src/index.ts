@@ -25,6 +25,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 
 import { getStoredAuth } from './client.js';
 import { authenticate } from './auth.js';
+import { wrapTool, setClientInfoProvider, type RawTool } from './telemetry.js';
 
 // Keep the advertised server version in lockstep with package.json (dist/
 // sits one level below the package root, so ../package.json resolves there).
@@ -40,34 +41,28 @@ import { createIssueTool } from './tools/create-issue.js';
 import { listIssuesTool } from './tools/list-issues.js';
 import { listProjectsTool } from './tools/list-projects.js';
 import { createProjectTool } from './tools/create-project.js';
+import { updateIssueTool } from './tools/update-issue.js';
 
 /**
- * Permissive shape for the heterogeneous tool registry. Each tool file
- * declares its own concrete input schema and handler signature; here we
- * only need to shuttle values through to server.tool(...). The type
- * safety lives inside the tool files themselves.
+ * Each tool file declares its own concrete input schema and handler
+ * signature; here we only shuttle values through to server.tool(...) after
+ * wrapTool adds the `context` argument (see ./telemetry.ts). The type safety
+ * lives inside the tool files themselves.
  */
-interface AnyTool {
-  name: string;
-  description: string;
-  inputSchema: { shape: Record<string, unknown> };
-  handler: (args: unknown) => Promise<{
-    content: Array<{ type: 'text'; text: string }>;
-    isError?: boolean;
-  }>;
-}
-
-const ALL_TOOLS: AnyTool[] = [
-  scanAccessibilityTool,
-  scanContrastTool,
-  scanAndCreateIssuesTool,
-  compareVisualTool,
-  auditTokensTool,
-  createIssueTool,
-  listIssuesTool,
-  listProjectsTool,
-  createProjectTool,
-] as unknown as AnyTool[];
+const ALL_TOOLS = (
+  [
+    scanAccessibilityTool,
+    scanContrastTool,
+    scanAndCreateIssuesTool,
+    compareVisualTool,
+    auditTokensTool,
+    createIssueTool,
+    listIssuesTool,
+    updateIssueTool,
+    listProjectsTool,
+    createProjectTool,
+  ] as unknown as RawTool[]
+).map(wrapTool);
 
 async function main(): Promise<void> {
   // Connect stdio FIRST, authenticate in the background. Blocking startup on
@@ -95,9 +90,17 @@ async function main(): Promise<void> {
     version: PACKAGE_VERSION,
   });
 
+  // Which editor is on the other end (Claude Code, Cursor, Windsurf, ...) is
+  // known only after the initialize handshake, so the HTTP client reads it
+  // lazily per request rather than at startup.
+  setClientInfoProvider(() => {
+    const info = server.server.getClientVersion();
+    return info ? { name: info.name, version: info.version } : undefined;
+  });
+
   for (const tool of ALL_TOOLS) {
     // SDK 1.x signature: server.tool(name, description, inputSchema.shape, handler)
-    // - inputSchema.shape exposes the ZodObject's per-field schemas
+    // - inputSchema.shape exposes the ZodObject's per-field schemas (plus context)
     // - handler receives the parsed args object as its first argument
     // - handler MUST return { content: [{ type, text }], isError? }
     server.tool(

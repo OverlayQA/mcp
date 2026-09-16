@@ -1,6 +1,6 @@
 {
   "name": "@overlayqa/mcp",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "mcpName": "com.overlayqa/mcp",
   "description": "MCP server for WCAG accessibility and color-contrast audits plus QA issue tracking in Claude Code, Cursor, and Windsurf.",
   "type": "module",

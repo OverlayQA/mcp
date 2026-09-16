@@ -1,5 +1,5 @@
 /**
- * Zod schemas for all 9 MCP tool inputs.
+ * Zod schemas for all 10 MCP tool inputs.
  *
  * These schemas drive both runtime validation (the `inputSchema.shape` is
  * passed to the MCP SDK's `server.tool()` in Task 17) and the descriptions
@@ -52,7 +52,7 @@ export const CreateIssueInput = z.object({
     .optional()
     .describe('Issue severity (default: medium)'),
   type: z
-    .enum(['design-bug', 'design-gap', 'design-debt', 'accessibility', 'design-token'])
+    .enum(['design-bug', 'design-gap', 'improvement', 'general', 'design-debt', 'accessibility', 'design-token'])
     .optional()
     .describe('Issue type (default: design-bug)'),
   description: z.string().optional().describe('Issue description'),
@@ -79,4 +79,9 @@ export const CreateProjectInput = z.object({
   url: z.string().url().optional().describe('Primary URL for this project'),
 });
 
-export const UpdateIssueInput = z.object({});
+export const UpdateIssueInput = z.object({
+  issueId: z.string().min(1).describe('Issue id, or its display id such as OQ-12'),
+  status: z
+    .enum(['open', 'in-progress', 'resolved', 'verified', 'closed'])
+    .describe('The new status'),
+});

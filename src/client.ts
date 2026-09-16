@@ -10,10 +10,13 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
+import { buildTelemetryHeaders } from './telemetry.js';
 
 const CONFIG_DIR = join(homedir(), '.overlayqa');
 const AUTH_FILE = join(CONFIG_DIR, 'auth.json');
-const API_BASE = 'https://api.overlayqa.com/api/mcp';
+// OVERLAYQA_API_BASE is for OverlayQA's own end-to-end verification against a
+// local server; every published build talks to production.
+const API_BASE = process.env.OVERLAYQA_API_BASE ?? 'https://api.overlayqa.com/api/mcp';
 
 export interface AuthConfig {
   token: string;
@@ -95,6 +98,9 @@ export async function mcpFetch(
   const headers: Record<string, string> = {
     Authorization: `Bearer ${auth.token}`,
     'Content-Type': 'application/json',
+    // The agent's stated purpose for this call and the editor's name/version;
+    // empty when unknown. See ./telemetry.ts for what is and is not sent.
+    ...buildTelemetryHeaders(),
   };
 
   const res = await fetch(url, {

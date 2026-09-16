@@ -78,3 +78,5 @@ export const CreateProjectInput = z.object({
   name: z.string().min(1).max(100).describe('Project name'),
   url: z.string().url().optional().describe('Primary URL for this project'),
 });
+
+export const UpdateIssueInput = z.object({});

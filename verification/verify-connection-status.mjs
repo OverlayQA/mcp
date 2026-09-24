@@ -28,12 +28,22 @@ const context = await browser.newContext({ viewport: { width: 1440, height: 900 
 // No stylesheet, animation duration or playback position is substituted.
 await context.addInitScript(() => {
   window.__oqStatusFrames = [];
+  let capturedCelebration = false;
   function observe() {
     const icon = document.querySelector('.status svg');
     if (icon) {
       const style = getComputedStyle(icon);
-      const animations = icon.getAnimations();
-      window.__oqStatusFrames.push({ time: performance.now(), opacity: Number(style.opacity), transform: style.transform, active: animations.some(a => a.playState === 'running') });
+      const status = icon.closest('.status');
+      const transform = new DOMMatrix(getComputedStyle(status).transform);
+      const scale = Math.hypot(transform.a, transform.b);
+      const draw = parseFloat(getComputedStyle(icon.querySelector('path')).strokeDashoffset);
+      const sparkOpacity = Math.max(0, ...Array.from(status.querySelectorAll('.status__spark'), s => Number(getComputedStyle(s).opacity)));
+      const animations = status.getAnimations({ subtree: true });
+      window.__oqStatusFrames.push({ time: performance.now(), opacity: Number(style.opacity), transform: style.transform, scale, draw, sparkOpacity, active: animations.some(a => a.playState === 'running') });
+      if (!capturedCelebration && sparkOpacity > .5 && scale > 1) {
+        capturedCelebration = true;
+        void window.oqCaptureCelebration();
+      }
       if (window.__oqStatusFrames.length > 1 && !animations.some(a => a.playState === 'running')) return;
     }
     requestAnimationFrame(observe);
@@ -41,6 +51,11 @@ await context.addInitScript(() => {
   requestAnimationFrame(observe);
 });
 const page = await context.newPage();
+let celebrationCapture;
+await page.exposeFunction('oqCaptureCelebration', () => {
+  celebrationCapture = page.screenshot({ path: path.join(report, 'connected-celebrating.png') });
+  return celebrationCapture;
+});
 const children = [];
 const authDirectories = [];
 async function waitForFile(file) {
@@ -109,9 +124,17 @@ try {
       expect(visual.fill).toBe(success ? 'rgb(240, 253, 244)' : 'rgb(254, 242, 242)');
       if (success && !reduced) {
         expect(visual.frames.some(f => f.active && f.opacity < 1)).toBe(true);
+        expect(visual.frames.some(f => f.scale > 1)).toBe(true);
+        expect(visual.frames.some(f => f.draw > 0)).toBe(true);
+        expect(visual.frames.some(f => f.sparkOpacity > 0)).toBe(true);
         expect(visual.frames.at(-1).opacity).toBe(1);
+        expect(visual.frames.at(-1).draw).toBe(0);
+        expect(visual.frames.at(-1).sparkOpacity).toBe(0);
+        expect(celebrationCapture).toBeTruthy();
+        await celebrationCapture;
+        evidence.checks.push({ name: 'connected-celebrating', observedAt: new Date().toISOString(), status: 'pass', detail: 'Screenshot during real, unmodified load animation; no playback seeking.' });
       } else {
-        expect(visual.frames.every(f => f.opacity === 1 && !f.active)).toBe(true);
+        expect(visual.frames.every(f => f.opacity === 1 && !f.active && f.scale === 1 && f.draw === 0 && f.sparkOpacity === 0)).toBe(true);
       }
       evidence.checks.push({ name: `${state}-stroke-and-motion`, observedAt: new Date().toISOString(), status: 'pass', detail: visual });
     }
@@ -129,5 +152,5 @@ try {
   for (const directory of authDirectories) rmSync(directory, { recursive: true, force: true });
   writeFileSync(path.join(report, 'results.json'), JSON.stringify(evidence, null, 2));
   const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;');
-  writeFileSync(path.join(report, 'index.html'), `<!doctype html><meta charset="utf-8"><title>Editor connection status</title><style>body{font:16px/1.5 system-ui;max-width:1200px;margin:32px auto}img{max-width:100%}pre{white-space:pre-wrap}</style><h1>Editor connection status</h1><pre>${escape(JSON.stringify(evidence, null, 2))}</pre>${evidence.checks.filter(c => /desktop|narrow/.test(c.name)).map(c => `<h2>${c.name}</h2><img src="${c.name}.png">`).join('')}${evidence.error ? '<h2>Failure evidence</h2><img src="failure.png">' : ''}`);
+  writeFileSync(path.join(report, 'index.html'), `<!doctype html><meta charset="utf-8"><title>Editor connection status</title><style>body{font:16px/1.5 system-ui;max-width:1200px;margin:32px auto}img{max-width:100%}pre{white-space:pre-wrap}</style><h1>Editor connection status</h1><pre>${escape(JSON.stringify(evidence, null, 2))}</pre>${evidence.checks.filter(c => /desktop|narrow|celebrating/.test(c.name)).map(c => `<h2>${c.name}</h2><img src="${c.name}.png">`).join('')}${evidence.error ? '<h2>Failure evidence</h2><img src="failure.png">' : ''}`);
 }

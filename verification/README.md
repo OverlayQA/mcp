@@ -26,3 +26,13 @@ The status circle now has a 1px outline using the existing success/error border 
 New actual-callback evidence: [local](reports/stroke-motion-local/index.html), [production](reports/stroke-motion-production/index.html). Browser frame samples observe the real CSS animation from opacity 0 / scale .6 to opacity 1 / scale 1, and verify no animation in reduced-motion mode. Desktop and narrow-window frames were inspected. Accounts and host are recorded per run; auth persistence and the subsequent projects request remain verified. `npm run build` passed. The before-change build 94b496b deliberately fails the new 1px-border assertion with `0px`: [regression control](reports/stroke-motion-control/index.html).
 
 This refinement is not published. Installed-editor launch and npm distribution remain outside the substituted browser-launch check described above.
+
+## More playful entrance — 2026-09-24
+
+The gentle entrance above was superseded after Emily requested more playful motion. The circle now springs in with a small tilt, the check draws itself, and a ring with green confetti radiates out and fades. The existing two-shade outline remains. This plays once; reduced motion renders the complete check immediately, and the failure state stays static.
+
+Actual-callback evidence: [local](reports/celebration-local/index.html), [production services](reports/celebration-production/index.html). These runs used the same Mac mini, designated owner accounts and hosts described above. Frame samples captured the overshoot, check drawing and visible confetti, then a complete check with no active animation. The mid-animation screenshot observes real playback without seeking or changing timing. Desktop, narrow, reduced-motion and failure screenshots were inspected; stored credential reuse and projects HTTP 200 passed. Source hashes and per-step timestamps identify the candidate. `npm run build` passed on both machines.
+
+The prior 046d9b5 build passed real authentication and correctly failed the new overshoot assertion: [negative control](reports/celebration-control/index.html). Run the current driver with `OQ_CLIENT_ROOT` pointing to that separately built checkout, `OQ_REPORT_PHASE=celebration-control`, and without `--control` to reproduce the failure. The original `--control` option intentionally skips candidate styling assertions.
+
+Not published. Actual installed-editor launch and npm distribution remain unverified; this check uses the real callback with only the browser-launch and credential-home substitutions described above.

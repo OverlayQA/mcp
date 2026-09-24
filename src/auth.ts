@@ -19,6 +19,7 @@
  */
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { getStoredAuth, storeAuth, type AuthConfig } from './client.js';
+import { renderConnectionPage } from './connection-page.js';
 
 const DASHBOARD_URL = 'https://app.overlayqa.com';
 const TOKEN_EXCHANGE_URL = 'https://api.overlayqa.com/api/mcp/token';
@@ -83,33 +84,12 @@ export async function authenticate(): Promise<AuthConfig> {
         storeAuth({ token: payload.token, teamId: payload.teamId });
 
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OverlayQA — Connected</title></head>
-<body style="margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a 0%,#3468F8 100%);font-family:system-ui,-apple-system,sans-serif;">
-<div style="background:#fff;border-radius:1rem;padding:2.5rem;max-width:380px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.12);">
-  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-bottom:1.5rem;" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#3468F8"/><path d="M12 20a8 8 0 1116 0 8 8 0 01-16 0z" stroke="#fff" stroke-width="2.5" fill="none"/><path d="M20 15v5l3 3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <h2 style="margin:0 0 .25rem;font-size:1.25rem;font-weight:700;color:#09090b;">Connected</h2>
-  <p style="margin:0 0 1.5rem;font-size:.875rem;color:#6b7280;">Your editor is now connected to OverlayQA.</p>
-  <div style="display:flex;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:50%;background:#f0fdf4;margin:0 auto 1rem;">
-    <svg width="24" height="24" viewBox="0 0 20 20" fill="#22c55e" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-  </div>
-  <p style="margin:0;font-size:.75rem;color:#9ca3af;">You can close this tab and return to your editor.</p>
-</div>
-</body></html>`);
+        res.end(renderConnectionPage(true));
 
         finishWithSuccess({ token: payload.token, teamId: payload.teamId });
       } catch (err) {
         res.writeHead(500, { 'Content-Type': 'text/html' });
-        res.end(`<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OverlayQA — Connection Failed</title></head>
-<body style="margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a 0%,#3468F8 100%);font-family:system-ui,-apple-system,sans-serif;">
-<div style="background:#fff;border-radius:1rem;padding:2.5rem;max-width:380px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.12);">
-  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-bottom:1.5rem;" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#3468F8"/><path d="M12 20a8 8 0 1116 0 8 8 0 01-16 0z" stroke="#fff" stroke-width="2.5" fill="none"/><path d="M20 15v5l3 3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <h2 style="margin:0 0 .25rem;font-size:1.25rem;font-weight:700;color:#09090b;">Connection failed</h2>
-  <p style="margin:0 0 1rem;font-size:.875rem;color:#6b7280;">Something went wrong while connecting your editor.</p>
-  <p style="margin:0;font-size:.875rem;color:#6b7280;">Restart the MCP server in your editor to try again.</p>
-</div>
-</body></html>`);
+        res.end(renderConnectionPage(false));
         finishWithError(err instanceof Error ? err : new Error(String(err)));
       }
     });

@@ -1,0 +1,88 @@
+<!doctype html><meta charset="utf-8"><title>Editor connection status</title><style>body{font:16px/1.5 system-ui;max-width:1200px;margin:32px auto}img{max-width:100%}pre{white-space:pre-wrap}</style><h1>Editor connection status</h1><pre>{
+  "machine": "Emilys-Mac-mini.local",
+  "api": "http://localhost:3249",
+  "dashboard": "http://localhost:5249",
+  "account": "harness-journey+clerk_test@overlayqa.com",
+  "control": false,
+  "clientRoot": "/private/tmp/oq-mcp-connection-status",
+  "sourceHash": "fa5f24546562c5ff2d5f47955c69d6f49406bdbd52fc0db257383d8ddea5b5da  /private/tmp/oq-mcp-connection-status/src/auth.ts\n18109ff48c9ca4461acf954e05b52560b15f8a7d836ff736bc94f0366f2fe00b  /private/tmp/oq-mcp-connection-status/src/connection-page.ts",
+  "substitutions": [
+    "OS browser-launch call delivered to Playwright; actual authorize route and callback",
+    "Credential home isolated in a temporary directory; actual storeAuth writer",
+    "Token-exchange origin pointed to the local API"
+  ],
+  "checks": [
+    {
+      "name": "connected-callback-and-storage",
+      "observedAt": "2026-09-24T21:40:32.356Z",
+      "status": "pass",
+      "detail": {
+        "connected": true,
+        "restored": true,
+        "projectsStatus": 200,
+        "teamId": "c6c0f00b-f4bc-4992-b40f-0c220bf8c38d"
+      }
+    },
+    {
+      "name": "connected-desktop",
+      "observedAt": "2026-09-24T21:40:32.513Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-narrow",
+      "observedAt": "2026-09-24T21:40:32.536Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "failed-callback-and-storage",
+      "observedAt": "2026-09-24T21:40:32.662Z",
+      "status": "pass",
+      "detail": {
+        "connected": false,
+        "error": "Error: Invalid or expired authorization code"
+      }
+    },
+    {
+      "name": "failed-desktop",
+      "observedAt": "2026-09-24T21:40:32.795Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connection failed\n    Something went wrong while connecting your editor.\n    Restart the MCP server in your editor to try again."
+      }
+    },
+    {
+      "name": "failed-narrow",
+      "observedAt": "2026-09-24T21:40:32.845Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connection failed\n    Something went wrong while connecting your editor.\n    Restart the MCP server in your editor to try again."
+      }
+    }
+  ],
+  "identity": {
+    "role": "owner",
+    "teamId": "c6c0f00b-f4bc-4992-b40f-0c220bf8c38d"
+  }
+}</pre><h2>connected-desktop</h2><img src="connected-desktop.png"><h2>connected-narrow</h2><img src="connected-narrow.png"><h2>failed-desktop</h2><img src="failed-desktop.png"><h2>failed-narrow</h2><img src="failed-narrow.png">

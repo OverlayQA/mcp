@@ -1,0 +1,88 @@
+{
+  "machine": "Emilys-Mac-mini.local",
+  "api": "http://localhost:3249",
+  "dashboard": "http://localhost:5249",
+  "account": "harness-journey+clerk_test@overlayqa.com",
+  "control": true,
+  "clientRoot": "/tmp/oq-mcp-control",
+  "sourceHash": "2dd1bc909e0c0fb9b5c715d0c0b7853f717b63f9cff1104f1a796a30c041e209  /tmp/oq-mcp-control/src/auth.ts",
+  "substitutions": [
+    "OS browser-launch call delivered to Playwright; actual authorize route and callback",
+    "Credential home isolated in a temporary directory; actual storeAuth writer",
+    "Token-exchange origin pointed to the local API"
+  ],
+  "checks": [
+    {
+      "name": "connected-callback-and-storage",
+      "observedAt": "2026-09-24T21:41:13.710Z",
+      "status": "pass",
+      "detail": {
+        "connected": true,
+        "restored": true,
+        "projectsStatus": 200,
+        "teamId": "c6c0f00b-f4bc-4992-b40f-0c220bf8c38d"
+      }
+    },
+    {
+      "name": "connected-desktop",
+      "observedAt": "2026-09-24T21:41:13.860Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 2,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connected\n  Your editor is now connected to OverlayQA.\n  \n    \n  \n  You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-narrow",
+      "observedAt": "2026-09-24T21:41:13.883Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 2,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connected\n  Your editor is now connected to OverlayQA.\n  \n    \n  \n  You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "failed-callback-and-storage",
+      "observedAt": "2026-09-24T21:41:14.011Z",
+      "status": "pass",
+      "detail": {
+        "connected": false,
+        "error": "Error: Invalid or expired authorization code"
+      }
+    },
+    {
+      "name": "failed-desktop",
+      "observedAt": "2026-09-24T21:41:14.152Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connection failed\n  Something went wrong while connecting your editor.\n  Restart the MCP server in your editor to try again."
+      }
+    },
+    {
+      "name": "failed-narrow",
+      "observedAt": "2026-09-24T21:41:14.176Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connection failed\n  Something went wrong while connecting your editor.\n  Restart the MCP server in your editor to try again."
+      }
+    }
+  ],
+  "identity": {
+    "role": "owner",
+    "teamId": "c6c0f00b-f4bc-4992-b40f-0c220bf8c38d"
+  }
+}

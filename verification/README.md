@@ -18,3 +18,11 @@ pnpm --filter @overlayqa/dashboard exec tsx /path/to/mcp/verification/verify-con
 For local verification point the two origins to running local services. For the original control, set OQ_CLIENT_ROOT to a separately built checkout of 2aee238 and add --control.
 
 Substitutions: OS browser launch delivered to Playwright instead of opening a personal browser; home-directory lookup redirected to a temporary directory while retaining the real credential writer; local token-exchange URL pointed to the local API. No page markup, auth response or API result is mocked. Test credentials are excluded from evidence. No npm publishing or installed-editor launch was verified. This branch needs a separate authorized npm release; no dashboard/server release is required for the clock fix itself.
+
+## Stroke and load-animation refinement — 2026-09-24
+
+The status circle now has a 1px outline using the existing success/error border colors (`#bbf7d0` / `#fecaca`), two palette steps darker than the respective 50-shade fills. The success check gently fades and scales from 60% to full size on load over 360ms. Reduced-motion settings show the complete mark immediately; failure icons remain static.
+
+New actual-callback evidence: [local](reports/stroke-motion-local/index.html), [production](reports/stroke-motion-production/index.html). Browser frame samples observe the real CSS animation from opacity 0 / scale .6 to opacity 1 / scale 1, and verify no animation in reduced-motion mode. Desktop and narrow-window frames were inspected. Accounts and host are recorded per run; auth persistence and the subsequent projects request remain verified. `npm run build` passed. The before-change build 94b496b deliberately fails the new 1px-border assertion with `0px`: [regression control](reports/stroke-motion-control/index.html).
+
+This refinement is not published. Installed-editor launch and npm distribution remain outside the substituted browser-launch check described above.

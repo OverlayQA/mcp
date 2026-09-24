@@ -1,0 +1,350 @@
+{
+  "machine": "Emilys-Mac-mini.local",
+  "api": "https://api.overlayqa.com",
+  "dashboard": "https://app.overlayqa.com",
+  "account": "testsprite@overlayqa.com",
+  "control": false,
+  "clientRoot": "/private/tmp/oq-mcp-connection-status",
+  "sourceHash": "fa5f24546562c5ff2d5f47955c69d6f49406bdbd52fc0db257383d8ddea5b5da  /private/tmp/oq-mcp-connection-status/src/auth.ts\n642b8c6fd48fbc0cf30ce8ff05e7bf485e8bfee695401c9f9f86c94a43b8e874  /private/tmp/oq-mcp-connection-status/src/connection-page.ts",
+  "substitutions": [
+    "OS browser-launch call delivered to Playwright; actual authorize route and callback",
+    "Credential home isolated in a temporary directory; actual storeAuth writer"
+  ],
+  "checks": [
+    {
+      "name": "connected-callback-and-storage",
+      "observedAt": "2026-09-24T22:07:15.377Z",
+      "status": "pass",
+      "detail": {
+        "connected": true,
+        "restored": true,
+        "projectsStatus": 200,
+        "teamId": "b0a9ede2-eac7-4fbc-9cb9-25681f1009b1"
+      }
+    },
+    {
+      "name": "connected-stroke-and-motion",
+      "observedAt": "2026-09-24T22:07:15.482Z",
+      "status": "pass",
+      "detail": {
+        "border": "rgb(187, 247, 208)",
+        "borderWidth": "1px",
+        "fill": "rgb(240, 253, 244)",
+        "frames": [
+          {
+            "time": 149.89999999850988,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 175.79999999701977,
+            "opacity": 0.254642,
+            "transform": "matrix(0.701857, 0, 0, 0.701857, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 193.10000000149012,
+            "opacity": 0.409589,
+            "transform": "matrix(0.763835, 0, 0, 0.763835, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 204.19999999552965,
+            "opacity": 0.4897,
+            "transform": "matrix(0.79588, 0, 0, 0.79588, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 218.89999999850988,
+            "opacity": 0.58201,
+            "transform": "matrix(0.832804, 0, 0, 0.832804, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 230.39999999850988,
+            "opacity": 0.645045,
+            "transform": "matrix(0.858018, 0, 0, 0.858018, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 243.60000000149012,
+            "opacity": 0.706959,
+            "transform": "matrix(0.882784, 0, 0, 0.882784, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 253.39999999850988,
+            "opacity": 0.748437,
+            "transform": "matrix(0.899375, 0, 0, 0.899375, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 266.19999999552965,
+            "opacity": 0.794509,
+            "transform": "matrix(0.917804, 0, 0, 0.917804, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 276.6000000014901,
+            "opacity": 0.819968,
+            "transform": "matrix(0.927987, 0, 0, 0.927987, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 287.1000000014901,
+            "opacity": 0.85473,
+            "transform": "matrix(0.941892, 0, 0, 0.941892, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 296.1000000014901,
+            "opacity": 0.876149,
+            "transform": "matrix(0.95046, 0, 0, 0.95046, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 308.79999999701977,
+            "opacity": 0.901745,
+            "transform": "matrix(0.960698, 0, 0, 0.960698, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 318.19999999552965,
+            "opacity": 0.917665,
+            "transform": "matrix(0.967066, 0, 0, 0.967066, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 329.6000000014901,
+            "opacity": 0.934322,
+            "transform": "matrix(0.973729, 0, 0, 0.973729, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 337.5,
+            "opacity": 0.944335,
+            "transform": "matrix(0.977734, 0, 0, 0.977734, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 364.79999999701977,
+            "opacity": 0.969921,
+            "transform": "matrix(0.987968, 0, 0, 0.987968, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 381.6000000014901,
+            "opacity": 0.980295,
+            "transform": "matrix(0.992118, 0, 0, 0.992118, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 393.29999999701977,
+            "opacity": 0.985833,
+            "transform": "matrix(0.994333, 0, 0, 0.994333, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 408.79999999701977,
+            "opacity": 0.991182,
+            "transform": "matrix(0.996473, 0, 0, 0.996473, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 417.69999999552965,
+            "opacity": 0.993576,
+            "transform": "matrix(0.99743, 0, 0, 0.99743, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 433.69999999552965,
+            "opacity": 0.996552,
+            "transform": "matrix(0.998621, 0, 0, 0.998621, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 442.69999999552965,
+            "opacity": 0.997524,
+            "transform": "matrix(0.99901, 0, 0, 0.99901, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 458.8999999985099,
+            "opacity": 0.998876,
+            "transform": "matrix(0.99955, 0, 0, 0.99955, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 463.79999999701977,
+            "opacity": 0.999317,
+            "transform": "matrix(0.999727, 0, 0, 0.999727, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 492.1000000014901,
+            "opacity": 0.999959,
+            "transform": "matrix(0.999984, 0, 0, 0.999984, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 509.1000000014901,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "active": true
+          },
+          {
+            "time": 520.2999999970198,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "active": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "connected-desktop",
+      "observedAt": "2026-09-24T22:07:15.622Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-narrow",
+      "observedAt": "2026-09-24T22:07:15.650Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-reduced-motion-callback-and-storage",
+      "observedAt": "2026-09-24T22:07:16.650Z",
+      "status": "pass",
+      "detail": {
+        "connected": true,
+        "restored": true,
+        "projectsStatus": 200,
+        "teamId": "b0a9ede2-eac7-4fbc-9cb9-25681f1009b1"
+      }
+    },
+    {
+      "name": "connected-reduced-motion-stroke-and-motion",
+      "observedAt": "2026-09-24T22:07:16.657Z",
+      "status": "pass",
+      "detail": {
+        "border": "rgb(187, 247, 208)",
+        "borderWidth": "1px",
+        "fill": "rgb(240, 253, 244)",
+        "frames": [
+          {
+            "time": 147.79999999701977,
+            "opacity": 1,
+            "transform": "none",
+            "active": false
+          },
+          {
+            "time": 175.79999999701977,
+            "opacity": 1,
+            "transform": "none",
+            "active": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "connected-reduced-motion-desktop",
+      "observedAt": "2026-09-24T22:07:16.811Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-reduced-motion-narrow",
+      "observedAt": "2026-09-24T22:07:16.844Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "failed-callback-and-storage",
+      "observedAt": "2026-09-24T22:07:17.090Z",
+      "status": "pass",
+      "detail": {
+        "connected": false,
+        "error": "Error: Invalid or expired authorization code"
+      }
+    },
+    {
+      "name": "failed-stroke-and-motion",
+      "observedAt": "2026-09-24T22:07:17.195Z",
+      "status": "pass",
+      "detail": {
+        "border": "rgb(254, 202, 202)",
+        "borderWidth": "1px",
+        "fill": "rgb(254, 242, 242)",
+        "frames": [
+          {
+            "time": 147.60000000149012,
+            "opacity": 1,
+            "transform": "none",
+            "active": false
+          },
+          {
+            "time": 158.30000000447035,
+            "opacity": 1,
+            "transform": "none",
+            "active": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "failed-desktop",
+      "observedAt": "2026-09-24T22:07:17.324Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connection failed\n    Something went wrong while connecting your editor.\n    Restart the MCP server in your editor to try again."
+      }
+    },
+    {
+      "name": "failed-narrow",
+      "observedAt": "2026-09-24T22:07:17.343Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connection failed\n    Something went wrong while connecting your editor.\n    Restart the MCP server in your editor to try again."
+      }
+    }
+  ],
+  "identity": {
+    "role": "owner",
+    "teamId": "b0a9ede2-eac7-4fbc-9cb9-25681f1009b1"
+  }
+}

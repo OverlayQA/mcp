@@ -9,14 +9,16 @@ interface ToolResponse {
 
 export const listIssuesTool = {
   name: 'list_issues',
-  description: 'List issues in a project, optionally filtered by status and severity.',
+  description: 'List issues in a project, optionally filtered by status, severity, or custom labels. Returned issues include their label ids and names.',
   inputSchema: ListIssuesInput,
   async handler(input: {
     projectId: string;
     status?: string;
     severity?: string;
+    labelIds?: string[];
   }): Promise<ToolResponse> {
     const params = new URLSearchParams({ projectId: input.projectId });
+    if (input.labelIds?.length) params.set('labelIds', input.labelIds.join(','));
     if (input.status) params.set('status', input.status);
     if (input.severity) params.set('severity', input.severity);
 

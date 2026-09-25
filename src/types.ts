@@ -59,6 +59,7 @@ export const CreateIssueInput = z.object({
 });
 
 export const ListIssuesInput = z.object({
+  labelIds: z.array(z.union([z.string().uuid(), z.literal('unlabeled')])).optional().describe('Match any selected label id, or unlabeled for issues without labels; combines with other filters'),
   projectId: z.string().uuid().describe('Project to list issues from'),
   status: z
     .enum(['open', 'in-progress', 'resolved', 'verified', 'closed'])

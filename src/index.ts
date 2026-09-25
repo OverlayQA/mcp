@@ -41,6 +41,7 @@ import { createIssueTool } from './tools/create-issue.js';
 import { listIssuesTool } from './tools/list-issues.js';
 import { listProjectsTool } from './tools/list-projects.js';
 import { createProjectTool } from './tools/create-project.js';
+import { listLabelsTool, createLabelTool, renameLabelTool, deleteLabelTool, setIssueLabelTool } from './tools/labels.js';
 import { updateIssueTool } from './tools/update-issue.js';
 
 /**
@@ -59,6 +60,7 @@ const ALL_TOOLS = (
     createIssueTool,
     listIssuesTool,
     updateIssueTool,
+    listLabelsTool, createLabelTool, renameLabelTool, deleteLabelTool, setIssueLabelTool,
     listProjectsTool,
     createProjectTool,
   ] as unknown as RawTool[]

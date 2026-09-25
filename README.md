@@ -115,3 +115,9 @@ The MCP server is one way into OverlayQA. The **[Chrome extension](https://chrom
 ## License
 
 MIT
+
+### Custom issue labels
+
+Use `list_labels` with a project UUID to see that workspace's labels and your permissions. `create_label` creates a reusable label; `set_issue_label` applies or removes it from one issue without changing its other labels or text. Workspace owners and admins can use `rename_label` and `delete_label`; deletion removes the label's assignments, not its issues. `list_issues` accepts `labelIds` (match any), including `unlabeled`. Shared reports preserve the names present when shared.
+
+Local verification can set `OVERLAYQA_API_BASE` and an isolated `OVERLAYQA_AUTH_FILE`; neither changes the default production endpoint or normal saved login.

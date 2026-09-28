@@ -40,7 +40,7 @@ Any MCP-compatible client works the same way. On first run a browser tab opens t
 
 ## Tools
 
-Ten tools your agent can call. Each is written so the model picks the right one from natural language.
+Tools your agent can call. Each is written so the model picks the right one from natural language.
 
 **Audit**
 | Tool | What it does |
@@ -54,10 +54,15 @@ Ten tools your agent can call. Each is written so the model picks the right one 
 |------|-------------|
 | `scan_and_create_issues` | Scan a URL and auto-create an issue for every violation above a severity threshold. |
 | `create_issue` | File a QA issue with title, severity, type, and description. |
-| `list_issues` | List issues in a project, filtered by status and severity. |
+| `list_issues` | List issues in a project, filtered by status, severity, or custom labels. |
 | `update_issue` | Change an issue's status (open, in-progress, resolved, verified or closed), for example to mark it resolved after you fixed it. Takes the issue id or its display id such as OQ-12. |
 | `create_project` | Create a project for a site URL. |
 | `list_projects` | List all projects on your team. |
+| `list_labels` | Read the workspace label library, assigned labels, and your permissions. |
+| `create_label` | Create a reusable workspace label. |
+| `set_issue_label` | Apply or remove one label without changing issue text or other labels. |
+| `rename_label` | Rename a workspace label (owner/admin). |
+| `delete_label` | Delete a workspace label and its assignments; keep the issues (owner/admin). |
 
 **Coming soon**
 | Tool | What it does |
@@ -115,3 +120,9 @@ The MCP server is one way into OverlayQA. The **[Chrome extension](https://chrom
 ## License
 
 MIT
+
+### Custom issue labels
+
+Use `list_labels` with a project UUID to see that workspace's labels and your permissions. `create_label` creates a reusable label; `set_issue_label` applies or removes it from one issue without changing its other labels or text. Workspace owners and admins can use `rename_label` and `delete_label`; deletion removes the label's assignments, not its issues. `list_issues` accepts `labelIds` (match any), including `unlabeled`. Shared reports preserve the names present when shared.
+
+Local verification can set `OVERLAYQA_API_BASE` and an isolated `OVERLAYQA_AUTH_FILE`; neither changes the default production endpoint or normal saved login.

@@ -9,11 +9,12 @@
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import { buildTelemetryHeaders } from './telemetry.js';
 
-const CONFIG_DIR = join(homedir(), '.overlayqa');
-const AUTH_FILE = join(CONFIG_DIR, 'auth.json');
+// Isolated credential files allow verification without replacing a user's saved login.
+const AUTH_FILE = process.env.OVERLAYQA_AUTH_FILE ?? join(homedir(), '.overlayqa', 'auth.json');
+const CONFIG_DIR = dirname(AUTH_FILE);
 // OVERLAYQA_API_BASE is for OverlayQA's own end-to-end verification against a
 // local server; every published build talks to production.
 const API_BASE = process.env.OVERLAYQA_API_BASE ?? 'https://api.overlayqa.com/api/mcp';

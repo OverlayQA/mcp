@@ -1,0 +1,849 @@
+{
+  "machine": "Emilys-Mac-mini.local",
+  "api": "http://localhost:3258",
+  "dashboard": "http://localhost:5258",
+  "account": "harness-journey+clerk_test@overlayqa.com",
+  "control": false,
+  "clientRoot": "/private/tmp/oq-mcp-unmerged-20260928",
+  "sourceHash": "fa5f24546562c5ff2d5f47955c69d6f49406bdbd52fc0db257383d8ddea5b5da  /private/tmp/oq-mcp-unmerged-20260928/src/auth.ts\ned12ff7ce067b9ecd343997a367ba46842db3820a6bb0887499b8c24fa415ab9  /private/tmp/oq-mcp-unmerged-20260928/src/connection-page.ts",
+  "substitutions": [
+    "OS browser-launch call delivered to Playwright; actual authorize route and callback",
+    "Credential home isolated in a temporary directory; actual storeAuth writer",
+    "Token-exchange origin pointed to the local API"
+  ],
+  "checks": [
+    {
+      "name": "connected-callback-and-storage",
+      "observedAt": "2026-09-28T17:31:42.133Z",
+      "status": "pass",
+      "detail": {
+        "connected": true,
+        "restored": true,
+        "projectsStatus": 200,
+        "teamId": "eceb80ad-0303-480b-b5bc-91572fcc779e"
+      }
+    },
+    {
+      "name": "connected-celebrating",
+      "observedAt": "2026-09-28T17:31:43.742Z",
+      "status": "pass",
+      "detail": "Screenshot during real, unmodified load animation; no playback seeking."
+    },
+    {
+      "name": "connected-stroke-and-motion",
+      "observedAt": "2026-09-28T17:31:43.742Z",
+      "status": "pass",
+      "detail": {
+        "border": "rgb(187, 247, 208)",
+        "borderWidth": "1px",
+        "fill": "rgb(240, 253, 244)",
+        "frames": [
+          {
+            "time": 29.700000047683716,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 0.6499997283576356,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 46,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 0.7607460292535216,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 54.5,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 0.8118793991505143,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 70.20000004768372,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 0.8916219878188064,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 77.80000001192093,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 0.9260318890849494,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 105.10000002384186,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 1.017850072291365,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 121.5,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 1.055000504403903,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 135.10000002384186,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 1.0765395965979885,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 148.30000001192093,
+            "opacity": 0,
+            "transform": "matrix(0.6, 0, 0, 0.6, 0, 0)",
+            "scale": 1.0962605397249734,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 162.20000004768372,
+            "opacity": 0.111748,
+            "transform": "matrix(0.644699, 0, 0, 0.644699, 0, 0)",
+            "scale": 1.1096399381555981,
+            "draw": 1,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 173.4000000357628,
+            "opacity": 0.214501,
+            "transform": "matrix(0.6858, 0, 0, 0.6858, 0, 0)",
+            "scale": 1.1193991939751653,
+            "draw": 0.999927,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 184.30000001192093,
+            "opacity": 0.298871,
+            "transform": "matrix(0.719548, 0, 0, 0.719548, 0, 0)",
+            "scale": 1.1262911664344881,
+            "draw": 0.999091,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 196.4000000357628,
+            "opacity": 0.385213,
+            "transform": "matrix(0.754085, 0, 0, 0.754085, 0, 0)",
+            "scale": 1.1323827341124555,
+            "draw": 0.996967,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 206.20000004768372,
+            "opacity": 0.448593,
+            "transform": "matrix(0.779437, 0, 0, 0.779437, 0, 0)",
+            "scale": 1.1362581082319325,
+            "draw": 0.994265,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 218.10000002384186,
+            "opacity": 0.504586,
+            "transform": "matrix(0.801834, 0, 0, 0.801834, 0, 0)",
+            "scale": 1.1392779057202198,
+            "draw": 0.990762,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 226.4000000357628,
+            "opacity": 0.563383,
+            "transform": "matrix(0.825353, 0, 0, 0.825353, 0, 0)",
+            "scale": 1.1420571351731925,
+            "draw": 0.98553,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 253.9000000357628,
+            "opacity": 0.687423,
+            "transform": "matrix(0.874969, 0, 0, 0.874969, 0, 0)",
+            "scale": 1.146590130626568,
+            "draw": 0.965683,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 270.30000001192093,
+            "opacity": 0.748411,
+            "transform": "matrix(0.899364, 0, 0, 0.899364, 0, 0)",
+            "scale": 1.148157317410049,
+            "draw": 0.94777,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 280.7000000476837,
+            "opacity": 0.780986,
+            "transform": "matrix(0.912394, 0, 0, 0.912394, 0, 0)",
+            "scale": 1.1488020720423688,
+            "draw": 0.934067,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 297.30000001192093,
+            "opacity": 0.826033,
+            "transform": "matrix(0.930413, 0, 0, 0.930413, 0, 0)",
+            "scale": 1.1494685759021166,
+            "draw": 0.907076,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 306.30000001192093,
+            "opacity": 0.847706,
+            "transform": "matrix(0.939082, 0, 0, 0.939082, 0, 0)",
+            "scale": 1.1496943057739133,
+            "draw": 0.888876,
+            "sparkOpacity": 0,
+            "active": true
+          },
+          {
+            "time": 321.5,
+            "opacity": 0.878728,
+            "transform": "matrix(0.951491, 0, 0, 0.951491, 0, 0)",
+            "scale": 1.1498992139383346,
+            "draw": 0.852857,
+            "sparkOpacity": 0.512303,
+            "active": true
+          },
+          {
+            "time": 329.7000000476837,
+            "opacity": 0.893227,
+            "transform": "matrix(0.957291, 0, 0, 0.957291, 0, 0)",
+            "scale": 1.149953118022209,
+            "draw": 0.829842,
+            "sparkOpacity": 0.700674,
+            "active": true
+          },
+          {
+            "time": 355.4000000357628,
+            "opacity": 0.929632,
+            "transform": "matrix(0.971853, 0, 0, 0.971853, 0, 0)",
+            "scale": 1.149996102967745,
+            "draw": 0.738603,
+            "sparkOpacity": 0.932854,
+            "active": true
+          },
+          {
+            "time": 373.5,
+            "opacity": 0.949348,
+            "transform": "matrix(0.979739, 0, 0, 0.979739, 0, 0)",
+            "scale": 1.076820408815365,
+            "draw": 0.64945,
+            "sparkOpacity": 0.979501,
+            "active": true
+          },
+          {
+            "time": 387.5,
+            "opacity": 0.958358,
+            "transform": "matrix(0.983343, 0, 0, 0.983343, 0, 0)",
+            "scale": 1.0430382109817884,
+            "draw": 0.590835,
+            "sparkOpacity": 0.990573,
+            "active": true
+          },
+          {
+            "time": 401.7000000476837,
+            "opacity": 0.969937,
+            "transform": "matrix(0.987975, 0, 0, 0.987975, 0, 0)",
+            "scale": 1.006432825553342,
+            "draw": 0.491269,
+            "sparkOpacity": 0.998022,
+            "active": true
+          },
+          {
+            "time": 411.10000002384186,
+            "opacity": 0.976074,
+            "transform": "matrix(0.99043, 0, 0, 0.99043, 0, 0)",
+            "scale": 0.9910585306959474,
+            "draw": 0.425719,
+            "sparkOpacity": 0.999571,
+            "active": true
+          },
+          {
+            "time": 426.80000001192093,
+            "opacity": 0.983305,
+            "transform": "matrix(0.993322, 0, 0, 0.993322, 0, 0)",
+            "scale": 0.9767662497140296,
+            "draw": 0.337256,
+            "sparkOpacity": 0.999999,
+            "active": true
+          },
+          {
+            "time": 435.30000001192093,
+            "opacity": 0.986491,
+            "transform": "matrix(0.994596, 0, 0, 0.994596, 0, 0)",
+            "scale": 0.971764213704415,
+            "draw": 0.294556,
+            "sparkOpacity": 0.99982,
+            "active": true
+          },
+          {
+            "time": 451.9000000357628,
+            "opacity": 0.990813,
+            "transform": "matrix(0.996325, 0, 0, 0.996325, 0, 0)",
+            "scale": 0.9662312501847629,
+            "draw": 0.232461,
+            "sparkOpacity": 0.999949,
+            "active": true
+          },
+          {
+            "time": 456.7000000476837,
+            "opacity": 0.992509,
+            "transform": "matrix(0.997004, 0, 0, 0.997004, 0, 0)",
+            "scale": 0.9644580035146372,
+            "draw": 0.206316,
+            "sparkOpacity": 1,
+            "active": true
+          },
+          {
+            "time": 484.60000002384186,
+            "opacity": 0.996969,
+            "transform": "matrix(0.998788, 0, 0, 0.998788, 0, 0)",
+            "scale": 0.9609716253838301,
+            "draw": 0.127868,
+            "sparkOpacity": 0.999992,
+            "active": true
+          },
+          {
+            "time": 501.30000001192093,
+            "opacity": 0.998497,
+            "transform": "matrix(0.999399, 0, 0, 0.999399, 0, 0)",
+            "scale": 0.96026330887215,
+            "draw": 0.0929023,
+            "sparkOpacity": 0.85357,
+            "active": true
+          },
+          {
+            "time": 513,
+            "opacity": 0.999194,
+            "transform": "matrix(0.999677, 0, 0, 0.999677, 0, 0)",
+            "scale": 0.960066410950352,
+            "draw": 0.0723132,
+            "sparkOpacity": 0.718882,
+            "active": true
+          },
+          {
+            "time": 528.1000000238419,
+            "opacity": 0.9997,
+            "transform": "matrix(0.99988, 0, 0, 0.99988, 0, 0)",
+            "scale": 0.9600027583964745,
+            "draw": 0.0514838,
+            "sparkOpacity": 0.576002,
+            "active": true
+          },
+          {
+            "time": 539.1000000238419,
+            "opacity": 0.999885,
+            "transform": "matrix(0.999954, 0, 0, 0.999954, 0, 0)",
+            "scale": 0.9683142977667996,
+            "draw": 0.0393591,
+            "sparkOpacity": 0.490011,
+            "active": true
+          },
+          {
+            "time": 552.8000000119209,
+            "opacity": 0.999982,
+            "transform": "matrix(0.999993, 0, 0, 0.999993, 0, 0)",
+            "scale": 0.9989681553129992,
+            "draw": 0.0269745,
+            "sparkOpacity": 0.399491,
+            "active": true
+          },
+          {
+            "time": 563.1000000238419,
+            "opacity": 0.999999,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0147704494993621,
+            "draw": 0.0194415,
+            "sparkOpacity": 0.342179,
+            "active": true
+          },
+          {
+            "time": 575.6000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0265282547512378,
+            "draw": 0.0122686,
+            "sparkOpacity": 0.284296,
+            "active": true
+          },
+          {
+            "time": 584.6000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0312912093880175,
+            "draw": 0.00853029,
+            "sparkOpacity": 0.251528,
+            "active": true
+          },
+          {
+            "time": 596.7000000476837,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.035721203024062,
+            "draw": 0.00420943,
+            "sparkOpacity": 0.208423,
+            "active": true
+          },
+          {
+            "time": 606.8000000119209,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0376513848802977,
+            "draw": 0.00196421,
+            "sparkOpacity": 0.180321,
+            "active": true
+          },
+          {
+            "time": 618,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0388346360178071,
+            "draw": 0.000543804,
+            "sparkOpacity": 0.154916,
+            "active": true
+          },
+          {
+            "time": 628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0395025086321292,
+            "draw": 0.00000298647,
+            "sparkOpacity": 0.131933,
+            "active": true
+          },
+          {
+            "time": 638.7000000476837,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0398263388866866,
+            "draw": 0,
+            "sparkOpacity": 0.112653,
+            "active": true
+          },
+          {
+            "time": 647.2000000476837,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0399477127128267,
+            "draw": 0,
+            "sparkOpacity": 0.0994358,
+            "active": true
+          },
+          {
+            "time": 659.4000000357628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0399983501164027,
+            "draw": 0,
+            "sparkOpacity": 0.0830359,
+            "active": true
+          },
+          {
+            "time": 668.3000000119209,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0399983972344622,
+            "draw": 0,
+            "sparkOpacity": 0.0728323,
+            "active": true
+          },
+          {
+            "time": 679.2000000476837,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0273330554655828,
+            "draw": 0,
+            "sparkOpacity": 0.061812,
+            "active": true
+          },
+          {
+            "time": 688.6000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0185935139384907,
+            "draw": 0,
+            "sparkOpacity": 0.0535608,
+            "active": true
+          },
+          {
+            "time": 701.1000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0116631010702637,
+            "draw": 0,
+            "sparkOpacity": 0.0456029,
+            "active": true
+          },
+          {
+            "time": 707.8000000119209,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0076155686560244,
+            "draw": 0,
+            "sparkOpacity": 0.0395865,
+            "active": true
+          },
+          {
+            "time": 735.1000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0018903413152211,
+            "draw": 0,
+            "sparkOpacity": 0.0254418,
+            "active": true
+          },
+          {
+            "time": 751.1000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.000770056537935,
+            "draw": 0,
+            "sparkOpacity": 0.0196281,
+            "active": true
+          },
+          {
+            "time": 763.5,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0003000085517544,
+            "draw": 0,
+            "sparkOpacity": 0.0154387,
+            "active": true
+          },
+          {
+            "time": 777.9000000357628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0000800006375905,
+            "draw": 0,
+            "sparkOpacity": 0.0118046,
+            "active": true
+          },
+          {
+            "time": 789.3000000119209,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0000200000302093,
+            "draw": 0,
+            "sparkOpacity": 0.0093925,
+            "active": true
+          },
+          {
+            "time": 802,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1.0000000000000482,
+            "draw": 0,
+            "sparkOpacity": 0.00724854,
+            "active": true
+          },
+          {
+            "time": 813.1000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.0056716,
+            "active": true
+          },
+          {
+            "time": 824.5,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.00435256,
+            "active": true
+          },
+          {
+            "time": 834.9000000357628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.00336627,
+            "active": true
+          },
+          {
+            "time": 845.3000000119209,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.00255159,
+            "active": true
+          },
+          {
+            "time": 853.8000000119209,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.00200804,
+            "active": true
+          },
+          {
+            "time": 867.6000000238419,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.00140144,
+            "active": true
+          },
+          {
+            "time": 874,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.00106386,
+            "active": true
+          },
+          {
+            "time": 901.4000000357628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.000362844,
+            "active": true
+          },
+          {
+            "time": 917.9000000357628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.000146105,
+            "active": true
+          },
+          {
+            "time": 929.8000000119209,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.000063223,
+            "active": true
+          },
+          {
+            "time": 944.7000000476837,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.0000144805,
+            "active": true
+          },
+          {
+            "time": 955.9000000357628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0.00000215905,
+            "active": true
+          },
+          {
+            "time": 969.4000000357628,
+            "opacity": 1,
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0,
+            "active": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "connected-desktop",
+      "observedAt": "2026-09-28T17:31:43.876Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-narrow",
+      "observedAt": "2026-09-28T17:31:43.916Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-reduced-motion-callback-and-storage",
+      "observedAt": "2026-09-28T17:31:44.773Z",
+      "status": "pass",
+      "detail": {
+        "connected": true,
+        "restored": true,
+        "projectsStatus": 200,
+        "teamId": "eceb80ad-0303-480b-b5bc-91572fcc779e"
+      }
+    },
+    {
+      "name": "connected-reduced-motion-stroke-and-motion",
+      "observedAt": "2026-09-28T17:31:44.779Z",
+      "status": "pass",
+      "detail": {
+        "border": "rgb(187, 247, 208)",
+        "borderWidth": "1px",
+        "fill": "rgb(240, 253, 244)",
+        "frames": [
+          {
+            "time": 21.5,
+            "opacity": 1,
+            "transform": "none",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0,
+            "active": false
+          },
+          {
+            "time": 32.09999996423721,
+            "opacity": 1,
+            "transform": "none",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0,
+            "active": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "connected-reduced-motion-desktop",
+      "observedAt": "2026-09-28T17:31:44.972Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "connected-reduced-motion-narrow",
+      "observedAt": "2026-09-28T17:31:44.999Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connected",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connected\n    Your editor is now connected to OverlayQA.\n    You can close this tab and return to your editor."
+      }
+    },
+    {
+      "name": "failed-callback-and-storage",
+      "observedAt": "2026-09-28T17:31:45.126Z",
+      "status": "pass",
+      "detail": {
+        "connected": false,
+        "error": "Error: Invalid or expired authorization code"
+      }
+    },
+    {
+      "name": "failed-stroke-and-motion",
+      "observedAt": "2026-09-28T17:31:45.232Z",
+      "status": "pass",
+      "detail": {
+        "border": "rgb(254, 202, 202)",
+        "borderWidth": "1px",
+        "fill": "rgb(254, 242, 242)",
+        "frames": [
+          {
+            "time": 24.19999998807907,
+            "opacity": 1,
+            "transform": "none",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0,
+            "active": false
+          },
+          {
+            "time": 37.59999996423721,
+            "opacity": 1,
+            "transform": "none",
+            "scale": 1,
+            "draw": 0,
+            "sparkOpacity": 0,
+            "active": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "failed-desktop",
+      "observedAt": "2026-09-28T17:31:45.366Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "text": "Connection failed\n    Something went wrong while connecting your editor.\n    Restart the MCP server in your editor to try again."
+      }
+    },
+    {
+      "name": "failed-narrow",
+      "observedAt": "2026-09-28T17:31:45.389Z",
+      "status": "pass",
+      "detail": {
+        "heading": "Connection failed",
+        "iconCount": 1,
+        "viewport": 320,
+        "scrollWidth": 320,
+        "text": "Connection failed\n    Something went wrong while connecting your editor.\n    Restart the MCP server in your editor to try again."
+      }
+    }
+  ],
+  "identity": {
+    "role": "owner",
+    "teamId": "eceb80ad-0303-480b-b5bc-91572fcc779e"
+  }
+}

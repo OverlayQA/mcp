@@ -6,7 +6,7 @@
 [![license](https://img.shields.io/npm/l/@overlayqa/mcp?color=3468F8)](https://www.npmjs.com/package/@overlayqa/mcp)
 [![MCP](https://img.shields.io/badge/MCP-compatible-3468F8)](https://modelcontextprotocol.io)
 
-**OverlayQA MCP is a Model Context Protocol server that gives your AI coding agent accessibility and design-QA superpowers.** Ask Claude Code, Cursor, or Windsurf to audit any URL for WCAG and color-contrast issues, then file dev-ready issues straight into your OverlayQA projects, without leaving your editor.
+**OverlayQA MCP is a Model Context Protocol server that gives your AI coding agent accessibility and design-QA superpowers.** Ask Claude Code, Cursor, or Windsurf to audit any URL for WCAG and color-contrast issues, then read, assign, discuss, label and resolve issues in your OverlayQA projects without leaving your editor.
 
 ```
 You:   Scan staging.acme.com for accessibility issues, then open issues for the criticals.
@@ -53,9 +53,9 @@ Tools your agent can call. Each is written so the model picks the right one from
 | Tool | What it does |
 |------|-------------|
 | `scan_and_create_issues` | Scan a URL and auto-create an issue for every violation above a severity threshold. |
-| `create_issue` | File a QA issue with title, severity, type, and description. |
-| `list_issues` | List issues in a project, filtered by status, severity, or custom labels. |
-| `update_issue` | Change an issue's status (open, in-progress, resolved, verified or closed), for example to mark it resolved after you fixed it. Takes the issue id or its display id such as OQ-12. |
+| `create_issue` | File a QA issue with title, severity, type, description and optional assignee. |
+| `list_issues` | Page through issues filtered by status, severity, type, labels, assignee, creator, or active/finished/ignored state. |
+| `update_issue` | Edit supplied issue fields, assignment, ignored state or status. Takes a UUID or display id such as OQ-12. |
 | `create_project` | Create a project for a site URL. |
 | `list_projects` | List all projects on your team. |
 | `list_labels` | Read the workspace label library, assigned labels, and your permissions. |
@@ -126,3 +126,38 @@ MIT
 Use `list_labels` with a project UUID to see that workspace's labels and your permissions. `create_label` creates a reusable label; `set_issue_label` applies or removes it from one issue without changing its other labels or text. Workspace owners and admins can use `rename_label` and `delete_label`; deletion removes the label's assignments, not its issues. `list_issues` accepts `labelIds` (match any), including `unlabeled`. Shared reports preserve the names present when shared.
 
 Local verification can set `OVERLAYQA_API_BASE` and an isolated `OVERLAYQA_AUTH_FILE`; neither changes the default production endpoint or normal saved login.
+
+
+## Issue management in 0.3.0
+
+Requires the matching issue-parity API deployment. Existing scans and status updates remain compatible with 0.2.0.
+
+| Tool | What it does |
+| --- | --- |
+| `get_issue` | Read description, ownership, labels, ignored state, screenshots, captured element/CSS, and viewport evidence. |
+| `list_issues` | Filter by one or more statuses, severities or types; labels; assignee (`me`, `unassigned`, or user ID); creator; and active/finished/ignored state. Follow `hasMore` with the next `page`. |
+| `list_project_members` | Find teammate user IDs for assignment and mentions in a readable project's workspace. |
+| `create_issue` | Choose an assignee, use `null` for Unassigned, or omit to assign to yourself. Default type is General. |
+| `update_issue` | Change any supplied title, description, severity, type, status, assignee or ignored flag. Omitted fields remain unchanged. Ignoring never resolves an issue. Setting verified records a status; it does not run a scan. |
+| `move_issue` | Move by stable issue UUID into another writable project in the same workspace; retain comments and evidence. Read the returned display ID afterward. |
+| `list_comments` | Read the discussion, audience, mentions and attachment metadata. |
+| `create_comment` | Post with explicit `internal` (Team only) or `public` (Team and clients) audience, mentions, and optional PNG/JPG/PDF files. |
+| `update_comment` / `delete_comment` | Edit or delete your own native comments. Edits preserve audience and files. |
+| `get_comment_attachment` | Read a native comment file as filename and base64 bytes under the issue's access rules. |
+
+For mentions, use `@[userId]` in the text and include the same ID in `mentionedUserIds`. Comment creation requires a UUID `requestId`: reuse it when retrying that same submission after a lost response, so a retry does not post twice. Attachments are base64 bytes with filename and MIME type, up to ten PNG/JPG/PDF files and 10 MiB total per comment.
+
+`list_issues` defaults to all states for compatibility. Use `state: "active"` for open/in-progress issues that are not ignored. `finished` includes resolved/verified/closed issues that are not ignored; `ignored` selects the independent ignore flag. All supplied filters intersect. Pages start at 1 and contain up to 100 issues; an empty filtered page is not a complete-project result unless `hasMore` is false.
+
+The label tools listed above are included in this release. Saved designs, client links, scheduled reviews and Figma visual comparison remain outside this issue-management release.
+
+### Verify before release
+
+Run `npm test` and `npm run build`. The live journey drives the built client over the real stdio protocol against a local API or production using designated fixture accounts; it creates and removes its own projects and produces JSON and HTML evidence.
+
+```
+MCP_PARITY_API=http://127.0.0.1:3241 MCP_SERVER_ENV=/path/to/server/.env npm run test:issues-live
+MCP_PARITY_API=https://api.overlayqa.com npm run test:issues-live
+```
+
+Release order: deploy and verify the server endpoints, then publish npm 0.3.0 and update the MCP registry. A local build or version bump is not a publication.

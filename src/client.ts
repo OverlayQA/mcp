@@ -80,7 +80,7 @@ export interface McpFetchResult {
  */
 export async function mcpFetch(
   path: string,
-  options: { method?: string; body?: unknown } = {},
+  options: { method?: string; body?: unknown; idempotencyKey?: string } = {},
 ): Promise<McpFetchResult> {
   const auth = getStoredAuth();
   if (!auth) {
@@ -103,6 +103,8 @@ export async function mcpFetch(
     // empty when unknown. See ./telemetry.ts for what is and is not sent.
     ...buildTelemetryHeaders(),
   };
+
+  if (options.idempotencyKey) headers['Idempotency-Key'] = options.idempotencyKey;
 
   const res = await fetch(url, {
     method: options.method ?? 'GET',

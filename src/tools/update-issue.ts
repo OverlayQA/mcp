@@ -1,46 +1,20 @@
-// packages/mcp/src/tools/update-issue.ts
-import { mcpFetch } from '../client.js';
+import { z } from 'zod';
 import { UpdateIssueInput } from '../types.js';
+import { request, toolError } from './request.js';
 
-interface ToolResponse {
-  content: Array<{ type: 'text'; text: string }>;
-  isError?: boolean;
-}
-
-export interface UpdateIssueArgs {
-  issueId: string;
-  status: string;
-}
-
-/**
- * PATCH /api/mcp/issues/:id with the new status. The server route reuses the
- * dashboard's own update handler, so a teammate sees the same notification
- * as if the status had been changed in the app.
- */
-export function buildUpdateIssueRequest(input: UpdateIssueArgs): {
-  path: string;
-  method: 'PATCH';
-  body: { status: string };
-} {
-  return {
-    path: `/issues/${encodeURIComponent(input.issueId)}`,
-    method: 'PATCH',
-    body: { status: input.status },
-  };
+export type UpdateIssueArgs = z.infer<typeof UpdateIssueInput>;
+export function buildUpdateIssueRequest(input: UpdateIssueArgs) {
+  const { issueId, ...body } = input;
+  return { path: `/issues/${encodeURIComponent(issueId)}`, method: 'PATCH' as const, body };
 }
 
 export const updateIssueTool = {
   name: 'update_issue',
-  description:
-    "Change an issue's status (open, in-progress, resolved, verified or closed), for example to mark an issue resolved after you fixed it. Accepts the issue id or its display id such as OQ-12.",
+  description: 'Update issue status, title, description, severity, type, assignee, or ignored state. Only supplied fields change. Use null to unassign and ignored=false to restore. Accepts UUID or display id. Status verified does not run a verification scan.',
   inputSchema: UpdateIssueInput,
-  async handler(input: UpdateIssueArgs): Promise<ToolResponse> {
+  async handler(input: UpdateIssueArgs) {
     const { path, method, body } = buildUpdateIssueRequest(input);
-    const { status, data } = await mcpFetch(path, { method, body });
-
-    return {
-      content: [{ type: 'text', text: JSON.stringify(data, null, 2) }],
-      ...(status !== 200 ? { isError: true } : {}),
-    };
+    if (!Object.values(body).some(value => value !== undefined)) return toolError('Provide at least one field to update.');
+    return request(path, method, body);
   },
 };

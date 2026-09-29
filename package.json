@@ -1,6 +1,6 @@
 {
   "name": "@overlayqa/mcp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "mcpName": "com.overlayqa/mcp",
   "description": "MCP server for WCAG accessibility and color-contrast audits plus QA issue tracking in Claude Code, Cursor, and Windsurf.",
   "type": "module",
@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "test": "tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js",
-    "test:labels-live": "npm run build && node test/labels-live.mjs"
+    "test:labels-live": "npm run build && node test/labels-live.mjs",
+    "test:issues-live": "npm run build && node test/issue-parity-live.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

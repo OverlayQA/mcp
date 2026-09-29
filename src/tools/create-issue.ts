@@ -10,7 +10,7 @@ interface ToolResponse {
 export const createIssueTool = {
   name: 'create_issue',
   description:
-    'Create an issue in an OverlayQA project. Title is required; severity, type, and description default to medium / design-bug / empty.',
+    'Create an issue in an OverlayQA project. Title is required; severity, type, and description default to medium / general / empty. Assignee defaults to you; pass null for Unassigned.',
   inputSchema: CreateIssueInput,
   async handler(input: {
     projectId: string;
@@ -18,6 +18,7 @@ export const createIssueTool = {
     severity?: string;
     type?: string;
     description?: string;
+    assigneeId?: string | null;
   }): Promise<ToolResponse> {
     const { status, data } = await mcpFetch('/issues', {
       method: 'POST',

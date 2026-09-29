@@ -109,7 +109,7 @@ test('wrapTool: a call without context runs the handler with no intent', async (
   assert.equal(intentDuringCall, undefined);
 });
 
-test('update_issue: requires an issue id and a known status, and PATCHes /issues/:id', () => {
+test('update_issue: accepts the existing status call and PATCHes /issues/:id', () => {
   assert.equal(updateIssueTool.name, 'update_issue');
   assert.match(updateIssueTool.description, /status/i);
   assert.equal(UpdateIssueInput.safeParse({ issueId: 'OQ-7', status: 'resolved' }).success, true);

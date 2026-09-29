@@ -20,7 +20,7 @@ const out = resolve(process.env.MCP_REPORT_DIR || `verification/reports/issue-pa
 mkdirSync(out, { recursive: true });
 const clientRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const entry = join(clientRoot, 'dist/index.js');
-const result = { apiBase, machine: hostname(), account: email, role: 'unverified', clientCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', cwd: clientRoot }).trim(), clientEntrySha256: createHash('sha256').update(readFileSync(entry)).digest('hex'), startedAt: new Date().toISOString(), substitutions: ['Designated extension-session credential supplied to MCP; OAuth exchange and editor UI not exercised.'], steps: [], cleanup: [] };
+const result = { apiBase, machine: hostname(), account: email, role: 'unverified', clientCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', cwd: clientRoot }).trim(), clientEntrySha256: createHash('sha256').update(readFileSync(entry)).digest('hex'), startedAt: new Date().toISOString(), substitutions: ['Designated extension-session credential supplied to MCP; OAuth exchange and editor UI not exercised.'], steps: [], throttles: [], cleanup: [] };
 const temp = mkdtempSync(join(tmpdir(), 'oq-mcp-parity-'));
 const authFile = join(temp, 'auth.json');
 let auth, client, labelId;
@@ -37,7 +37,16 @@ async function connect() {
   await client.connect(transport);
 }
 async function call(name, args, expectError = false) {
-  const response = await client.callTool({ name, arguments: args });
+  let response;
+  for (let attempt = 0; ; attempt++) {
+    response = await client.callTool({ name, arguments: args });
+    const text = response.content?.[0]?.text;
+    const refusal = text ? JSON.parse(text)?.error : undefined;
+    if (!response.isError || refusal?.code !== 'RATE_LIMITED' || !Number.isFinite(refusal.retryAfter) || attempt >= 2) break;
+    result.throttles.push({ tool: name, retryAfter: refusal.retryAfter, observedAt: new Date().toISOString() });
+    console.log(`WAIT ${name}: respecting server retryAfter=${refusal.retryAfter}s`);
+    await new Promise(resolve => setTimeout(resolve, (refusal.retryAfter + 1) * 1000));
+  }
   if (expectError) { assert.equal(response.isError, true, `${name} must refuse`); return response; }
   assert.notEqual(response.isError, true, `${name}: ${JSON.stringify(response.content)}`);
   return JSON.parse(response.content[0].text);

@@ -43,6 +43,8 @@ import { listProjectsTool } from './tools/list-projects.js';
 import { createProjectTool } from './tools/create-project.js';
 import { listLabelsTool, createLabelTool, renameLabelTool, deleteLabelTool, setIssueLabelTool } from './tools/labels.js';
 import { updateIssueTool } from './tools/update-issue.js';
+import { getIssueTool, listProjectMembersTool, moveIssueTool } from './tools/issue-context.js';
+import { listCommentsTool, createCommentTool, updateCommentTool, deleteCommentTool, getCommentAttachmentTool } from './tools/comments.js';
 
 /**
  * Each tool file declares its own concrete input schema and handler
@@ -60,6 +62,8 @@ const ALL_TOOLS = (
     createIssueTool,
     listIssuesTool,
     updateIssueTool,
+    getIssueTool, listProjectMembersTool, moveIssueTool,
+    listCommentsTool, createCommentTool, updateCommentTool, deleteCommentTool, getCommentAttachmentTool,
     listLabelsTool, createLabelTool, renameLabelTool, deleteLabelTool, setIssueLabelTool,
     listProjectsTool,
     createProjectTool,

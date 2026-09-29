@@ -1,32 +1,16 @@
-// packages/mcp/src/tools/list-issues.ts
-import { mcpFetch } from '../client.js';
+import { z } from 'zod';
 import { ListIssuesInput } from '../types.js';
-
-interface ToolResponse {
-  content: Array<{ type: 'text'; text: string }>;
-  isError?: boolean;
-}
+import { request } from './request.js';
 
 export const listIssuesTool = {
   name: 'list_issues',
-  description: 'List issues in a project, optionally filtered by status, severity, or custom labels. Returned issues include their label ids and names.',
+  description: 'List project issues with labels, description, ownership and ignored state. Filter by status, severity, type, labels, assignee, creator, or active/finished/ignored state. Returns page, pageSize, total and hasMore; continue to the next page while hasMore is true. Use get_issue for full capture evidence.',
   inputSchema: ListIssuesInput,
-  async handler(input: {
-    projectId: string;
-    status?: string;
-    severity?: string;
-    labelIds?: string[];
-  }): Promise<ToolResponse> {
-    const params = new URLSearchParams({ projectId: input.projectId });
-    if (input.labelIds?.length) params.set('labelIds', input.labelIds.join(','));
-    if (input.status) params.set('status', input.status);
-    if (input.severity) params.set('severity', input.severity);
-
-    const { status, data } = await mcpFetch(`/issues?${params.toString()}`);
-
-    return {
-      content: [{ type: 'text', text: JSON.stringify(data, null, 2) }],
-      ...(status !== 200 ? { isError: true } : {}),
-    };
+  handler(input: z.infer<typeof ListIssuesInput>) {
+    const params = new URLSearchParams();
+    for (const [key, value] of Object.entries(input)) {
+      if (value !== undefined && (!Array.isArray(value) || value.length)) params.set(key, Array.isArray(value) ? value.join(',') : String(value));
+    }
+    return request(`/issues?${params}`);
   },
 };

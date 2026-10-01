@@ -16,7 +16,8 @@
     "test": "tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js",
     "test:labels-live": "npm run build && node test/labels-live.mjs",
     "test:issues-live": "npm run build && node test/issue-parity-live.mjs",
-    "pack:mcpb": "node scripts/pack-mcpb.mjs"
+    "pack:mcpb": "node scripts/pack-mcpb.mjs",
+    "publish:smithery": "node scripts/publish-smithery.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

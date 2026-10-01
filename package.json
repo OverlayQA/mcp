@@ -17,7 +17,8 @@
     "test:labels-live": "npm run build && node test/labels-live.mjs",
     "test:issues-live": "npm run build && node test/issue-parity-live.mjs",
     "pack:mcpb": "node scripts/pack-mcpb.mjs",
-    "publish:smithery": "node scripts/publish-smithery.mjs"
+    "publish:smithery": "node scripts/publish-smithery.mjs",
+    "release:smithery": "npm run pack:mcpb && npm run publish:smithery"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

@@ -3,16 +3,20 @@
 // Why not `smithery mcp publish`: it copies manifest.tools into the release, but the MCPB
 // manifest spec forbids inputSchema and Smithery rejects tools without one. So this sends
 // the same payload the CLI builds, with the full tools from build/smithery-tools.json.
-// Usage: npm run pack:mcpb, then with the smithery CLI logged in:
-//   SMITHERY_API_KEY="$(python3 -c "import json,os;print(json.load(open(os.path.expanduser('~/Library/Application Support/smithery/settings.json')))['apiKey'])")" npm run publish:smithery
-// (`smithery auth token` will not mint an unscoped token, so the CLI session key is used.)
-import { readFileSync } from 'node:fs';
+// Usage: npm run release:smithery   (packs, then publishes; run `npx smithery auth login` once first)
+// The key comes from SMITHERY_API_KEY, else from the logged-in smithery CLI's settings file
+// (`smithery auth token` will not mint an unscoped token, so the CLI session key is used).
+import { existsSync, readFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
 const name = process.env.SMITHERY_SERVER ?? 'overlayqa/mcp';
-const token = process.env.SMITHERY_API_KEY;
-if (!token) throw new Error('[publish-smithery] set SMITHERY_API_KEY to the logged-in smithery CLI apiKey (see Usage above)');
+const cliSettings = join(homedir(), 'Library', 'Application Support', 'smithery', 'settings.json');
+const token =
+  process.env.SMITHERY_API_KEY ??
+  (existsSync(cliSettings) ? JSON.parse(readFileSync(cliSettings, 'utf8')).apiKey : undefined);
+if (!token) throw new Error('[publish-smithery] not logged in: run `npx smithery auth login` (or set SMITHERY_API_KEY)');
 
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const tools = JSON.parse(readFileSync(join(root, 'build', 'smithery-tools.json'), 'utf8'));

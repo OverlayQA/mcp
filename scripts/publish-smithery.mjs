@@ -12,7 +12,7 @@ import { join } from 'node:path';
 const root = new URL('..', import.meta.url).pathname;
 const name = process.env.SMITHERY_SERVER ?? 'overlayqa/mcp';
 const token = process.env.SMITHERY_API_KEY;
-if (!token) throw new Error('[publish-smithery] set SMITHERY_API_KEY (npx smithery auth token)');
+if (!token) throw new Error('[publish-smithery] set SMITHERY_API_KEY to the logged-in smithery CLI apiKey (see Usage above)');
 
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const tools = JSON.parse(readFileSync(join(root, 'build', 'smithery-tools.json'), 'utf8'));

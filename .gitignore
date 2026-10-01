@@ -5,3 +5,4 @@ dist/
 dist-test/
 # Keep raw browser recordings local; commit the report and inspected frames.
 verification/reports/*/video/
+build/

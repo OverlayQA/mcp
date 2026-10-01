@@ -1,0 +1,36 @@
+{
+  "manifest_version": "0.3",
+  "name": "overlayqa-mcp",
+  "display_name": "OverlayQA",
+  "version": "0.0.0-set-by-pack-script",
+  "description": "MCP server for WCAG accessibility and color-contrast audits plus QA issue tracking in Claude Code, Cursor, and Windsurf.",
+  "long_description": "OverlayQA MCP is a Model Context Protocol server that gives your AI coding agent accessibility and design-QA superpowers. Ask Claude Code, Cursor, or Windsurf to audit any URL for WCAG and color-contrast issues, then read, assign, discuss, label and resolve issues in your OverlayQA projects without leaving your editor.\n\nOn first use it opens your browser to sign in to OverlayQA; no API key is needed.",
+  "author": {
+    "name": "OverlayQA",
+    "url": "https://overlayqa.com"
+  },
+  "homepage": "https://overlayqa.com",
+  "documentation": "https://github.com/OverlayQA/mcp#readme",
+  "support": "https://github.com/OverlayQA/mcp/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OverlayQA/mcp.git"
+  },
+  "icon": "icon.png",
+  "license": "MIT",
+  "keywords": ["accessibility", "wcag", "color-contrast", "design-qa", "qa", "issue-tracking", "overlayqa"],
+  "privacy_policies": ["https://overlayqa.com/privacy/"],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {}
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=18.0.0" }
+  }
+}

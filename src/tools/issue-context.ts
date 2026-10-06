@@ -4,7 +4,7 @@ import { request } from './request.js';
 
 export const getIssueTool = {
   name: 'get_issue',
-  description: 'Read a complete issue by UUID or display id: description, labels, assignee, ignored state, screenshot URLs, captured element/CSS and viewport evidence. Use list_comments for the discussion.',
+  description: 'Read a complete issue by UUID or display id: description, labels, assignee, ignored state, screenshot URLs, captured element/CSS and viewport evidence, and its comments (the same discussion list_comments returns).',
   inputSchema: z.object({ issueId: issueIdentifier }),
   handler: ({ issueId }: { issueId: string }) => request(`/issues/${encodeURIComponent(issueId)}`),
 };

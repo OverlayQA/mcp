@@ -74,6 +74,8 @@ export const ListIssuesInput = z.object({
   assigneeId: z.union([z.string().uuid(), z.literal('unassigned'), z.literal('me')]).optional().describe('Filter by teammate userId, me, or unassigned'),
   createdById: z.union([z.string().uuid(), z.literal('me')]).optional().describe('Filter by creator userId or me'),
   state: z.enum(['all', 'active', 'finished', 'ignored']).optional().describe('Default all. Active means open/in-progress and not ignored. Finished means resolved/verified/closed and not ignored. Ignored is separate from status.'),
+  createdAfter: z.string().datetime({ offset: true }).optional().describe('Only issues created after this ISO-8601 instant with a zone, such as 2026-10-05T22:00:00Z. Pass the createdAt of the newest issue already seen to ask for what is new.'),
+  pageUrl: z.string().url().max(2000).optional().describe('Only issues captured on this page URL, as returned in pageUrl. The query string is ignored.'),
   page: z.number().int().min(1).optional().describe('Page number, starting at 1; use hasMore to continue'),
   pageSize: z.number().int().min(1).max(100).optional().describe('Issues per page, up to 100 (default 100)'),
 });

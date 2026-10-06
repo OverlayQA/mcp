@@ -12,8 +12,8 @@
 You:   Scan staging.acme.com for accessibility issues, then open issues for the criticals.
 Agent: scan_accessibility → 7 violations (2 critical, 3 high), score 71/100.
        scan_and_create_issues → created 2 issues in "Acme Web":
-       - Buttons missing accessible names (WCAG 4.1.2) — critical
-       - Insufficient text contrast on .cta (WCAG 1.4.3) — high
+       - Buttons missing accessible names (WCAG 4.1.2): critical
+       - Insufficient text contrast on .cta (WCAG 1.4.3): high
 You:   List the open criticals.
 Agent: list_issues(status=open, severity=critical) → 2 issues.
 ```
@@ -54,7 +54,7 @@ Tools your agent can call. Each is written so the model picks the right one from
 |------|-------------|
 | `scan_and_create_issues` | Scan a URL and auto-create an issue for every violation above a severity threshold. |
 | `create_issue` | File a QA issue with title, severity, type, description and optional assignee. |
-| `list_issues` | Page through issues filtered by status, severity, type, labels, assignee, creator, or active/finished/ignored state. |
+| `list_issues` | Page through issues filtered by status, severity, type, labels, assignee, creator, page, creation time, or active/finished/ignored state. Each issue says who filed it and whether it still needs a reply. |
 | `update_issue` | Edit supplied issue fields, assignment, ignored state or status. Takes a UUID or display id such as OQ-12. |
 | `create_project` | Create a project for a site URL. |
 | `list_projects` | List all projects on your team. |
@@ -86,7 +86,7 @@ Every tool also accepts an optional `context` argument: one sentence on why the 
 
 | | Scans | Create issues & projects |
 |---|---|---|
-| **Free** | 3 / day, forever | — |
+| **Free** | 3 / day, forever | no |
 | **14-day trial** | 30 / day | yes |
 | **Paid** | 10-30 / day by plan, unlimited on Pro | yes, with export to Linear / Jira / Asana / Notion |
 
@@ -134,7 +134,7 @@ Requires the matching issue-parity API deployment. Existing scans and status upd
 
 | Tool | What it does |
 | --- | --- |
-| `get_issue` | Read description, ownership, labels, ignored state, screenshots, captured element/CSS, and viewport evidence. |
+| `get_issue` | Read description, ownership, labels, ignored state, screenshots, captured element/CSS, viewport evidence, and the issue's comments. |
 | `list_issues` | Filter by one or more statuses, severities or types; labels; assignee (`me`, `unassigned`, or user ID); creator; and active/finished/ignored state. Follow `hasMore` with the next `page`. |
 | `list_project_members` | Find teammate user IDs for assignment and mentions in a readable project's workspace. |
 | `create_issue` | Choose an assignee, use `null` for Unassigned, or omit to assign to yourself. Default type is General. |
@@ -148,6 +148,8 @@ Requires the matching issue-parity API deployment. Existing scans and status upd
 For mentions, use `@[userId]` in the text and include the same ID in `mentionedUserIds`. Comment creation requires a UUID `requestId`: reuse it when retrying that same submission after a lost response, so a retry does not post twice. Attachments are base64 bytes with filename and MIME type, up to ten PNG/JPG/PDF files and 10 MiB total per comment.
 
 `list_issues` defaults to all states for compatibility. Use `state: "active"` for open/in-progress issues that are not ignored. `finished` includes resolved/verified/closed issues that are not ignored; `ignored` selects the independent ignore flag. All supplied filters intersect. Pages start at 1 and contain up to 100 issues; an empty filtered page is not a complete-project result unless `hasMore` is false.
+
+To poll for new feedback, pass `createdAfter` with the `createdAt` of the newest issue you have already seen (an ISO-8601 time with a zone, such as `2026-10-05T22:00:00Z`); only issues created after it come back. `pageUrl` narrows the list to one page and ignores the query string. Each listed issue carries `source` (`client` means a reviewer filed it on a share link), `commentCount`, `lastCommentAt` and `lastCommentBy` (`reviewer` or `team`), so an issue still needs a reply when `source` is `client` and `commentCount` is 0, or `lastCommentBy` is `reviewer`. If the server has not been updated for a filter yet, the tool answers `FILTER_NOT_SUPPORTED` instead of an unfiltered list.
 
 The label tools listed above are included in this release. Saved designs, client links, scheduled reviews and Figma visual comparison remain outside this issue-management release.
 

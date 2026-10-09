@@ -163,3 +163,15 @@ MCP_PARITY_API=https://api.overlayqa.com npm run test:issues-live
 ```
 
 Release order: deploy and verify the server endpoints, then publish npm 0.3.0 and update the MCP registry. A local build or version bump is not a publication.
+
+### Verify a deployed fix
+
+`verify_issue({ issueId, requestId })` runs the same fix-verification engine as the dashboard on the issue’s saved public URL. The issue must be resolved, verified, or closed, have original screenshot evidence, and have a verifiable type (General and Improvement cannot be checked). Use a new UUID for each check; reuse that UUID only when retrying the same request after a lost response. Verification uses the workspace’s existing permissions and verification allowance and follows the server rollout setting.
+
+The result contains a saved check ID, verdict, explanation, confidence, after-screenshot URL, capture context, and timestamps. A check can pass, pass with a caveat, fail, be inconclusive, or report an error. It never updates issue status. Inspect the evidence before deciding whether to change status with `update_issue`. Private or localhost pages require the browser extension’s signed-in capture.
+
+`get_issue_verifications({ issueId })` reads the latest 50 saved checks, newest first, without running another check. `get_issue` also includes `latestVerification`, or null when none exists. On an older server, an absent field means this capability has not been deployed; it does not mean the issue has never been checked.
+
+`list_issues` accepts `notDetected: true` for issues flagged “No longer detected”, or `false` for issues without that flag (including issues never checked). It combines with status, state, page and other filters before pagination. The returned `notDetectedAt` and `lastDetectedAt` timestamps describe scan detection, not proof of a fix. A server that ignores this filter is refused as `FILTER_NOT_SUPPORTED`.
+
+These additions need the matching server deployment before the client release. Both local and hosted MCP offer verification and saved history; hosted verification needs scan and write permission. This change does not enable verification in production.

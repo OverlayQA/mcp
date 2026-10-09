@@ -19,6 +19,7 @@ test('both true and false detection filters survive parsing and require a server
     assert.deepEqual(ListIssuesInput.parse(input), input);
     assert.equal(listIssuesResult(input, { status: 200, data: { issues: [] } }).isError, true);
     assert.equal(listIssuesResult(input, { status: 200, data: { issues: [], filters: { notDetected } } }).isError, undefined);
+    assert.equal(listIssuesResult(input, { status: 200, data: { issues: [], filters: { notDetected: !notDetected } } }).isError, true);
   }
   assert.equal(ListIssuesInput.safeParse({ projectId, notDetected: 'false' }).success, false);
 });

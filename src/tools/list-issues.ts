@@ -15,7 +15,7 @@ const ECHOED_FILTERS = ['createdAfter', 'pageUrl', 'notDetected'] as const;
 export function listIssuesResult(input: z.infer<typeof ListIssuesInput>, result: { status: number; data: unknown }) {
   const ok = result.status >= 200 && result.status < 300;
   const echoed = (result.data as { filters?: Record<string, unknown> } | null)?.filters ?? {};
-  const ignored = ok ? ECHOED_FILTERS.filter((key) => input[key] !== undefined && echoed[key] == null) : [];
+  const ignored = ok ? ECHOED_FILTERS.filter((key) => input[key] !== undefined && (echoed[key] == null || (key === 'notDetected' && echoed[key] !== input[key]))) : [];
   if (ignored.length) {
     return toolError(
       `The OverlayQA server did not apply ${ignored.join(' and ')}, so its answer would have listed issues outside that filter. Retry without ${ignored.length > 1 ? 'them' : 'it'}, or try again later.`,

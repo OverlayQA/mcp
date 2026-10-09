@@ -4,7 +4,7 @@ import { mcpFetch } from '../client.js';
 import { toolError, toolResult } from './request.js';
 
 /** Filters a server must echo back in `filters` once it has applied them. */
-const ECHOED_FILTERS = ['createdAfter', 'pageUrl'] as const;
+const ECHOED_FILTERS = ['createdAfter', 'pageUrl', 'notDetected'] as const;
 
 /**
  * A server older than these filters strips the query keys it does not know
@@ -27,7 +27,7 @@ export function listIssuesResult(input: z.infer<typeof ListIssuesInput>, result:
 
 export const listIssuesTool = {
   name: 'list_issues',
-  description: 'List project issues with labels, description, ownership and ignored state. Filter by status, severity, type, labels, assignee, creator, page (pageUrl), or active/finished/ignored state, and use createdAfter to ask only for issues newer than the last one seen. Each issue carries source (client means a reviewer filed it on a share link), commentCount, lastCommentAt and lastCommentBy (reviewer or team): an issue still needs a reply when source is client and commentCount is 0, or lastCommentBy is reviewer. Returns page, pageSize, total and hasMore; continue to the next page while hasMore is true. Use get_issue for full capture evidence and the discussion.',
+  description: 'List project issues with labels, description, ownership and ignored state. notDetectedAt records when a scan stopped detecting the issue; lastDetectedAt records a detection. Neither proves a fix. Use notDetected to filter the flag. Filter by status, severity, type, labels, assignee, creator, page (pageUrl), or active/finished/ignored state, and use createdAfter to ask only for issues newer than the last one seen. Each issue carries source (client means a reviewer filed it on a share link), commentCount, lastCommentAt and lastCommentBy (reviewer or team): an issue still needs a reply when source is client and commentCount is 0, or lastCommentBy is reviewer. Returns page, pageSize, total and hasMore; continue to the next page while hasMore is true. Use get_issue for full capture evidence and the discussion.',
   inputSchema: ListIssuesInput,
   async handler(input: z.infer<typeof ListIssuesInput>) {
     const params = new URLSearchParams();

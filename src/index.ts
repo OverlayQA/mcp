@@ -43,6 +43,7 @@ import { listProjectsTool } from './tools/list-projects.js';
 import { createProjectTool } from './tools/create-project.js';
 import { listLabelsTool, createLabelTool, renameLabelTool, deleteLabelTool, setIssueLabelTool } from './tools/labels.js';
 import { updateIssueTool } from './tools/update-issue.js';
+import { verifyIssueTool, getIssueVerificationsTool } from './tools/verification.js';
 import { getIssueTool, listProjectMembersTool, moveIssueTool } from './tools/issue-context.js';
 import { listCommentsTool, createCommentTool, updateCommentTool, deleteCommentTool, getCommentAttachmentTool } from './tools/comments.js';
 
@@ -63,6 +64,7 @@ const ALL_TOOLS = (
     listIssuesTool,
     updateIssueTool,
     getIssueTool, listProjectMembersTool, moveIssueTool,
+    verifyIssueTool, getIssueVerificationsTool,
     listCommentsTool, createCommentTool, updateCommentTool, deleteCommentTool, getCommentAttachmentTool,
     listLabelsTool, createLabelTool, renameLabelTool, deleteLabelTool, setIssueLabelTool,
     listProjectsTool,

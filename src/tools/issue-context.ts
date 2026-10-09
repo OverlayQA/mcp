@@ -4,7 +4,7 @@ import { request } from './request.js';
 
 export const getIssueTool = {
   name: 'get_issue',
-  description: 'Read a complete issue by UUID or display id: description, labels, assignee, ignored state, screenshot URLs, captured element/CSS and viewport evidence, and its comments (the same discussion list_comments returns).',
+  description: 'Read a complete issue by UUID or display id: description, labels, assignee, ignored state, screenshot URLs, captured element/CSS and viewport evidence, its comments (the same discussion list_comments returns), and latestVerification (the newest saved check, or null). Read get_issue_verifications for history; issue status and notDetectedAt alone do not prove a fix.',
   inputSchema: z.object({ issueId: issueIdentifier }),
   handler: ({ issueId }: { issueId: string }) => request(`/issues/${encodeURIComponent(issueId)}`),
 };

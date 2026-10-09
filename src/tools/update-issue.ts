@@ -10,7 +10,7 @@ export function buildUpdateIssueRequest(input: UpdateIssueArgs) {
 
 export const updateIssueTool = {
   name: 'update_issue',
-  description: 'Update issue status, title, description, severity, type, assignee, or ignored state. Only supplied fields change. Use null to unassign and ignored=false to restore. Accepts UUID or display id. Status verified does not run a verification scan.',
+  description: 'Update issue status, title, description, severity, type, assignee, or ignored state. Only supplied fields change. Use null to unassign and ignored=false to restore. Accepts UUID or display id. Status verified does not run a verification scan. Use verify_issue to check a deployed fix, then inspect its evidence before deciding whether to change status.',
   inputSchema: UpdateIssueInput,
   async handler(input: UpdateIssueArgs) {
     const { path, method, body } = buildUpdateIssueRequest(input);

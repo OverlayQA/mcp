@@ -22,6 +22,7 @@
  */
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { z } from 'zod';
+import type { ToolAnnotations } from '@modelcontextprotocol/sdk/types.js';
 
 export interface ToolResponse {
   // The MCP SDK types a tool result as an open record, so the index signature
@@ -34,6 +35,7 @@ export interface ToolResponse {
 /** A tool file's export: its own concrete input shape and handler. */
 export interface RawTool {
   name: string;
+  annotations?: ToolAnnotations;
   description: string;
   inputSchema: { shape: Record<string, unknown> };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,6 +45,7 @@ export interface RawTool {
 /** What is registered with the MCP SDK: the same tool plus the context field. */
 export interface WrappedTool {
   name: string;
+  annotations?: ToolAnnotations;
   description: string;
   inputSchema: { shape: Record<string, unknown> };
   handler: (args: Record<string, unknown>) => Promise<ToolResponse>;
@@ -110,6 +113,7 @@ export function buildTelemetryHeaders(): Record<string, string> {
 export function wrapTool(tool: RawTool): WrappedTool {
   return {
     name: tool.name,
+    annotations: tool.annotations,
     description: tool.description,
     inputSchema: { shape: { ...tool.inputSchema.shape, context: CONTEXT_FIELD } },
     handler: (args) => {

@@ -46,6 +46,7 @@ import { updateIssueTool } from './tools/update-issue.js';
 import { verifyIssueTool, getIssueVerificationsTool } from './tools/verification.js';
 import { getIssueTool, listProjectMembersTool, moveIssueTool } from './tools/issue-context.js';
 import { listCommentsTool, createCommentTool, updateCommentTool, deleteCommentTool, getCommentAttachmentTool } from './tools/comments.js';
+import { listClientReviewsTool, createClientReviewTool, updateClientReviewTool, setClientReviewRecipientsTool } from './tools/client-reviews.js';
 
 /**
  * Each tool file declares its own concrete input schema and handler
@@ -69,6 +70,7 @@ const ALL_TOOLS = (
     listLabelsTool, createLabelTool, renameLabelTool, deleteLabelTool, setIssueLabelTool,
     listProjectsTool,
     createProjectTool,
+    listClientReviewsTool, createClientReviewTool, updateClientReviewTool, setClientReviewRecipientsTool,
   ] as unknown as RawTool[]
 ).map(wrapTool);
 
@@ -115,6 +117,7 @@ async function main(): Promise<void> {
       tool.name,
       tool.description,
       tool.inputSchema.shape,
+      tool.annotations ?? {},
       // The SDK passes the parsed object as the first arg. We forward it
       // straight to the tool's handler. We also wrap in try/catch so any
       // unexpected error becomes a structured response instead of crashing

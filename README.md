@@ -151,7 +151,7 @@ For mentions, use `@[userId]` in the text and include the same ID in `mentionedU
 
 To poll for new feedback, pass `createdAfter` with the `createdAt` of the newest issue you have already seen (an ISO-8601 time with a zone, such as `2026-10-05T22:00:00Z`); only issues created after it come back. `pageUrl` narrows the list to one page and ignores the query string. Each listed issue carries `source` (`client` means a reviewer filed it on a share link), `commentCount`, `lastCommentAt` and `lastCommentBy` (`reviewer` or `team`), so an issue still needs a reply when `source` is `client` and `commentCount` is 0, or `lastCommentBy` is `reviewer`. If the server has not been updated for a filter yet, the tool answers `FILTER_NOT_SUPPORTED` instead of an unfiltered list.
 
-The label tools listed above are included in this release. Saved designs, client links, scheduled reviews and Figma visual comparison remain outside this issue-management release.
+The label tools listed above are included in this release. Saved designs, scheduled reviews and Figma visual comparison remain outside this issue-management release. Client review tools are described below and require their matching server update.
 
 ### Verify before release
 
@@ -175,3 +175,20 @@ The result contains a saved check ID, verdict, explanation, confidence, after-sc
 `list_issues` accepts `notDetected: true` for issues flagged “No longer detected”, or `false` for issues without that flag (including issues never checked). It combines with status, state, page and other filters before pagination. The returned `notDetectedAt` and `lastDetectedAt` timestamps describe scan detection, not proof of a fix. A server that ignores this filter is refused as `FILTER_NOT_SUPPORTED`.
 
 These additions need the matching server deployment before the client release. Both local and hosted MCP offer verification and saved history; hosted verification needs scan and write permission. This change does not enable verification in production.
+
+### Client review links and progress (next release)
+
+These tools require the matching server deployment before publishing this client. They are available on local and hosted MCP connections and use the app's project permissions.
+
+| Tool | What it does |
+| --- | --- |
+| `list_client_reviews` | Read a project's client links, titles, share URLs, capture status, visits, comments, completed reviewers, and each client's invitation/reminder state. |
+| `create_client_review` | Create a live or snapshot review link, optionally with a title and client email addresses. Snapshot capture finishes asynchronously; read the list for readiness. |
+| `update_client_review` | Revoke or restore a link, change its expiry, or change responsive previews. |
+| `set_client_review_recipients` | Replace the complete client email list. Retained addresses keep their history; removed addresses stop reminders. An empty list removes all recipients while preserving the link. |
+
+Creating a public link requires the user's intent to share. Adding email addresses requires their intent to invite those people. A new address may receive an invitation and automatic day 3/7/10 reminders. Read `invitationsEnabled` and the returned per-address `invites`: when delivery is off, addresses are saved with `sent: false, skipped: true` and may be invited after it is enabled. One failed invitation does not undo the link or successful invitations.
+
+The list returns `doneReviewers` and `clients` with `email`, `invitedAt`, `inviteFailed`, `lastReminderAt`, `done`, `commented`, and `unsubscribed`. Done reviewing means a client finished giving feedback; it does not certify fixes or mean everyone is done. Only the client can perform that gesture. Reminder timing and stop conditions remain owned by the existing scheduler; there is no MCP send-now tool.
+
+After an uncertain recipient-update response, retry the same complete list and reopen it; retained addresses are not invited twice. Creating a review does not have a retry key: after a lost response, use `list_client_reviews` to check for the saved link before creating another. Project viewers and read-only hosted connections can read progress but cannot change links or invite people.

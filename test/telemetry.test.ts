@@ -14,6 +14,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { z } from 'zod';
 
 import {
   CONTEXT_FIELD,
@@ -74,10 +75,11 @@ test('buildTelemetryHeaders: intent is URI-encoded, editor is name/version, noth
 test('wrapTool: adds context to the schema, strips it from the handler args, and scopes the intent around the call', async () => {
   let received: unknown;
   let intentDuringCall: string | undefined;
+  const projectIdSchema = z.string();
   const tool = wrapTool({
     name: 'list_projects',
     description: 'd',
-    inputSchema: { shape: { projectId: 'schema' } },
+    inputSchema: { shape: { projectId: projectIdSchema } },
     handler: async (args: unknown) => {
       received = args;
       intentDuringCall = currentIntent();
@@ -86,7 +88,7 @@ test('wrapTool: adds context to the schema, strips it from the handler args, and
   });
   assert.equal(tool.name, 'list_projects');
   assert.ok('context' in tool.inputSchema.shape, 'context field advertised');
-  assert.equal(tool.inputSchema.shape.projectId, 'schema', 'existing fields kept');
+  assert.equal(tool.inputSchema.shape.projectId, projectIdSchema, 'existing fields kept');
   const out = await tool.handler({ projectId: 'p1', context: 'find open issues to fix' });
   assert.deepEqual(received, { projectId: 'p1' });
   assert.equal(intentDuringCall, 'find open issues to fix');

@@ -37,7 +37,7 @@ export interface RawTool {
   name: string;
   annotations?: ToolAnnotations;
   description: string;
-  inputSchema: { shape: Record<string, unknown> };
+  inputSchema: { shape: z.ZodRawShape };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handler: (args: any) => Promise<ToolResponse>;
 }
@@ -47,7 +47,7 @@ export interface WrappedTool {
   name: string;
   annotations?: ToolAnnotations;
   description: string;
-  inputSchema: { shape: Record<string, unknown> };
+  inputSchema: { shape: z.ZodRawShape };
   handler: (args: Record<string, unknown>) => Promise<ToolResponse>;
 }
 

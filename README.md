@@ -178,12 +178,12 @@ These additions need the matching server deployment before the client release. B
 
 ### Client review links and progress (next release)
 
-These tools require the matching server deployment before publishing this client. They are available on local and hosted MCP connections and use the app's project permissions.
+These tools require the matching server deployment before publishing this client. The guest-options database migration must be applied before deploying that server. They are available on local and hosted MCP connections and use the app's project permissions.
 
 | Tool | What it does |
 | --- | --- |
 | `list_client_reviews` | Read a project's client links, titles, share URLs, capture status, visits, comments, completed reviewers, and each client's invitation/reminder state. |
-| `create_client_review` | Create a live or snapshot review link, optionally with a title and client email addresses. Snapshot capture finishes asynchronously; read the list for readiness. |
+| `create_client_review` | Create a live or snapshot review link, optionally with a title, client email addresses, a welcome note and private guest comments. Snapshot capture finishes asynchronously; read the list for readiness. |
 | `update_client_review` | Revoke or restore a link, change its expiry, or change responsive previews. |
 | `set_client_review_recipients` | Replace the complete client email list. Retained addresses keep their history; removed addresses stop reminders. An empty list removes all recipients while preserving the link. |
 

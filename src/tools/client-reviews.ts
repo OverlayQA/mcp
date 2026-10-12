@@ -16,6 +16,8 @@ export const createClientReviewInput = z.object({
   mode: z.enum(['live', 'snapshot']),
   title: z.string().trim().max(200).optional(),
   clientEmails: emails.optional(),
+  welcomeNote: z.string().max(500).optional().describe('Optional note shown to guests at the top of the review'),
+  privateComments: z.boolean().optional().describe('When true, each guest sees only their own comments; teammates can see all comments'),
   expiresAt, allowResponsiveViews,
   viewportWidth: z.number().int().min(320).max(3840).optional(),
   viewportHeight: z.number().int().min(320).max(2160).optional(),
@@ -47,7 +49,7 @@ export const listClientReviewsTool = {
 export const createClientReviewTool = {
   name: 'create_client_review',
   annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
-  description: 'Create a public client review link for a website in a writable project, optionally with a title and client emails. Snapshot mode starts asynchronous capture; read list_client_reviews for readiness. New client emails may receive an invitation and automatic day 3/7/10 reminders. Requires explicit intent to share and, when emails are supplied, invite those people. If invitationsEnabled is false, addresses are saved but not sent and may be invited when delivery is enabled. Inspect invites for per-address sent/skipped results. After a lost response, list links before creating again to avoid duplicates.',
+  description: 'Create a public client review link for a website in a writable project, optionally with a title, client emails, welcome note and private guest comments. Snapshot mode starts asynchronous capture; read list_client_reviews for readiness. New client emails may receive an invitation and automatic day 3/7/10 reminders. Requires explicit intent to share and, when emails are supplied, invite those people. If invitationsEnabled is false, addresses are saved but not sent and may be invited when delivery is enabled. Inspect invites for per-address sent/skipped results. After a lost response, list links before creating again to avoid duplicates.',
   inputSchema: createClientReviewInput,
   handler: (body: z.infer<typeof createClientReviewInput>) => request('/client-reviews', 'POST', body),
 };

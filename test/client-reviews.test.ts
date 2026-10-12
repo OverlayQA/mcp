@@ -8,8 +8,11 @@ import { wrapTool, type RawTool } from '../src/telemetry.js';
 
 const reviewId = '00000000-0000-4000-8000-000000000001';
 test('review creation requires a web URL and retains explicit false settings', () => {
-  const body = { projectId: reviewId, pageUrl: 'https://example.test/', mode: 'live', allowResponsiveViews: false };
+  const body = { projectId: reviewId, pageUrl: 'https://example.test/', mode: 'live', allowResponsiveViews: false, privateComments: false, welcomeNote: 'Please review the headline.' };
   assert.equal(createClientReviewInput.parse(body).allowResponsiveViews, false);
+  assert.equal(createClientReviewInput.parse(body).privateComments, false);
+  assert.equal(createClientReviewInput.parse(body).welcomeNote, body.welcomeNote);
+  assert.equal(createClientReviewInput.safeParse({ ...body, welcomeNote: 'a'.repeat(501) }).success, false);
   for (const pageUrl of ['javascript:alert(1)', 'file:///tmp/private', 'data:text/html,hello']) {
     assert.equal(createClientReviewInput.safeParse({ ...body, pageUrl }).success, false);
   }

@@ -1,0 +1,689 @@
+TAP version 13
+# Subtest: every advertised tool dispatches through the actual stdio entry point
+    # Subtest: scan_accessibility
+    not ok 1 - scan_accessibility
+      ---
+      duration_ms: 10.631738
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: scan_contrast
+    not ok 2 - scan_contrast
+      ---
+      duration_ms: 2.922645
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: scan_and_create_issues
+    not ok 3 - scan_and_create_issues
+      ---
+      duration_ms: 2.232641
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: compare_visual
+    not ok 4 - compare_visual
+      ---
+      duration_ms: 1.663014
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: audit_tokens
+    not ok 5 - audit_tokens
+      ---
+      duration_ms: 1.961818
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: create_issue
+    not ok 6 - create_issue
+      ---
+      duration_ms: 2.555292
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: list_issues
+    not ok 7 - list_issues
+      ---
+      duration_ms: 2.552545
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: update_issue
+    not ok 8 - update_issue
+      ---
+      duration_ms: 2.007374
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: get_issue
+    not ok 9 - get_issue
+      ---
+      duration_ms: 2.152126
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: list_project_members
+    not ok 10 - list_project_members
+      ---
+      duration_ms: 1.97067
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: move_issue
+    not ok 11 - move_issue
+      ---
+      duration_ms: 1.829358
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: verify_issue
+    not ok 12 - verify_issue
+      ---
+      duration_ms: 1.128086
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: get_issue_verifications
+    not ok 13 - get_issue_verifications
+      ---
+      duration_ms: 1.034399
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: list_comments
+    not ok 14 - list_comments
+      ---
+      duration_ms: 1.253662
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: create_comment
+    not ok 15 - create_comment
+      ---
+      duration_ms: 1.967399
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: update_comment
+    not ok 16 - update_comment
+      ---
+      duration_ms: 1.406851
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: delete_comment
+    not ok 17 - delete_comment
+      ---
+      duration_ms: 1.256983
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: get_comment_attachment
+    not ok 18 - get_comment_attachment
+      ---
+      duration_ms: 1.175168
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: list_labels
+    not ok 19 - list_labels
+      ---
+      duration_ms: 1.671939
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: create_label
+    not ok 20 - create_label
+      ---
+      duration_ms: 2.03073
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: rename_label
+    not ok 21 - rename_label
+      ---
+      duration_ms: 1.657001
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: delete_label
+    not ok 22 - delete_label
+      ---
+      duration_ms: 1.637579
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: set_issue_label
+    not ok 23 - set_issue_label
+      ---
+      duration_ms: 1.640244
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: list_projects
+    not ok 24 - list_projects
+      ---
+      duration_ms: 1.95328
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: create_project
+    not ok 25 - create_project
+      ---
+      duration_ms: 2.187331
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:15'
+      failureType: 'testCodeFailure'
+      error: |-
+        The input was expected to not match the regular expression /typedHandler/. Input:
+
+        'typedHandler is not a function'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected:
+      actual: 'typedHandler is not a function'
+      operator: 'doesNotMatch'
+      stack: |-
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:74:16)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:70:7)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: list_client_reviews
+    ok 26 - list_client_reviews
+      ---
+      duration_ms: 2.417092
+      type: 'test'
+      ...
+    # Subtest: create_client_review
+    ok 27 - create_client_review
+      ---
+      duration_ms: 1.989278
+      type: 'test'
+      ...
+    # Subtest: update_client_review
+    ok 28 - update_client_review
+      ---
+      duration_ms: 1.438405
+      type: 'test'
+      ...
+    # Subtest: set_client_review_recipients
+    ok 29 - set_client_review_recipients
+      ---
+      duration_ms: 1.453399
+      type: 'test'
+      ...
+    # Subtest: invalid input is refused before the handler and the next call still works
+    not ok 30 - invalid input is refused before the handler and the next call still works
+      ---
+      duration_ms: 2.664863
+      type: 'test'
+      location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:79:13'
+      failureType: 'testCodeFailure'
+      error: `Unexpected token 'y', "typedHandle"... is not valid JSON`
+      code: 'ERR_TEST_FAILURE'
+      name: 'SyntaxError'
+      stack: |-
+        JSON.parse (<anonymous>)
+        TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:84:25)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:79:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    1..30
+not ok 1 - every advertised tool dispatches through the actual stdio entry point
+  ---
+  duration_ms: 539.381177
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-tool-registration/test/tool-registration.test.mjs:46:1'
+  failureType: 'subtestsFailed'
+  error: '26 subtests failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 31
+# suites 0
+# pass 4
+# fail 27
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 956.958444

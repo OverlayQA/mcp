@@ -1,0 +1,25 @@
+{
+  "objective": "Restore MCP tools that fail with typedHandler is not a function in 0.4.0.",
+  "source": "Kevin's report supplied by Emily; explicitly authorized fix on 2026-10-15.",
+  "base": "6ebe0ee",
+  "scope": "MCP tool registration and regression coverage; leave Kevin's feature requests separate.",
+  "decision": "Use the SDK registerTool configuration object to remove positional ambiguity while preserving schemas, annotations, telemetry and error handling.",
+  "acceptance": [
+    "Actual compiled stdio entry fails before the change and dispatches every advertised tool afterward.",
+    "Existing tests and type checking pass; annotations and input validation are retained.",
+    "Candidate completes issue and comment persistence workflows against local and production services using designated test accounts.",
+    "Commit locally after verification; do not push or publish without the required preview and approval."
+  ],
+  "completed": [
+    "Inspected current MCP source and SDK 1.32.1 overload parser",
+    "Rechecked live EmilyWorks backing board",
+    "Created isolated fix/mcp-tool-registration worktree",
+    "Published npm 0.4.0 reproduces the registration failure",
+    "registerTool fix and 0.4.1 metadata prepared",
+    "All 29 dispatch cases pass in packed candidate; full package suite 54/54; typecheck passes",
+    "Local and production issue/comment workflows 7/7 each; test records cleaned up"
+  ],
+  "remaining": [],
+  "next": "Implementation and required verification are complete. Push and publication are separate actions and remain unapproved.",
+  "evidence": "verification/reports/2026-10-15-tool-registration/index.html"
+}

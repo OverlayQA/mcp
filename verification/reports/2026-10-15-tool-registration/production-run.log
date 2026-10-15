@@ -1,0 +1,9 @@
+PASS Actual MCP discovery exposes issue and label tools
+PASS Creation keeps explicit Unassigned and teammate selection
+PASS Assignment, detail edits and ignore preserve status through restart
+PASS Full issue detail and teammate discovery use readable project context
+WAIT update_issue: respecting server retryAfter=56s
+PASS Pagination and triage filters return matching totals without losing ignored meaning
+PASS Labels create/apply/retry/filter/rename/remove/delete retain issue content
+PASS Comments keep audience, mentions and files across retries, edit, move and reopen
+PASS: 7 passed, 0 failed. Report: /tmp/overlayqa-mcp-tool-registration/verification/reports/2026-10-15-tool-registration/production

@@ -2,7 +2,7 @@
  * Zod schemas for MCP tool inputs.
  *
  * These schemas drive both runtime validation (the `inputSchema.shape` is
- * passed to the MCP SDK's `server.tool()` in Task 17) and the descriptions
+ * passed to the MCP SDK's `server.registerTool()`) and the descriptions
  * the LLM sees when deciding how to call a tool. Every field should have a
  * `.describe(...)` so the tool docs are self-explanatory.
  */

@@ -1,0 +1,197 @@
+TAP version 13
+# Subtest: every advertised tool dispatches through the actual stdio entry point
+    # Subtest: scan_accessibility
+    ok 1 - scan_accessibility
+      ---
+      duration_ms: 8.259584
+      type: 'test'
+      ...
+    # Subtest: scan_contrast
+    ok 2 - scan_contrast
+      ---
+      duration_ms: 1.801826
+      type: 'test'
+      ...
+    # Subtest: scan_and_create_issues
+    ok 3 - scan_and_create_issues
+      ---
+      duration_ms: 1.774699
+      type: 'test'
+      ...
+    # Subtest: compare_visual
+    ok 4 - compare_visual
+      ---
+      duration_ms: 2.388277
+      type: 'test'
+      ...
+    # Subtest: audit_tokens
+    ok 5 - audit_tokens
+      ---
+      duration_ms: 1.689931
+      type: 'test'
+      ...
+    # Subtest: create_issue
+    ok 6 - create_issue
+      ---
+      duration_ms: 1.577393
+      type: 'test'
+      ...
+    # Subtest: list_issues
+    ok 7 - list_issues
+      ---
+      duration_ms: 3.100162
+      type: 'test'
+      ...
+    # Subtest: update_issue
+    ok 8 - update_issue
+      ---
+      duration_ms: 2.396054
+      type: 'test'
+      ...
+    # Subtest: get_issue
+    ok 9 - get_issue
+      ---
+      duration_ms: 1.986743
+      type: 'test'
+      ...
+    # Subtest: list_project_members
+    ok 10 - list_project_members
+      ---
+      duration_ms: 2.067085
+      type: 'test'
+      ...
+    # Subtest: move_issue
+    ok 11 - move_issue
+      ---
+      duration_ms: 1.390069
+      type: 'test'
+      ...
+    # Subtest: verify_issue
+    ok 12 - verify_issue
+      ---
+      duration_ms: 1.30431
+      type: 'test'
+      ...
+    # Subtest: get_issue_verifications
+    ok 13 - get_issue_verifications
+      ---
+      duration_ms: 1.48811
+      type: 'test'
+      ...
+    # Subtest: list_comments
+    ok 14 - list_comments
+      ---
+      duration_ms: 1.003435
+      type: 'test'
+      ...
+    # Subtest: create_comment
+    ok 15 - create_comment
+      ---
+      duration_ms: 1.080173
+      type: 'test'
+      ...
+    # Subtest: update_comment
+    ok 16 - update_comment
+      ---
+      duration_ms: 1.258904
+      type: 'test'
+      ...
+    # Subtest: delete_comment
+    ok 17 - delete_comment
+      ---
+      duration_ms: 1.292932
+      type: 'test'
+      ...
+    # Subtest: get_comment_attachment
+    ok 18 - get_comment_attachment
+      ---
+      duration_ms: 2.298443
+      type: 'test'
+      ...
+    # Subtest: list_labels
+    ok 19 - list_labels
+      ---
+      duration_ms: 1.109139
+      type: 'test'
+      ...
+    # Subtest: create_label
+    ok 20 - create_label
+      ---
+      duration_ms: 1.141295
+      type: 'test'
+      ...
+    # Subtest: rename_label
+    ok 21 - rename_label
+      ---
+      duration_ms: 1.24434
+      type: 'test'
+      ...
+    # Subtest: delete_label
+    ok 22 - delete_label
+      ---
+      duration_ms: 1.335281
+      type: 'test'
+      ...
+    # Subtest: set_issue_label
+    ok 23 - set_issue_label
+      ---
+      duration_ms: 1.596913
+      type: 'test'
+      ...
+    # Subtest: list_projects
+    ok 24 - list_projects
+      ---
+      duration_ms: 0.935345
+      type: 'test'
+      ...
+    # Subtest: create_project
+    ok 25 - create_project
+      ---
+      duration_ms: 0.972298
+      type: 'test'
+      ...
+    # Subtest: list_client_reviews
+    ok 26 - list_client_reviews
+      ---
+      duration_ms: 1.127803
+      type: 'test'
+      ...
+    # Subtest: create_client_review
+    ok 27 - create_client_review
+      ---
+      duration_ms: 1.311731
+      type: 'test'
+      ...
+    # Subtest: update_client_review
+    ok 28 - update_client_review
+      ---
+      duration_ms: 1.258494
+      type: 'test'
+      ...
+    # Subtest: set_client_review_recipients
+    ok 29 - set_client_review_recipients
+      ---
+      duration_ms: 1.82348
+      type: 'test'
+      ...
+    # Subtest: invalid input is refused before the handler and the next call still works
+    ok 30 - invalid input is refused before the handler and the next call still works
+      ---
+      duration_ms: 3.726875
+      type: 'test'
+      ...
+    1..30
+ok 1 - every advertised tool dispatches through the actual stdio entry point
+  ---
+  duration_ms: 532.482482
+  type: 'test'
+  ...
+1..1
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 944.982944

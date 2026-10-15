@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MCP 0.4.1 — tool registration fix verified</title><style>body{font:16px/1.55 system-ui;margin:40px auto;max-width:1050px;padding:0 24px;color:#172c36}h1{line-height:1.15}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:10px;text-align:left;border-bottom:1px solid #dce5e7;vertical-align:top}code,pre{background:#f4f6f7}pre{padding:16px;white-space:pre-wrap;overflow-wrap:anywhere}.pass{color:#126c4c}a{color:#125e9d}section{margin:28px 0}</style><h1>MCP 0.4.1: tools reach their handlers again</h1><p class="pass"><strong>Candidate verified locally and against production services. Unpublished.</strong></p><p>The published 0.4.0 package fails dispatch for 25 of 29 tools. SDK 1.32.1 mistakes the empty annotations object in the positional registration call for a schema and retains it as the callback. The candidate uses explicit registration fields.</p><section><h2>Before and after</h2><ul><li>Downloaded npm 0.4.0: the regression reproduces the 25 broken tools; four client-review handlers remain reachable.</li><li>Packed 0.4.1: all 29 tools reach their handlers; invalid input is refused and the next call still works.</li><li>Package suite: 54 passing tests, no failures or skips; TypeScript typecheck passed.</li><li>Real service journeys: 14 passed across local and production. All run-owned projects and labels were removed.</li></ul><p>Dispatch tests deliberately remove the isolated credential after startup, so handlers return AUTH_REQUIRED without network calls or writes. Service journeys separately verify successful persistence with real accounts.</p></section><section><h2>Product journeys</h2><table><thead><tr><th>Target</th><th>Journey</th><th>Verdict</th><th>Checked at</th></tr></thead><tbody><tr><td>local</td><td>Actual MCP discovery exposes issue and label tools</td><td>PASS</td><td>2026-10-15T17:54:45.764Z</td></tr><tr><td>local</td><td>Creation keeps explicit Unassigned and teammate selection</td><td>PASS</td><td>2026-10-15T17:54:50.726Z</td></tr><tr><td>local</td><td>Assignment, detail edits and ignore preserve status through restart</td><td>PASS</td><td>2026-10-15T17:54:51.299Z</td></tr><tr><td>local</td><td>Full issue detail and teammate discovery use readable project context</td><td>PASS</td><td>2026-10-15T17:54:54.549Z</td></tr><tr><td>local</td><td>Pagination and triage filters return matching totals without losing ignored meaning</td><td>PASS</td><td>2026-10-15T17:54:56.367Z</td></tr><tr><td>local</td><td>Labels create/apply/retry/filter/rename/remove/delete retain issue content</td><td>PASS</td><td>2026-10-15T17:55:52.343Z</td></tr><tr><td>local</td><td>Comments keep audience, mentions and files across retries, edit, move and reopen</td><td>PASS</td><td>2026-10-15T17:56:00.797Z</td></tr><tr><td>production</td><td>Actual MCP discovery exposes issue and label tools</td><td>PASS</td><td>2026-10-15T17:54:06.360Z</td></tr><tr><td>production</td><td>Creation keeps explicit Unassigned and teammate selection</td><td>PASS</td><td>2026-10-15T17:54:08.154Z</td></tr><tr><td>production</td><td>Assignment, detail edits and ignore preserve status through restart</td><td>PASS</td><td>2026-10-15T17:54:08.657Z</td></tr><tr><td>production</td><td>Full issue detail and teammate discovery use readable project context</td><td>PASS</td><td>2026-10-15T17:54:10.122Z</td></tr><tr><td>production</td><td>Pagination and triage filters return matching totals without losing ignored meaning</td><td>PASS</td><td>2026-10-15T17:54:10.669Z</td></tr><tr><td>production</td><td>Labels create/apply/retry/filter/rename/remove/delete retain issue content</td><td>PASS</td><td>2026-10-15T17:55:10.432Z</td></tr><tr><td>production</td><td>Comments keep audience, mentions and files across retries, edit, move and reopen</td><td>PASS</td><td>2026-10-15T17:55:12.441Z</td></tr></tbody></table><p><a href="local/index.html">Local evidence</a> · <a href="production/index.html">Production evidence</a> · <a href="summary.json">Builds, accounts and package hashes</a></p></section><section><h2>Vantage</h2><pre>{
+  &quot;client&quot;: &quot;0.4.1&quot;,
+  &quot;sdk&quot;: &quot;1.32.1&quot;,
+  &quot;machine&quot;: &quot;MacBook-Pro.local&quot;,
+  &quot;local&quot;: {
+    &quot;apiBase&quot;: &quot;http://localhost:3289&quot;,
+    &quot;machine&quot;: &quot;MacBook-Pro.local&quot;,
+    &quot;account&quot;: &quot;harness-journey+clerk_test@overlayqa.com&quot;,
+    &quot;role&quot;: &quot;owner&quot;,
+    &quot;startedAt&quot;: &quot;2026-10-15T17:54:43.488Z&quot;,
+    &quot;finishedAt&quot;: &quot;2026-10-15T17:56:10.294Z&quot;,
+    &quot;passed&quot;: 7,
+    &quot;failed&quot;: 0,
+    &quot;status&quot;: &quot;PASS&quot;,
+    &quot;cleanup&quot;: [
+      {
+        &quot;projectId&quot;: &quot;091fdfe8-0ea1-4434-a6a1-9997d14aa2e0&quot;,
+        &quot;deleted&quot;: true
+      },
+      {
+        &quot;projectId&quot;: &quot;e764eec4-57d6-4e1c-afd9-1bc7dc24279f&quot;,
+        &quot;deleted&quot;: true
+      }
+    ],
+    &quot;clientEntrySha256&quot;: &quot;d38c92a8827fcc2880cdc0a9225dbb1c0748e7193677d490917de80716051951&quot;
+  },
+  &quot;production&quot;: {
+    &quot;apiBase&quot;: &quot;https://api.overlayqa.com&quot;,
+    &quot;machine&quot;: &quot;MacBook-Pro.local&quot;,
+    &quot;account&quot;: &quot;testsprite@overlayqa.com&quot;,
+    &quot;role&quot;: &quot;owner&quot;,
+    &quot;startedAt&quot;: &quot;2026-10-15T17:54:04.970Z&quot;,
+    &quot;finishedAt&quot;: &quot;2026-10-15T17:55:15.408Z&quot;,
+    &quot;passed&quot;: 7,
+    &quot;failed&quot;: 0,
+    &quot;status&quot;: &quot;PASS&quot;,
+    &quot;cleanup&quot;: [
+      {
+        &quot;projectId&quot;: &quot;c07df970-8097-46e5-84e8-562940c316db&quot;,
+        &quot;deleted&quot;: true
+      },
+      {
+        &quot;projectId&quot;: &quot;193ca8ea-f9ac-4836-ad72-4e67326d6d9e&quot;,
+        &quot;deleted&quot;: true
+      }
+    ],
+    &quot;clientEntrySha256&quot;: &quot;d38c92a8827fcc2880cdc0a9225dbb1c0748e7193677d490917de80716051951&quot;
+  },
+  &quot;serverProvenance&quot;: {
+    &quot;local&quot;: {
+      &quot;commit&quot;: &quot;70d7e4702481e6a3f1ff8ec612a349b6c09072cf&quot;,
+      &quot;source&quot;: &quot;OverlayQA working tree, no tracked server/shared source changes at startup&quot;
+    },
+    &quot;production&quot;: {
+      &quot;service&quot;: &quot;overlayqa-api&quot;,
+      &quot;deploymentId&quot;: &quot;43289907-16c4-4003-b8c4-3354f3a292ea&quot;,
+      &quot;status&quot;: &quot;SUCCESS&quot;,
+      &quot;commit&quot;: &quot;acbeb3065b69b12b91b31321e517285b8888c1d5&quot;,
+      &quot;source&quot;: &quot;railway status --json after the live checks&quot;
+    }
+  }
+}</pre></section><section><h2>Coverage boundaries</h2><ul><li>Actual compiled MCP stdio process, real HTTP routes and persistence were exercised. Editor UI and browser OAuth were not exercised; designated test-account extension-session credentials were supplied.</li><li>All advertised tools were checked for dispatch and auth refusal. Full scanning, Figma, fix-verification and invitation workflows were not exercised by this registration regression.</li><li>The attachment persistence check uses a synthetic PNG; it does not verify browser screenshot capture.</li><li>The npm tarball was packed and tested locally. Version 0.4.1 has not been pushed or published.</li></ul><h2>Evidence and reproduction</h2><p><a href="published-regression.log">Published-package failure</a> · <a href="candidate-regression.log">Packed-candidate pass</a> · <a href="package-tests.log">Full package suite</a> · <a href="candidate.patch">Candidate code changes</a></p><p>The first local API boot failed because the shared build lacked readStyleCapture. Rebuilt @overlayqa/shared under rig lease 52f11f54-5808-4b7e-8ff8-1899cc7d8e3a and repeated the local workflow successfully. Both live runs honored API retryAfter rate limits.</p><pre>npm ci
+npm test
+npm run typecheck
+MCP_PARITY_API=https://api.overlayqa.com MCP_REPORT_DIR=&lt;output&gt; node test/issue-parity-live.mjs
+MCP_TEST_ENTRY=&lt;extracted-package&gt;/dist/index.js node --test test/tool-registration.test.mjs</pre></section></html>

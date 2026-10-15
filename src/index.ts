@@ -50,7 +50,7 @@ import { listClientReviewsTool, createClientReviewTool, updateClientReviewTool, 
 
 /**
  * Each tool file declares its own concrete input schema and handler
- * signature; here we only shuttle values through to server.tool(...) after
+ * signature; here we only shuttle values through to server.registerTool(...) after
  * wrapTool adds the `context` argument (see ./telemetry.ts). The type safety
  * lives inside the tool files themselves.
  */
@@ -109,15 +109,16 @@ async function main(): Promise<void> {
   });
 
   for (const tool of ALL_TOOLS) {
-    // SDK 1.x signature: server.tool(name, description, inputSchema.shape, handler)
-    // - inputSchema.shape exposes the ZodObject's per-field schemas (plus context)
-    // - handler receives the parsed args object as its first argument
-    // - handler MUST return { content: [{ type, text }], isError? }
-    server.tool(
+    // Named configuration avoids server.tool's positional overload: SDK
+    // 1.32.1 treats empty annotations as a schema and then calls {} as the
+    // handler. Keep annotations optional and the callback unambiguous.
+    server.registerTool(
       tool.name,
-      tool.description,
-      tool.inputSchema.shape,
-      tool.annotations ?? {},
+      {
+        description: tool.description,
+        inputSchema: tool.inputSchema.shape,
+        annotations: tool.annotations,
+      },
       // The SDK passes the parsed object as the first arg. We forward it
       // straight to the tool's handler. We also wrap in try/catch so any
       // unexpected error becomes a structured response instead of crashing

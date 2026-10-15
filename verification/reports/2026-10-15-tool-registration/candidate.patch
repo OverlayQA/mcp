@@ -1,0 +1,63 @@
+diff --git a/package-lock.json b/package-lock.json
+index 648a704..e04d22f 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -3 +3 @@
+-  "version": "0.4.0",
++  "version": "0.4.1",
+@@ -9 +9 @@
+-      "version": "0.4.0",
++      "version": "0.4.1",
+diff --git a/package.json b/package.json
+index ea9fd9a..5a0de78 100644
+--- a/package.json
++++ b/package.json
+@@ -3 +3 @@
+-  "version": "0.4.0",
++  "version": "0.4.1",
+@@ -16 +16 @@
+-    "test": "tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js",
++    "test": "npm run build && tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js test/tool-registration.test.mjs",
+diff --git a/server.json b/server.json
+index 414257b..c13a956 100644
+--- a/server.json
++++ b/server.json
+@@ -5 +5 @@
+-  "version": "0.4.0",
++  "version": "0.4.1",
+@@ -10 +10 @@
+-      "version": "0.4.0",
++      "version": "0.4.1",
+diff --git a/src/index.ts b/src/index.ts
+index 2452a97..d634996 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -53 +53 @@ import { listClientReviewsTool, createClientReviewTool, updateClientReviewTool,
+- * signature; here we only shuttle values through to server.tool(...) after
++ * signature; here we only shuttle values through to server.registerTool(...) after
+@@ -112,5 +112,4 @@ async function main(): Promise<void> {
+-    // SDK 1.x signature: server.tool(name, description, inputSchema.shape, handler)
+-    // - inputSchema.shape exposes the ZodObject's per-field schemas (plus context)
+-    // - handler receives the parsed args object as its first argument
+-    // - handler MUST return { content: [{ type, text }], isError? }
+-    server.tool(
++    // Named configuration avoids server.tool's positional overload: SDK
++    // 1.32.1 treats empty annotations as a schema and then calls {} as the
++    // handler. Keep annotations optional and the callback unambiguous.
++    server.registerTool(
+@@ -118,3 +117,5 @@ async function main(): Promise<void> {
+-      tool.description,
+-      tool.inputSchema.shape,
+-      tool.annotations ?? {},
++      {
++        description: tool.description,
++        inputSchema: tool.inputSchema.shape,
++        annotations: tool.annotations,
++      },
+diff --git a/src/types.ts b/src/types.ts
+index 1166f61..6e4ba7e 100644
+--- a/src/types.ts
++++ b/src/types.ts
+@@ -5 +5 @@
+- * passed to the MCP SDK's `server.tool()` in Task 17) and the descriptions
++ * passed to the MCP SDK's `server.registerTool()`) and the descriptions

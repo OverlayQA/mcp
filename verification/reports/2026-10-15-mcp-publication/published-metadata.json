@@ -1,0 +1,20 @@
+{
+  "version": "0.4.1",
+  "dist": {
+    "shasum": "32eb445884a02ac0f4ad85dd727f7d09393f746d",
+    "tarball": "https://registry.npmjs.org/@overlayqa/mcp/-/mcp-0.4.1.tgz",
+    "fileCount": 51,
+    "integrity": "sha512-7BYE95CSCCv3BSNi9ywxYvFF4uoTRc8Y0QA28CObT6Cq7PRKme04t+HJfE27/+RMN7UZtBOansfU+npKMbsG7A==",
+    "signatures": [
+      {
+        "sig": "MEQCIBuVRwnabm6W8ak9/C06L3hFklWqWWNxZx2gzNa0ZBMQAiBR+yRx30ZF7FHaKVrjGVJ9BRxkP5jsUGQRlAjr3WvVpg==",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEUCIQCoQR54fn1PXCRdFpX04MGTeWTm82OC9Dw/pSO5Ef/hXAIgL9OWtmnGjxUFHqNdBHA/a0VggbkIV7iuNDloMUiedUc="
+      }
+    ],
+    "unpackedSize": 129311
+  }
+}

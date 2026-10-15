@@ -1,0 +1,42 @@
+{
+  "package": "@overlayqa/mcp",
+  "version": "0.4.1",
+  "state": "published and verified",
+  "publishedAt": "2026-10-15T20:14:54.008Z",
+  "completedAt": "2026-10-15T20:17:58.340654+00:00",
+  "sourceCommit": "d174bb965591a1192c60363b30efaeee174e74b2",
+  "verificationHarnessCommit": "ad36bff0f5fc835fe13ae72ff04b3a3875fefa79",
+  "packageSha256": "ccf36686f395894dba4cc114736dda0cfb10df14f22e871227716d84c98193a1",
+  "packageIntegrity": "sha512-7BYE95CSCCv3BSNi9ywxYvFF4uoTRc8Y0QA28CObT6Cq7PRKme04t+HJfE27/+RMN7UZtBOansfU+npKMbsG7A==",
+  "machine": "MacBook-Pro.local",
+  "node": "v22.23.2",
+  "npm": "10.9.8",
+  "tests": {
+    "published-tests.txt": {
+      "tests": 45,
+      "pass": 45,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "finishedAt": "2026-10-15T20:16:10.843861+00:00"
+    },
+    "npx-tests.txt": {
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "finishedAt": "2026-10-15T20:15:58.060070+00:00"
+    }
+  },
+  "production": {
+    "status": "PASS",
+    "passed": 7,
+    "finishedAt": "2026-10-15T20:16:18.469Z",
+    "role": "owner",
+    "account": "testsprite@overlayqa.com",
+    "host": "https://api.overlayqa.com",
+    "cleanupPassed": true
+  },
+  "verificationBoundary": "No browser OAuth or editor UI exercised; actual SDK stdio and production API checked."
+}

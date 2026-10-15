@@ -1,0 +1,269 @@
+{
+  "package": "@overlayqa/mcp",
+  "version": "0.4.1",
+  "registry": "https://registry.npmjs.org/",
+  "tag": "latest",
+  "startedAt": "2026-10-15T18:40:09.223251+00:00",
+  "sourceCommit": "d174bb965591a1192c60363b30efaeee174e74b2",
+  "verifiedRuntime": [
+    {
+      "path": "dist/auth.d.ts",
+      "sha256": "3a66102a22db57a958b55b589215faa9bb64d411995eafaf773472b524cb7386"
+    },
+    {
+      "path": "dist/auth.js",
+      "sha256": "763e43bba1740355d56c93a099fec569dfd6fd9982e8910e5beed1cdcf4a9c42"
+    },
+    {
+      "path": "dist/client.d.ts",
+      "sha256": "4073e0cfde8191593cf57b7787ff5f9440597228c612593aaa2d3fe25cb72103"
+    },
+    {
+      "path": "dist/client.js",
+      "sha256": "76bbb59a9f7832683ba8f3fb2296776a9501ae0bd8fb3767897fa8e8892fa6b4"
+    },
+    {
+      "path": "dist/connection-page.d.ts",
+      "sha256": "8274e21264f260a0246e3851bbb2599ef915cfc860060bd6dd8a14dad347b855"
+    },
+    {
+      "path": "dist/connection-page.js",
+      "sha256": "c7266238ac6f8d4dbe75bd0d36f6e81b17e3a9f1e49cdbd8c3cec677b7437d01"
+    },
+    {
+      "path": "dist/index.d.ts",
+      "sha256": "43e818adf60173644896298637f47b01d5819b17eda46eaa32d0c7d64724d012"
+    },
+    {
+      "path": "dist/index.js",
+      "sha256": "7bdc44a6ced1edca80e30a22416072059eb10ebfa7b8f4ecfb4b39c7d6dcda57"
+    },
+    {
+      "path": "dist/quota.d.ts",
+      "sha256": "2d179e72f97919b38bbd59734eae4a10b2171a1bbb893399d486e2a23c3db721"
+    },
+    {
+      "path": "dist/quota.js",
+      "sha256": "0aec75b3ed38b6051192b75a8017d90ef9d01d836c07059977d39e14b76ba3ce"
+    },
+    {
+      "path": "dist/request-context.d.ts",
+      "sha256": "65f78d05bddbe9e12cb3ce62ae666862c6f1744a4c4b8af2af6843277115a8dc"
+    },
+    {
+      "path": "dist/request-context.js",
+      "sha256": "562b336c9f5862bc5d326b3303244b1cc78b025ad14a578a61965542205d430b"
+    },
+    {
+      "path": "dist/telemetry.d.ts",
+      "sha256": "31fdab8179402119184c8bb52bd8b0a531399048399a1a7b12be7f20ababb1f6"
+    },
+    {
+      "path": "dist/telemetry.js",
+      "sha256": "3c9760d9c5fb42d08b18610afa7b9da3d274114ae779b3d7979275b902553f64"
+    },
+    {
+      "path": "dist/tools/audit-tokens.d.ts",
+      "sha256": "a37836432a9af6dcb7edd6e447fced6be6163f480726f8742223e62e3f9b8c5d"
+    },
+    {
+      "path": "dist/tools/audit-tokens.js",
+      "sha256": "ee217b73170421c38b299dcce2e7e6607f3f70856e95122e8250437b20445054"
+    },
+    {
+      "path": "dist/tools/client-reviews.d.ts",
+      "sha256": "7ca5721e7fa6c0e50294120ea9c27e99230c2a563b4bcdea211ea14a69575ded"
+    },
+    {
+      "path": "dist/tools/client-reviews.js",
+      "sha256": "c0851fa7891f9fc4aae8283bc066de951d8ce5d9ebf39eb2280dce669559bcfe"
+    },
+    {
+      "path": "dist/tools/comments.d.ts",
+      "sha256": "df0cc644cc5aaa21832aba268a96963c07402ab327411c61af2139c89f8f3676"
+    },
+    {
+      "path": "dist/tools/comments.js",
+      "sha256": "d24d508409c4131013de998c898c808ce2c512382c5cc514ea041d3e242da246"
+    },
+    {
+      "path": "dist/tools/compare-visual.d.ts",
+      "sha256": "e83a0f0ed1a9450187cb1852c2688c310f66b1e99e1042ae7a1f8ffd0a496400"
+    },
+    {
+      "path": "dist/tools/compare-visual.js",
+      "sha256": "4f231bb2eaac72ddca6ad1777f29dcc8982a722ba888b9fddde138fc5e8a8372"
+    },
+    {
+      "path": "dist/tools/create-issue.d.ts",
+      "sha256": "1946ce8d73810d6b7c3b897f72e5352c6d549f6c563e7f3f39e119e2af3bac28"
+    },
+    {
+      "path": "dist/tools/create-issue.js",
+      "sha256": "c61612907555e0f83ed695162744be7f679a23d7c75e47965540b63f20eb021b"
+    },
+    {
+      "path": "dist/tools/create-project.d.ts",
+      "sha256": "636587ffe221637a7ca92559ddf421ddc0130f76c23523fbe80403117f76d728"
+    },
+    {
+      "path": "dist/tools/create-project.js",
+      "sha256": "59011eddb75f2155836759f00ab6aca5adf533253c8853a18afc40b0eba7ed63"
+    },
+    {
+      "path": "dist/tools/issue-context.d.ts",
+      "sha256": "d24ef84d247a40b9def3ab55efad2a61811a62aaaa55cb3eaa010d6a617c2bf4"
+    },
+    {
+      "path": "dist/tools/issue-context.js",
+      "sha256": "bfe3b5b319b06109486c26fe2012d5dbb470db5618f515223d22633baebf5b7a"
+    },
+    {
+      "path": "dist/tools/labels.d.ts",
+      "sha256": "b15c39ed06daf89c0763273035eb9c3a6cb598f93e68794f4793abcc27ea3edd"
+    },
+    {
+      "path": "dist/tools/labels.js",
+      "sha256": "fbf6220c7687e2e644db0abdb099366bbe6d2cda9c8b40df9084a2027066bd10"
+    },
+    {
+      "path": "dist/tools/list-issues.d.ts",
+      "sha256": "5e45ca92eec89aa303ae28537f0bb116bbbb69080b5a55aa58f35b17d3916206"
+    },
+    {
+      "path": "dist/tools/list-issues.js",
+      "sha256": "6aee1c580e94be6bd1472dd69fffb08f4bd309c46076a9bb8f2e9352f7953912"
+    },
+    {
+      "path": "dist/tools/list-projects.d.ts",
+      "sha256": "0e2eb91e5038f9515b7821c17a8b5d85c754e19edda5494d86ccf18b9759c142"
+    },
+    {
+      "path": "dist/tools/list-projects.js",
+      "sha256": "013f02746bdf68b34b13bb94be0a0101471eaea78f7d663b7219ae1c36ad3c92"
+    },
+    {
+      "path": "dist/tools/request.d.ts",
+      "sha256": "b0b5868d81864c27efb5d9352c89aabba04dcc79616209b21745599642483fa8"
+    },
+    {
+      "path": "dist/tools/request.js",
+      "sha256": "9a4ba17bf36caf7e620aecb11c4a554a6df32b25cf8108a6ba77dfadcadeb235"
+    },
+    {
+      "path": "dist/tools/scan-accessibility.d.ts",
+      "sha256": "2bf4b451c3fd220984e1f91ddbce0d60398730c0f2c726d74afe315f8079451b"
+    },
+    {
+      "path": "dist/tools/scan-accessibility.js",
+      "sha256": "4fd4fa7aa2ea2f4fb697ab25e08a4068771fabb49051a4997118df37de3401e4"
+    },
+    {
+      "path": "dist/tools/scan-and-create-issues.d.ts",
+      "sha256": "4cc55aa26e509e4fe168285900da1bbe15e639d44dac1213675b349f905dcbdf"
+    },
+    {
+      "path": "dist/tools/scan-and-create-issues.js",
+      "sha256": "2e5475cf4fd848c6b2219ba612ecb9d1e40671c8c15faa67e6a4dda80110e64e"
+    },
+    {
+      "path": "dist/tools/scan-contrast.d.ts",
+      "sha256": "e76b19df1d559018f3fbfbe23e4e862b5414b66712754567d72c55c32ce52de8"
+    },
+    {
+      "path": "dist/tools/scan-contrast.js",
+      "sha256": "9e6e0ac0b6bfb489e59e8b57d6b8d9f908d54f1394d7677f7595f4438af5ef8d"
+    },
+    {
+      "path": "dist/tools/update-issue.d.ts",
+      "sha256": "fb55070e219cbbbe6080a82e1752f924310b6b25adda81474d081a2a076559bb"
+    },
+    {
+      "path": "dist/tools/update-issue.js",
+      "sha256": "59d9bb3f3f758280a92c50d28dc1337780b55b36e449e4bcead02087ce76b3a7"
+    },
+    {
+      "path": "dist/tools/verification.d.ts",
+      "sha256": "d14bc77d86afe627d76ca3e726297a4d412ba893f8a3cb650afd471fe186c724"
+    },
+    {
+      "path": "dist/tools/verification.js",
+      "sha256": "4066f5378907f6497e3faa302db2b9603adea265ae16d4e56f19c23d56ead357"
+    },
+    {
+      "path": "dist/types.d.ts",
+      "sha256": "9b1343ec521d6a331ae7bea204762e144e03b4c89a74c4ade4b19846df2f5528"
+    },
+    {
+      "path": "dist/types.js",
+      "sha256": "9032d6b0b362b7e081ef8e912b35906ff6135e89b0989bc77e6ac05394321cea"
+    }
+  ],
+  "state": "published and verified",
+  "userAuthorization": "publish it; no announcement needed",
+  "verificationBoundary": "No browser OAuth or editor UI exercised; actual SDK stdio and production API checked.",
+  "packageSha256": "ccf36686f395894dba4cc114736dda0cfb10df14f22e871227716d84c98193a1",
+  "packageIntegrity": "sha512-7BYE95CSCCv3BSNi9ywxYvFF4uoTRc8Y0QA28CObT6Cq7PRKme04t+HJfE27/+RMN7UZtBOansfU+npKMbsG7A==",
+  "artifactMatchesVerifiedPackage": true,
+  "archive": "/var/folders/3_/t2y324sd09x9qnkct8gx6c080000gp/T/overlayqa-mcp-publish-0.4.1-p2z1apiw/overlayqa-mcp-0.4.1.tgz",
+  "candidateConsumer": "/var/folders/3_/t2y324sd09x9qnkct8gx6c080000gp/T/overlayqa-mcp-publish-0.4.1-p2z1apiw/candidate-install",
+  "authRequestedAt": "2026-10-15T18:45:57.867796+00:00",
+  "publishSessionId": 67743,
+  "verificationHarnessFix": "90be568",
+  "verificationHarnessMergedAndPushed": "ad36bff0f5fc835fe13ae72ff04b3a3875fefa79",
+  "candidateTests": {
+    "passed": 45,
+    "failed": 0,
+    "log": "candidate-tests-corrected.txt"
+  },
+  "harnessCorrection": "Warm up HTTP client before testing a stalled status request. The original 100ms deadline could fire before dispatch. Corrected check still fails against npm 0.4.0. Product archive unchanged.",
+  "publishSession": 67743,
+  "publishRetriedAt": "2026-10-15T20:12:46.032321+00:00",
+  "npmPublishAcceptedAt": "2026-10-15T20:13:07.846515+00:00",
+  "npmPublishOutput": "Your package is being processed and may take a few minutes to become available.\n+ @overlayqa/mcp@0.4.1",
+  "publicationCheckedAt": "2026-10-15T20:15:41.028983+00:00",
+  "registryTarballSha256": "ccf36686f395894dba4cc114736dda0cfb10df14f22e871227716d84c98193a1",
+  "publishedTags": {
+    "latest": "0.4.1"
+  },
+  "publishedIntegrity": "sha512-7BYE95CSCCv3BSNi9ywxYvFF4uoTRc8Y0QA28CObT6Cq7PRKme04t+HJfE27/+RMN7UZtBOansfU+npKMbsG7A==",
+  "installedSdk": "1.32.1",
+  "installedEntry": "/var/folders/3_/t2y324sd09x9qnkct8gx6c080000gp/T/overlayqa-mcp-publish-0.4.1-p2z1apiw/public-install/node_modules/@overlayqa/mcp/dist/index.js",
+  "verificationHarnessCommit": "ad36bff0f5fc835fe13ae72ff04b3a3875fefa79",
+  "completedAt": "2026-10-15T20:17:58.340654+00:00",
+  "publishedAt": "2026-10-15T20:14:54.008Z",
+  "finalRegistryCheckedAt": "2026-10-15T20:17:58.340654+00:00",
+  "finalTags": {
+    "latest": "0.4.1"
+  },
+  "tests": {
+    "published-tests.txt": {
+      "tests": 45,
+      "pass": 45,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "finishedAt": "2026-10-15T20:16:10.843861+00:00"
+    },
+    "npx-tests.txt": {
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "finishedAt": "2026-10-15T20:15:58.060070+00:00"
+    }
+  },
+  "production": {
+    "status": "PASS",
+    "passed": 7,
+    "finishedAt": "2026-10-15T20:16:18.469Z",
+    "role": "owner",
+    "account": "testsprite@overlayqa.com",
+    "host": "https://api.overlayqa.com",
+    "cleanupPassed": true
+  },
+  "node": "v22.23.2",
+  "npm": "10.9.8",
+  "machine": "MacBook-Pro.local"
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "checkedAt": "2026-10-15T20:15:19.194656+00:00",
+    "tags": {
+      "latest": "0.4.1"
+    },
+    "publishedAt": "2026-10-15T20:14:54.008Z",
+    "versionPresent": true,
+    "headers": {
+      "Date": "Thu, 15 Oct 2026 20:15:19 GMT",
+      "Age": "20",
+      "CF-Cache-Status": "HIT",
+      "Last-Modified": "Thu, 15 Oct 2026 20:14:55 GMT"
+    }
+  }
+]

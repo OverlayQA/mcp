@@ -1,0 +1,325 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>MCP edge-case fixes · 0.4.1</title><style>body{font:16px/1.5 system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#17252b;background:#f7faf9}h1,h2{line-height:1.2}section{margin-top:40px}table{border-collapse:collapse;width:100%;background:white}th,td{padding:14px;text-align:left;vertical-align:top;border:1px solid #dce5e1}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,monospace}a{color:#066b59}.status{background:#e1f4e9;padding:14px;border-left:4px solid #18734c}</style><h1>MCP requests recover safely when something goes wrong</h1><p class="status">0.4.1 candidate verified locally and against production services. Unpublished.</p><p>The original tool-registration repair is retained. These additional fixes protect sign-in, make uncertain writes explicit, stop cancelled client work and build a complete npm package.</p><h2>Repairs and reproduced failures</h2><table><tr><th>Journey</th><th>Result</th><th>Reproduction</th></tr><tr><td>Sign-in recovery</td><td>A late rejected request preserves a newer saved sign-in. Malformed credentials are refused locally.</td><td><a href="before-transport.txt">Before evidence</a></td></tr><tr><td>Readable outcomes</td><td>Invalid response bodies return errors. Lost or disconnected write responses explain that the action may have completed; no automatic write retry is added.</td><td><a href="before-disconnected-write.txt">Before evidence</a></td></tr><tr><td>Cancellation and scan limits</td><td>Cancelling stops pending HTTP work and polling. A scan deadline now covers stalled HTTP responses and waiting between polls.</td><td><a href="before-polling.txt">Before evidence</a></td></tr><tr><td>Scan response validation</td><td>Missing job IDs and unknown job states fail explicitly; job IDs are encoded as one URL path segment.</td><td><a href="before-polling.txt">Before evidence</a></td></tr><tr><td>Optional editor metadata</td><td>Unsafe editor headers and malformed Unicode analytics context no longer prevent the requested action. Concurrent calls retain separate purposes.</td><td><a href="before-transport.txt">Before evidence</a></td></tr><tr><td>Release packaging</td><td>npm pack rebuilds the executable from source, including when output is absent or stale.</td><td><a href="before-packaging.json">Before evidence</a></td></tr></table><h2>Automated checks</h2><ul><li><a href="tests-node22.txt">tests-node22.txt</a>: 69/69 passed.</li><li><a href="tests-node18.txt">tests-node18.txt</a>: 69/69 passed.</li><li><a href="tests-packed.txt">tests-packed.txt</a>: 45/45 passed.</li></ul><p>The Node 18 and Node 22 runs cover the same suite. The packed-artifact run exercises all 29 registered tools, input refusal and recovery, and the transport regressions through actual stdio processes. Every runtime file in the packed artifact matched the build used for recovery checks.</p><section><h2>recovery-local</h2><p>http://localhost:3289 · harness-journey+clerk_test@overlayqa.com · owner · MacBook-Pro.local</p><p>2026-10-15T18:22:36.062Z → 2026-10-15T18:23:12.338Z · 7 passed, 0 failed</p><table><tr><th>Action and next action</th><th>Observed outcome</th><th>Checked at</th></tr><tr><td>A genuine delayed 401 preserves a fresh valid sign-in and the next call works</td><td><strong>PASS</strong><pre>{
+  &quot;rejectedStatus&quot;: 401,
+  &quot;nextStatus&quot;: 200,
+  &quot;freshSignInPreserved&quot;: true,
+  &quot;invalidOptionalMetadataOmitted&quot;: true
+}</pre></td><td>2026-10-15T18:22:37.707Z</td></tr><tr><td>An unreadable genuine read returns an error and a later read recovers</td><td><strong>PASS</strong><pre>{
+  &quot;invalidCode&quot;: &quot;INVALID_RESPONSE&quot;,
+  &quot;recovered&quot;: true
+}</pre></td><td>2026-10-15T18:22:38.141Z</td></tr><tr><td>A unreadable-write after saving is flagged, never retried, and the issue can be reopened</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;cc5cf35d-51af-44c3-a45c-a7581f1dea35&quot;,
+  &quot;postCount&quot;: 1,
+  &quot;persistedIssueCount&quot;: 1,
+  &quot;reopenedTitle&quot;: &quot;harness-run-mcp-edge-1792088558874&quot;
+}</pre></td><td>2026-10-15T18:22:39.598Z</td></tr><tr><td>A disconnect-write after saving is flagged, never retried, and the issue can be reopened</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;a6b84c3f-c694-471b-a86f-1556f4f5d976&quot;,
+  &quot;postCount&quot;: 1,
+  &quot;persistedIssueCount&quot;: 2,
+  &quot;reopenedTitle&quot;: &quot;harness-run-mcp-edge-1792088558874&quot;
+}</pre></td><td>2026-10-15T18:22:42.131Z</td></tr><tr><td>Cancelling a genuine pending read closes its HTTP connection and the next call works</td><td><strong>PASS</strong><pre>{
+  &quot;cancelledConnectionClosed&quot;: true,
+  &quot;recovered&quot;: true,
+  &quot;serverRollbackClaimed&quot;: false
+}</pre></td><td>2026-10-15T18:22:44.555Z</td></tr><tr><td>scan_accessibility completes through the real queue and returns findings</td><td><strong>PASS</strong><pre>{
+  &quot;scanUrl&quot;: &quot;https://example.com&quot;,
+  &quot;jobPath&quot;: &quot;/api/mcp/scan/status/d7db3aac30c948af&quot;,
+  &quot;status&quot;: &quot;complete&quot;,
+  &quot;violationCount&quot;: 1,
+  &quot;httpRequests&quot;: 8
+}</pre></td><td>2026-10-15T18:22:45.276Z</td></tr><tr><td>scan_contrast completes through the real queue and returns findings</td><td><strong>PASS</strong><pre>{
+  &quot;scanUrl&quot;: &quot;https://example.com&quot;,
+  &quot;jobPath&quot;: &quot;/api/mcp/scan/status/fc9b736f450f41d0&quot;,
+  &quot;status&quot;: &quot;complete&quot;,
+  &quot;violationCount&quot;: 0,
+  &quot;httpRequests&quot;: 6
+}</pre></td><td>2026-10-15T18:23:00.577Z</td></tr></table><p><a href="recovery-local/results.json">Full record, target, substitutions and cleanup</a></p></section><section><h2>recovery-production</h2><p>https://api.overlayqa.com · testsprite@overlayqa.com · owner · MacBook-Pro.local</p><p>2026-10-15T18:23:14.026Z → 2026-10-15T18:23:35.046Z · 7 passed, 0 failed</p><table><tr><th>Action and next action</th><th>Observed outcome</th><th>Checked at</th></tr><tr><td>A genuine delayed 401 preserves a fresh valid sign-in and the next call works</td><td><strong>PASS</strong><pre>{
+  &quot;rejectedStatus&quot;: 401,
+  &quot;nextStatus&quot;: 200,
+  &quot;freshSignInPreserved&quot;: true,
+  &quot;invalidOptionalMetadataOmitted&quot;: true
+}</pre></td><td>2026-10-15T18:23:15.219Z</td></tr><tr><td>An unreadable genuine read returns an error and a later read recovers</td><td><strong>PASS</strong><pre>{
+  &quot;invalidCode&quot;: &quot;INVALID_RESPONSE&quot;,
+  &quot;recovered&quot;: true
+}</pre></td><td>2026-10-15T18:23:15.415Z</td></tr><tr><td>A unreadable-write after saving is flagged, never retried, and the issue can be reopened</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;d7921ed7-bdce-4dc9-bb03-2fd689ca0b01&quot;,
+  &quot;acceptedWriteCount&quot;: 1,
+  &quot;rateLimitRefusals&quot;: 0,
+  &quot;persistedIssueCount&quot;: 1,
+  &quot;reopenedTitle&quot;: &quot;harness-run-mcp-edge-1792088595794&quot;
+}</pre></td><td>2026-10-15T18:23:15.907Z</td></tr><tr><td>A disconnect-write after saving is flagged, never retried, and the issue can be reopened</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;4b115cd9-a3fe-4ad6-8629-62a32cd35bc8&quot;,
+  &quot;acceptedWriteCount&quot;: 1,
+  &quot;rateLimitRefusals&quot;: 0,
+  &quot;persistedIssueCount&quot;: 2,
+  &quot;reopenedTitle&quot;: &quot;harness-run-mcp-edge-1792088595794&quot;
+}</pre></td><td>2026-10-15T18:23:16.354Z</td></tr><tr><td>Cancelling a genuine pending read closes its HTTP connection and the next call works</td><td><strong>PASS</strong><pre>{
+  &quot;cancelledConnectionClosed&quot;: true,
+  &quot;recovered&quot;: true,
+  &quot;serverRollbackClaimed&quot;: false
+}</pre></td><td>2026-10-15T18:23:16.797Z</td></tr><tr><td>scan_accessibility completes through the real queue and returns findings</td><td><strong>PASS</strong><pre>{
+  &quot;scanUrl&quot;: &quot;https://example.com&quot;,
+  &quot;jobPath&quot;: &quot;/api/mcp/scan/status/1fb7e084f23d4d85&quot;,
+  &quot;status&quot;: &quot;complete&quot;,
+  &quot;violationCount&quot;: 1,
+  &quot;httpRequests&quot;: 7
+}</pre></td><td>2026-10-15T18:23:17.015Z</td></tr><tr><td>scan_contrast completes through the real queue and returns findings</td><td><strong>PASS</strong><pre>{
+  &quot;scanUrl&quot;: &quot;https://example.com&quot;,
+  &quot;jobPath&quot;: &quot;/api/mcp/scan/status/4acb201393874cec&quot;,
+  &quot;status&quot;: &quot;complete&quot;,
+  &quot;violationCount&quot;: 0,
+  &quot;httpRequests&quot;: 5
+}</pre></td><td>2026-10-15T18:23:28.079Z</td></tr></table><p><a href="recovery-production/results.json">Full record, target, substitutions and cleanup</a></p></section><section><h2>issues-local</h2><p>http://localhost:3289 · harness-journey+clerk_test@overlayqa.com · owner · MacBook-Pro.local</p><p>2026-10-15T18:24:08.617Z → 2026-10-15T18:25:37.366Z · 7 passed, 0 failed</p><table><tr><th>Action and next action</th><th>Observed outcome</th><th>Checked at</th></tr><tr><td>Actual MCP discovery exposes issue and label tools</td><td><strong>PASS</strong><pre>{
+  &quot;names&quot;: [
+    &quot;scan_accessibility&quot;,
+    &quot;scan_contrast&quot;,
+    &quot;scan_and_create_issues&quot;,
+    &quot;compare_visual&quot;,
+    &quot;audit_tokens&quot;,
+    &quot;create_issue&quot;,
+    &quot;list_issues&quot;,
+    &quot;update_issue&quot;,
+    &quot;get_issue&quot;,
+    &quot;list_project_members&quot;,
+    &quot;move_issue&quot;,
+    &quot;verify_issue&quot;,
+    &quot;get_issue_verifications&quot;,
+    &quot;list_comments&quot;,
+    &quot;create_comment&quot;,
+    &quot;update_comment&quot;,
+    &quot;delete_comment&quot;,
+    &quot;get_comment_attachment&quot;,
+    &quot;list_labels&quot;,
+    &quot;create_label&quot;,
+    &quot;rename_label&quot;,
+    &quot;delete_label&quot;,
+    &quot;set_issue_label&quot;,
+    &quot;list_projects&quot;,
+    &quot;create_project&quot;,
+    &quot;list_client_reviews&quot;,
+    &quot;create_client_review&quot;,
+    &quot;update_client_review&quot;,
+    &quot;set_client_review_recipients&quot;
+  ]
+}</pre></td><td>2026-10-15T18:24:10.352Z</td></tr><tr><td>Creation keeps explicit Unassigned and teammate selection</td><td><strong>PASS</strong><pre>{
+  &quot;issueIds&quot;: [
+    &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+    &quot;bf31edf3-a7a1-46fc-a419-6493ec91e585&quot;,
+    &quot;1f6d5843-edcb-4702-b44c-c8bce2310190&quot;
+  ],
+  &quot;assignedUserId&quot;: &quot;39fffa44-5f33-4a41-ab67-9aa7face64df&quot;
+}</pre></td><td>2026-10-15T18:24:14.865Z</td></tr><tr><td>Assignment, detail edits and ignore preserve status through restart</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;status&quot;: &quot;open&quot;,
+  &quot;assigneeId&quot;: null,
+  &quot;ignoredAt&quot;: null
+}</pre></td><td>2026-10-15T18:24:15.357Z</td></tr><tr><td>Full issue detail and teammate discovery use readable project context</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;detailFields&quot;: [
+    &quot;id&quot;,
+    &quot;projectId&quot;,
+    &quot;createdById&quot;,
+    &quot;assigneeId&quot;,
+    &quot;groupId&quot;,
+    &quot;displayId&quot;,
+    &quot;title&quot;,
+    &quot;description&quot;,
+    &quot;mentionedUserIds&quot;,
+    &quot;severity&quot;,
+    &quot;type&quot;,
+    &quot;status&quot;,
+    &quot;screenshotUrl&quot;,
+    &quot;pageUrl&quot;,
+    &quot;viewportWidth&quot;,
+    &quot;viewportHeight&quot;,
+    &quot;devicePixelRatio&quot;,
+    &quot;screenWidth&quot;,
+    &quot;screenHeight&quot;,
+    &quot;domSelector&quot;,
+    &quot;figmaFileKey&quot;,
+    &quot;figmaNodeId&quot;,
+    &quot;figmaFrameUrl&quot;,
+    &quot;figmaFrameName&quot;,
+    &quot;figmaScreenshotUrl&quot;,
+    &quot;browserName&quot;,
+    &quot;browserVersion&quot;,
+    &quot;os&quot;,
+    &quot;hasAiAnalysis&quot;,
+    &quot;pinX&quot;,
+    &quot;pinY&quot;,
+    &quot;cropRegion&quot;,
+    &quot;scrollOffsetAtCapture&quot;,
+    &quot;viewportAtCapture&quot;,
+    &quot;fullPageScreenshotUrl&quot;,
+    &quot;domSnapshotUrl&quot;,
+    &quot;documentDimensionsAtCapture&quot;,
+    &quot;capturedBreakpoint&quot;,
+    &quot;pinType&quot;,
+    &quot;elementData&quot;,
+    &quot;clientCommentId&quot;,
+    &quot;source&quot;,
+    &quot;reviewToken&quot;,
+    &quot;isDemo&quot;,
+    &quot;exportedTo&quot;,
+    &quot;idempotencyKey&quot;,
+    &quot;lastVerificationId&quot;,
+    &quot;regressed&quot;,
+    &quot;createdAt&quot;,
+    &quot;updatedAt&quot;,
+    &quot;resolvedAt&quot;,
+    &quot;ignoredAt&quot;,
+    &quot;ignoredByUserId&quot;,
+    &quot;notDetectedAt&quot;,
+    &quot;lastDetectedAt&quot;,
+    &quot;createdBy&quot;,
+    &quot;assignee&quot;,
+    &quot;project&quot;,
+    &quot;labels&quot;,
+    &quot;figmaComments&quot;,
+    &quot;comments&quot;,
+    &quot;latestVerification&quot;
+  ],
+  &quot;currentUserId&quot;: &quot;39fffa44-5f33-4a41-ab67-9aa7face64df&quot;
+}</pre></td><td>2026-10-15T18:24:18.238Z</td></tr><tr><td>Pagination and triage filters return matching totals without losing ignored meaning</td><td><strong>PASS</strong><pre>{
+  &quot;total&quot;: 3,
+  &quot;pages&quot;: [
+    1,
+    2,
+    3
+  ],
+  &quot;lastHasMore&quot;: false
+}</pre></td><td>2026-10-15T18:24:19.766Z</td></tr><tr><td>Labels create/apply/retry/filter/rename/remove/delete retain issue content</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;labelRemoved&quot;: true
+}</pre></td><td>2026-10-15T18:25:17.635Z</td></tr><tr><td>Comments keep audience, mentions and files across retries, edit, move and reopen</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;displayId&quot;: &quot;HA2-1&quot;,
+  &quot;retainedPublicCommentId&quot;: &quot;9425ba8f-bee8-4d13-9996-78bf96de76f0&quot;,
+  &quot;deletedCommentId&quot;: &quot;09657d58-fe6d-4117-a034-3391e78e5308&quot;
+}</pre></td><td>2026-10-15T18:25:26.638Z</td></tr></table><p><a href="issues-local/results.json">Full record, target, substitutions and cleanup</a></p></section><section><h2>issues-production</h2><p>https://api.overlayqa.com · testsprite@overlayqa.com · owner · MacBook-Pro.local</p><p>2026-10-15T18:23:56.805Z → 2026-10-15T18:25:20.306Z · 7 passed, 0 failed</p><table><tr><th>Action and next action</th><th>Observed outcome</th><th>Checked at</th></tr><tr><td>Actual MCP discovery exposes issue and label tools</td><td><strong>PASS</strong><pre>{
+  &quot;names&quot;: [
+    &quot;scan_accessibility&quot;,
+    &quot;scan_contrast&quot;,
+    &quot;scan_and_create_issues&quot;,
+    &quot;compare_visual&quot;,
+    &quot;audit_tokens&quot;,
+    &quot;create_issue&quot;,
+    &quot;list_issues&quot;,
+    &quot;update_issue&quot;,
+    &quot;get_issue&quot;,
+    &quot;list_project_members&quot;,
+    &quot;move_issue&quot;,
+    &quot;verify_issue&quot;,
+    &quot;get_issue_verifications&quot;,
+    &quot;list_comments&quot;,
+    &quot;create_comment&quot;,
+    &quot;update_comment&quot;,
+    &quot;delete_comment&quot;,
+    &quot;get_comment_attachment&quot;,
+    &quot;list_labels&quot;,
+    &quot;create_label&quot;,
+    &quot;rename_label&quot;,
+    &quot;delete_label&quot;,
+    &quot;set_issue_label&quot;,
+    &quot;list_projects&quot;,
+    &quot;create_project&quot;,
+    &quot;list_client_reviews&quot;,
+    &quot;create_client_review&quot;,
+    &quot;update_client_review&quot;,
+    &quot;set_client_review_recipients&quot;
+  ]
+}</pre></td><td>2026-10-15T18:23:57.992Z</td></tr><tr><td>Creation keeps explicit Unassigned and teammate selection</td><td><strong>PASS</strong><pre>{
+  &quot;issueIds&quot;: [
+    &quot;55702e80-d2de-40e9-90b2-438694fc660c&quot;,
+    &quot;6ed237a3-307e-43ee-9842-e10667dc60ad&quot;,
+    &quot;7e1ac566-2509-4499-88f8-c8dae087a36b&quot;
+  ],
+  &quot;assignedUserId&quot;: &quot;eb26fd75-c386-4912-8838-9b82df52667c&quot;
+}</pre></td><td>2026-10-15T18:23:58.951Z</td></tr><tr><td>Assignment, detail edits and ignore preserve status through restart</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;55702e80-d2de-40e9-90b2-438694fc660c&quot;,
+  &quot;status&quot;: &quot;open&quot;,
+  &quot;assigneeId&quot;: null,
+  &quot;ignoredAt&quot;: null
+}</pre></td><td>2026-10-15T18:23:59.236Z</td></tr><tr><td>Full issue detail and teammate discovery use readable project context</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;55702e80-d2de-40e9-90b2-438694fc660c&quot;,
+  &quot;detailFields&quot;: [
+    &quot;id&quot;,
+    &quot;projectId&quot;,
+    &quot;createdById&quot;,
+    &quot;assigneeId&quot;,
+    &quot;groupId&quot;,
+    &quot;displayId&quot;,
+    &quot;title&quot;,
+    &quot;description&quot;,
+    &quot;mentionedUserIds&quot;,
+    &quot;severity&quot;,
+    &quot;type&quot;,
+    &quot;status&quot;,
+    &quot;screenshotUrl&quot;,
+    &quot;pageUrl&quot;,
+    &quot;viewportWidth&quot;,
+    &quot;viewportHeight&quot;,
+    &quot;devicePixelRatio&quot;,
+    &quot;screenWidth&quot;,
+    &quot;screenHeight&quot;,
+    &quot;domSelector&quot;,
+    &quot;figmaFileKey&quot;,
+    &quot;figmaNodeId&quot;,
+    &quot;figmaFrameUrl&quot;,
+    &quot;figmaFrameName&quot;,
+    &quot;figmaScreenshotUrl&quot;,
+    &quot;browserName&quot;,
+    &quot;browserVersion&quot;,
+    &quot;os&quot;,
+    &quot;hasAiAnalysis&quot;,
+    &quot;pinX&quot;,
+    &quot;pinY&quot;,
+    &quot;cropRegion&quot;,
+    &quot;scrollOffsetAtCapture&quot;,
+    &quot;viewportAtCapture&quot;,
+    &quot;fullPageScreenshotUrl&quot;,
+    &quot;domSnapshotUrl&quot;,
+    &quot;documentDimensionsAtCapture&quot;,
+    &quot;capturedBreakpoint&quot;,
+    &quot;pinType&quot;,
+    &quot;elementData&quot;,
+    &quot;clientCommentId&quot;,
+    &quot;source&quot;,
+    &quot;reviewToken&quot;,
+    &quot;isDemo&quot;,
+    &quot;exportedTo&quot;,
+    &quot;idempotencyKey&quot;,
+    &quot;lastVerificationId&quot;,
+    &quot;regressed&quot;,
+    &quot;createdAt&quot;,
+    &quot;updatedAt&quot;,
+    &quot;resolvedAt&quot;,
+    &quot;ignoredAt&quot;,
+    &quot;ignoredByUserId&quot;,
+    &quot;notDetectedAt&quot;,
+    &quot;lastDetectedAt&quot;,
+    &quot;createdBy&quot;,
+    &quot;assignee&quot;,
+    &quot;project&quot;,
+    &quot;labels&quot;,
+    &quot;figmaComments&quot;,
+    &quot;comments&quot;,
+    &quot;latestVerification&quot;
+  ],
+  &quot;currentUserId&quot;: &quot;eb26fd75-c386-4912-8838-9b82df52667c&quot;
+}</pre></td><td>2026-10-15T18:24:00.336Z</td></tr><tr><td>Pagination and triage filters return matching totals without losing ignored meaning</td><td><strong>PASS</strong><pre>{
+  &quot;total&quot;: 3,
+  &quot;pages&quot;: [
+    1,
+    2,
+    3
+  ],
+  &quot;lastHasMore&quot;: false
+}</pre></td><td>2026-10-15T18:24:00.849Z</td></tr><tr><td>Labels create/apply/retry/filter/rename/remove/delete retain issue content</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;55702e80-d2de-40e9-90b2-438694fc660c&quot;,
+  &quot;labelRemoved&quot;: true
+}</pre></td><td>2026-10-15T18:25:00.381Z</td></tr><tr><td>Comments keep audience, mentions and files across retries, edit, move and reopen</td><td><strong>PASS</strong><pre>{
+  &quot;issueId&quot;: &quot;55702e80-d2de-40e9-90b2-438694fc660c&quot;,
+  &quot;displayId&quot;: &quot;HA2-1&quot;,
+  &quot;retainedPublicCommentId&quot;: &quot;cd4010ea-5e42-44cf-97be-0c4352fd2d2b&quot;,
+  &quot;deletedCommentId&quot;: &quot;b9922dde-b34b-436e-8f82-68c306f995bf&quot;
+}</pre></td><td>2026-10-15T18:25:02.400Z</td></tr></table><p><a href="issues-production/results.json">Full record, target, substitutions and cleanup</a></p></section><h2>Coverage limits</h2><ul><li>Actual built stdio client, SDK consumer and real API/persistence exercised. HTTP fault boundary is named in each recovery report.</li><li>Browser OAuth exchange and editor UI not exercised; isolated designated account session tokens supplied.</li><li>Only owner test accounts exercised against live services; no claim about other account roles.</li><li>Malformed credentials, scan ID/state faults, hung status deadline and concurrent polling cancellation exercised at a controlled HTTP boundary, not by damaging production services.</li><li>Cancellation stops client requests and polling; it cannot undo an accepted server write or cancel a server scan job.</li><li>No push, npm publish, deployment or customer communication performed. Registry version checked as 0.4.0.</li></ul><p>All run-owned projects and labels deleted. Scan jobs use the normal temporary server queue; no scan-job deletion was attempted.</p><h2>Recheckable evidence</h2><ul><li><a href="summary.json">summary.json</a></li><li><a href="runtime-provenance.json">runtime-provenance.json</a></li><li><a href="service-targets.json">service-targets.json</a></li><li><a href="evidence-files.json">evidence-files.json</a></li><li><a href="package.json">package.json</a></li><li><a href="registry-version.txt">registry-version.txt</a></li><li><a href="typecheck.txt">typecheck.txt</a></li><li><a href="tests-node22.txt">tests-node22.txt</a></li><li><a href="tests-node18.txt">tests-node18.txt</a></li><li><a href="tests-packed.txt">tests-packed.txt</a></li></ul></html>

@@ -97,11 +97,22 @@ export function buildTelemetryHeaders(): Record<string, string> {
   const headers: Record<string, string> = {};
   const client = clientInfoProvider();
   if (client?.name) {
-    headers['x-overlayqa-mcp-client'] = client.version ? `${client.name}/${client.version}` : client.name;
+    // Match routes/mcp/telemetry.ts:38's CLIENT_FIELD_MAX_CHARS on the API.
+    // That parser does not URI-decode client names. Omit unsafe metadata
+    // rather than letting fetch reject the entire tool request.
+    const name = client.name.slice(0, 64);
+    const version = client.version?.slice(0, 64);
+    const value = version ? `${name}/${version}` : name;
+    if (/^[\x20-\x7e]+$/.test(value)) headers['x-overlayqa-mcp-client'] = value;
   }
   const intent = currentIntent();
   if (intent) {
-    headers['x-overlayqa-mcp-intent'] = encodeURIComponent(intent);
+    try {
+      headers['x-overlayqa-mcp-intent'] = encodeURIComponent(intent);
+    } catch {
+      // JSON allows lone UTF-16 surrogates; optional analytics must not
+      // prevent the requested action when URI encoding rejects them.
+    }
   }
   return headers;
 }

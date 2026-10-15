@@ -1,0 +1,214 @@
+{
+  "apiBase": "https://api.overlayqa.com",
+  "machine": "MacBook-Pro.local",
+  "account": "testsprite@overlayqa.com",
+  "role": "owner",
+  "clientCommit": "c80ac5dd68853e587aff350d96c79fc2ac3ed235",
+  "clientEntrySha256": "7bdc44a6ced1edca80e30a22416072059eb10ebfa7b8f4ecfb4b39c7d6dcda57",
+  "startedAt": "2026-10-15T18:23:56.805Z",
+  "substitutions": [
+    "Designated extension-session credential supplied to MCP; OAuth exchange and editor UI not exercised."
+  ],
+  "steps": [
+    {
+      "name": "Actual MCP discovery exposes issue and label tools",
+      "observedAt": "2026-10-15T18:23:57.992Z",
+      "evidence": {
+        "names": [
+          "scan_accessibility",
+          "scan_contrast",
+          "scan_and_create_issues",
+          "compare_visual",
+          "audit_tokens",
+          "create_issue",
+          "list_issues",
+          "update_issue",
+          "get_issue",
+          "list_project_members",
+          "move_issue",
+          "verify_issue",
+          "get_issue_verifications",
+          "list_comments",
+          "create_comment",
+          "update_comment",
+          "delete_comment",
+          "get_comment_attachment",
+          "list_labels",
+          "create_label",
+          "rename_label",
+          "delete_label",
+          "set_issue_label",
+          "list_projects",
+          "create_project",
+          "list_client_reviews",
+          "create_client_review",
+          "update_client_review",
+          "set_client_review_recipients"
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Creation keeps explicit Unassigned and teammate selection",
+      "observedAt": "2026-10-15T18:23:58.951Z",
+      "evidence": {
+        "issueIds": [
+          "55702e80-d2de-40e9-90b2-438694fc660c",
+          "6ed237a3-307e-43ee-9842-e10667dc60ad",
+          "7e1ac566-2509-4499-88f8-c8dae087a36b"
+        ],
+        "assignedUserId": "eb26fd75-c386-4912-8838-9b82df52667c"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Assignment, detail edits and ignore preserve status through restart",
+      "observedAt": "2026-10-15T18:23:59.236Z",
+      "evidence": {
+        "issueId": "55702e80-d2de-40e9-90b2-438694fc660c",
+        "status": "open",
+        "assigneeId": null,
+        "ignoredAt": null
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Full issue detail and teammate discovery use readable project context",
+      "observedAt": "2026-10-15T18:24:00.336Z",
+      "evidence": {
+        "issueId": "55702e80-d2de-40e9-90b2-438694fc660c",
+        "detailFields": [
+          "id",
+          "projectId",
+          "createdById",
+          "assigneeId",
+          "groupId",
+          "displayId",
+          "title",
+          "description",
+          "mentionedUserIds",
+          "severity",
+          "type",
+          "status",
+          "screenshotUrl",
+          "pageUrl",
+          "viewportWidth",
+          "viewportHeight",
+          "devicePixelRatio",
+          "screenWidth",
+          "screenHeight",
+          "domSelector",
+          "figmaFileKey",
+          "figmaNodeId",
+          "figmaFrameUrl",
+          "figmaFrameName",
+          "figmaScreenshotUrl",
+          "browserName",
+          "browserVersion",
+          "os",
+          "hasAiAnalysis",
+          "pinX",
+          "pinY",
+          "cropRegion",
+          "scrollOffsetAtCapture",
+          "viewportAtCapture",
+          "fullPageScreenshotUrl",
+          "domSnapshotUrl",
+          "documentDimensionsAtCapture",
+          "capturedBreakpoint",
+          "pinType",
+          "elementData",
+          "clientCommentId",
+          "source",
+          "reviewToken",
+          "isDemo",
+          "exportedTo",
+          "idempotencyKey",
+          "lastVerificationId",
+          "regressed",
+          "createdAt",
+          "updatedAt",
+          "resolvedAt",
+          "ignoredAt",
+          "ignoredByUserId",
+          "notDetectedAt",
+          "lastDetectedAt",
+          "createdBy",
+          "assignee",
+          "project",
+          "labels",
+          "figmaComments",
+          "comments",
+          "latestVerification"
+        ],
+        "currentUserId": "eb26fd75-c386-4912-8838-9b82df52667c"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Pagination and triage filters return matching totals without losing ignored meaning",
+      "observedAt": "2026-10-15T18:24:00.849Z",
+      "evidence": {
+        "total": 3,
+        "pages": [
+          1,
+          2,
+          3
+        ],
+        "lastHasMore": false
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Labels create/apply/retry/filter/rename/remove/delete retain issue content",
+      "observedAt": "2026-10-15T18:25:00.381Z",
+      "evidence": {
+        "issueId": "55702e80-d2de-40e9-90b2-438694fc660c",
+        "labelRemoved": true
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Comments keep audience, mentions and files across retries, edit, move and reopen",
+      "observedAt": "2026-10-15T18:25:02.400Z",
+      "evidence": {
+        "issueId": "55702e80-d2de-40e9-90b2-438694fc660c",
+        "displayId": "HA2-1",
+        "retainedPublicCommentId": "cd4010ea-5e42-44cf-97be-0c4352fd2d2b",
+        "deletedCommentId": "b9922dde-b34b-436e-8f82-68c306f995bf"
+      },
+      "status": "PASS"
+    }
+  ],
+  "throttles": [
+    {
+      "tool": "list_issues",
+      "retryAfter": 15,
+      "observedAt": "2026-10-15T18:24:01.552Z"
+    },
+    {
+      "tool": "list_issues",
+      "retryAfter": 40,
+      "observedAt": "2026-10-15T18:24:18.483Z"
+    },
+    {
+      "tool": "list_comments",
+      "retryAfter": 14,
+      "observedAt": "2026-10-15T18:25:04.326Z"
+    }
+  ],
+  "cleanup": [
+    {
+      "projectId": "64e6a413-b4f5-4d54-a4c9-53067977cada",
+      "deleted": true
+    },
+    {
+      "projectId": "a0506f33-a6e0-40b9-a380-652fd96cfbc5",
+      "deleted": true
+    }
+  ],
+  "finishedAt": "2026-10-15T18:25:20.306Z",
+  "passed": 7,
+  "failed": 0,
+  "status": "PASS"
+}

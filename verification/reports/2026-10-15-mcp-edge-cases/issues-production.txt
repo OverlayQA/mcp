@@ -1,0 +1,11 @@
+PASS Actual MCP discovery exposes issue and label tools
+PASS Creation keeps explicit Unassigned and teammate selection
+PASS Assignment, detail edits and ignore preserve status through restart
+PASS Full issue detail and teammate discovery use readable project context
+WAIT list_issues: respecting server retryAfter=15s
+WAIT list_issues: respecting server retryAfter=40s
+PASS Pagination and triage filters return matching totals without losing ignored meaning
+PASS Labels create/apply/retry/filter/rename/remove/delete retain issue content
+WAIT list_comments: respecting server retryAfter=14s
+PASS Comments keep audience, mentions and files across retries, edit, move and reopen
+PASS: 7 passed, 0 failed. Report: /tmp/mcp-edge-parity-final/production

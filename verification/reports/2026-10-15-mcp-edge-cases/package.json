@@ -1,0 +1,271 @@
+[
+  {
+    "id": "@overlayqa/mcp@0.4.1",
+    "name": "@overlayqa/mcp",
+    "version": "0.4.1",
+    "size": 33019,
+    "unpackedSize": 129311,
+    "shasum": "32eb445884a02ac0f4ad85dd727f7d09393f746d",
+    "integrity": "sha512-7BYE95CSCCv3BSNi9ywxYvFF4uoTRc8Y0QA28CObT6Cq7PRKme04t+HJfE27/+RMN7UZtBOansfU+npKMbsG7A==",
+    "filename": "overlayqa-mcp-0.4.1.tgz",
+    "files": [
+      {
+        "path": "LICENSE",
+        "size": 1066,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 16777,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth.d.ts",
+        "size": 280,
+        "mode": 420
+      },
+      {
+        "path": "dist/auth.js",
+        "size": 5404,
+        "mode": 420
+      },
+      {
+        "path": "dist/client.d.ts",
+        "size": 1729,
+        "mode": 420
+      },
+      {
+        "path": "dist/client.js",
+        "size": 8211,
+        "mode": 420
+      },
+      {
+        "path": "dist/connection-page.d.ts",
+        "size": 154,
+        "mode": 420
+      },
+      {
+        "path": "dist/connection-page.js",
+        "size": 4673,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.d.ts",
+        "size": 31,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.js",
+        "size": 7177,
+        "mode": 420
+      },
+      {
+        "path": "dist/quota.d.ts",
+        "size": 311,
+        "mode": 420
+      },
+      {
+        "path": "dist/quota.js",
+        "size": 801,
+        "mode": 420
+      },
+      {
+        "path": "dist/request-context.d.ts",
+        "size": 174,
+        "mode": 420
+      },
+      {
+        "path": "dist/request-context.js",
+        "size": 405,
+        "mode": 420
+      },
+      {
+        "path": "dist/telemetry.d.ts",
+        "size": 2230,
+        "mode": 420
+      },
+      {
+        "path": "dist/telemetry.js",
+        "size": 4275,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/audit-tokens.d.ts",
+        "size": 668,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/audit-tokens.js",
+        "size": 894,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/client-reviews.d.ts",
+        "size": 7091,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/client-reviews.js",
+        "size": 5697,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/comments.d.ts",
+        "size": 6194,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/comments.js",
+        "size": 4080,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/compare-visual.d.ts",
+        "size": 749,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/compare-visual.js",
+        "size": 833,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/create-issue.d.ts",
+        "size": 1765,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/create-issue.js",
+        "size": 753,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/create-project.d.ts",
+        "size": 638,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/create-project.js",
+        "size": 676,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/issue-context.d.ts",
+        "size": 1544,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/issue-context.js",
+        "size": 1686,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/labels.d.ts",
+        "size": 3040,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/labels.js",
+        "size": 2657,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/list-issues.d.ts",
+        "size": 4171,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/list-issues.js",
+        "size": 2558,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/list-projects.d.ts",
+        "size": 377,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/list-projects.js",
+        "size": 576,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/request.d.ts",
+        "size": 673,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/request.js",
+        "size": 690,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/scan-accessibility.d.ts",
+        "size": 662,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/scan-accessibility.js",
+        "size": 1300,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/scan-and-create-issues.d.ts",
+        "size": 898,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/scan-and-create-issues.js",
+        "size": 1087,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/scan-contrast.d.ts",
+        "size": 478,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/scan-contrast.js",
+        "size": 1268,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/update-issue.d.ts",
+        "size": 2609,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/update-issue.js",
+        "size": 1035,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/verification.d.ts",
+        "size": 1061,
+        "mode": 420
+      },
+      {
+        "path": "dist/tools/verification.js",
+        "size": 1697,
+        "mode": 420
+      },
+      {
+        "path": "dist/types.d.ts",
+        "size": 7947,
+        "mode": 420
+      },
+      {
+        "path": "dist/types.js",
+        "size": 5688,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 1873,
+        "mode": 420
+      }
+    ],
+    "entryCount": 51,
+    "bundled": []
+  }
+]

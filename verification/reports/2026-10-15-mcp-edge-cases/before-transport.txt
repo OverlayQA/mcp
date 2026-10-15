@@ -1,0 +1,181 @@
+TAP version 13
+# Subtest: a delayed 401 cannot erase credentials saved after the request started
+not ok 1 - a delayed 401 cannot erase credentials saved after the request started
+  ---
+  duration_ms: 409.218204
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:6:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+
+    + {}
+    - {
+    -   teamId: '00000000-0000-4000-8000-000000000001',
+    -   token: 'renewed-test-token'
+    - }
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    token: 'renewed-test-token'
+    teamId: '00000000-0000-4000-8000-000000000001'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:19:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: an expired current token is cleared; a later sign-in works without restarting MCP
+ok 2 - an expired current token is cleared; a later sign-in works without restarting MCP
+  ---
+  duration_ms: 388.047766
+  type: 'test'
+  ...
+# Subtest: malformed saved credentials are refused locally instead of being sent as bearer tokens
+not ok 3 - malformed saved credentials are refused locally instead of being sent as bearer tokens
+  ---
+  duration_ms: 380.31753
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:33:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+
+    + undefined
+    - true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:38:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: unreadable successful replies are errors, writes are not retried, and the next read recovers
+not ok 4 - unreadable successful replies are errors, writes are not retried, and the next read recovers
+  ---
+  duration_ms: 388.140978
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:44:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    <html>Unexpected gateway response</html>
+    + actual - expected
+
+    + undefined
+    - true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:52:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: HTTP refusals retain their status; empty 204 deletion replies remain successful
+not ok 5 - HTTP refusals retain their status; empty 204 deletion replies remain successful
+  ---
+  duration_ms: 388.107703
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:64:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of null (reading 'httpStatus')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:75:69)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: optional editor metadata and malformed Unicode context cannot break the tool
+not ok 6 - optional editor metadata and malformed Unicode context cannot break the tool
+  ---
+  duration_ms: 370.285137
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:81:1'
+  failureType: 'testCodeFailure'
+  error: '{"content":[{"type":"text","text":"{\\"error\\":true,\\"code\\":\\"SERVER_ERROR\\",\\"message\\":\\"URI malformed\\"}"}],"isError":true}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: true
+  operator: 'notStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:84:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: concurrent calls keep their own metadata and strip context from write payloads
+ok 7 - concurrent calls keep their own metadata and strip context from write payloads
+  ---
+  duration_ms: 391.50076
+  type: 'test'
+  ...
+# Subtest: MCP cancellation aborts the pending HTTP read and leaves other tools usable
+not ok 8 - MCP cancellation aborts the pending HTTP read and leaves other tools usable
+  ---
+  duration_ms: 3373.497211
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:105:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The cancelled MCP call left its HTTP request open
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:116:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: failed scan jobs remain errors and missing job IDs never produce a status request
+not ok 9 - failed scan jobs remain errors and missing job IDs never produce a status request
+  ---
+  duration_ms: 472.746785
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:120:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+
+    + undefined
+    - 'INVALID_RESPONSE'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'INVALID_RESPONSE'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:130:49)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 2
+# fail 7
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6926.458963

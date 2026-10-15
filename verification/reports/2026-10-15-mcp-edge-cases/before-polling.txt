@@ -1,0 +1,89 @@
+TAP version 13
+# Subtest: scan polling enforces its deadline even when the HTTP response never arrives
+not ok 1 - scan polling enforces its deadline even when the HTTP response never arrives
+  ---
+  duration_ms: 5503.174466
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:141:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Command failed: /usr/local/Cellar/node@22/22.23.2/bin/node --input-type=module -e const { pollScanJob } = await import("file:///Users/emily/Products/overlayqa-mcp/dist/client.js"); console.log(JSON.stringify(await pollScanJob('slow-job', 100, 2000)));
+
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    genericNodeError (node:internal/errors:983:15)
+    wrappedFn (node:internal/errors:537:14)
+    ChildProcess.exithandler (node:child_process:417:12)
+    ChildProcess.emit (node:events:519:28)
+    maybeClose (node:internal/child_process:1101:16)
+    ChildProcess._handle.onexit (node:internal/child_process:304:5)
+  ...
+# Subtest: cancelling a scan during the polling pause stops further polls and isolates concurrent calls
+not ok 2 - cancelling a scan during the polling pause stops further polls and isolates concurrent calls
+  ---
+  duration_ms: 4689.483885
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:154:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    2 !== 1
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:169:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: unrecognized scan states fail promptly and job IDs stay in one URL segment
+not ok 3 - unrecognized scan states fail promptly and job IDs stay in one URL segment
+  ---
+  duration_ms: 3396.739898
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:172:1'
+  failureType: 'testCodeFailure'
+  error: 'MCP error -32001: Request timed out'
+  code: -32001
+  name: 'McpError'
+  stack: |-
+    McpError.fromError (file:///private/tmp/overlayqa-mcp-edge-cases/node_modules/@modelcontextprotocol/sdk/dist/esm/types.js:2048:16)
+    Timeout.timeoutHandler (file:///private/tmp/overlayqa-mcp-edge-cases/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:741:58)
+    listOnTimeout (node:internal/timers:585:17)
+    process.processTimers (node:internal/timers:521:7)
+  ...
+# Subtest: cancellation after response headers aborts body reading instead of reporting null success
+not ok 4 - cancellation after response headers aborts body reading instead of reporting null success
+  ---
+  duration_ms: 3371.9796
+  type: 'test'
+  location: '/private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:179:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/overlayqa-mcp-edge-cases/test/transport-edge-cases.test.mjs:188:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 0
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17336.480674

@@ -11,9 +11,9 @@
  *      (./auth.ts). User logs into the dashboard, dashboard issues a
  *      one-time code, we exchange it for a 30-day JWT, persist it.
  *   2. Subsequent runs reuse the cached JWT.
- *   3. On a server 401 mid-session, the HTTP client clears the cached
- *      token; the next tool call will trigger a re-auth via the per-tool
- *      handler below.
+ *   3. A server 401 clears the rejected cached token. Restart to launch
+ *      sign-in again; credentials saved by another session are picked up
+ *      on the next call without restarting.
  *
  * Each tool handler wraps its underlying call in try/catch so an
  * unexpected throw becomes a structured MCP error response instead of
@@ -25,6 +25,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 
 import { getStoredAuth } from './client.js';
 import { authenticate } from './auth.js';
+import { withRequestSignal } from './request-context.js';
 import { wrapTool, setClientInfoProvider, type RawTool } from './telemetry.js';
 
 // Keep the advertised server version in lockstep with package.json (dist/
@@ -123,14 +124,14 @@ async function main(): Promise<void> {
       // straight to the tool's handler. We also wrap in try/catch so any
       // unexpected error becomes a structured response instead of crashing
       // the stdio transport.
-      async (args: Record<string, unknown>) => {
+      async (args: Record<string, unknown>, extra) => {
         try {
           // Re-check auth on each call. If the HTTP client wiped the
           // token via a server 401, the next mcpFetch() inside the tool
           // will return { status: 401, code: 'AUTH_REQUIRED' } and the
           // user will need to restart. We don't re-launch the browser
           // mid-session (would be jarring); we surface the auth error.
-          return await tool.handler(args);
+          return await withRequestSignal(extra.signal, () => tool.handler(args));
         } catch (err) {
           return {
             content: [

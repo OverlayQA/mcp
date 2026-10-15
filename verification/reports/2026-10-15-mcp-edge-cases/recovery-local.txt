@@ -1,0 +1,14 @@
+
+> overlayqa@0.1.0 with-dev-api /Users/emily/Products/OverlayQA
+> node scripts/with-dev-api/run.mjs --port 3289 -- node /tmp/overlayqa-mcp-edge-cases/test/transport-edge-live.mjs
+
+[with-dev-api] booting dev API on :3289 (server log: /var/folders/3_/t2y324sd09x9qnkct8gx6c080000gp/T/with-dev-api-U2FZR1/server-3289.log)
+[with-dev-api] healthy; running: node /tmp/overlayqa-mcp-edge-cases/test/transport-edge-live.mjs
+PASS A genuine delayed 401 preserves a fresh valid sign-in and the next call works
+PASS An unreadable genuine read returns an error and a later read recovers
+PASS A unreadable-write after saving is flagged, never retried, and the issue can be reopened
+PASS A disconnect-write after saving is flagged, never retried, and the issue can be reopened
+PASS Cancelling a genuine pending read closes its HTTP connection and the next call works
+PASS scan_accessibility completes through the real queue and returns findings
+PASS scan_contrast completes through the real queue and returns findings
+PASS: 7 passed, 0 failed. Report: /tmp/mcp-edge-final/local

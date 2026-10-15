@@ -1,0 +1,250 @@
+{
+  "startedAt": "2026-10-15T18:23:14.026Z",
+  "machine": "MacBook-Pro.local",
+  "apiBase": "https://api.overlayqa.com",
+  "email": "testsprite@overlayqa.com",
+  "role": "owner",
+  "entry": "/private/tmp/overlayqa-mcp-edge-cases/dist/index.js",
+  "entrySha256": "7bdc44a6ced1edca80e30a22416072059eb10ebfa7b8f4ecfb4b39c7d6dcda57",
+  "clientBase": "c80ac5dd68853e587aff350d96c79fc2ac3ed235",
+  "substitutions": [
+    "Designated extension-session credential supplied in isolated MCP auth file; browser OAuth and editor UI not exercised.",
+    "Fault proxy delays one genuine 401, corrupts one genuine read and one saved-write response, disconnects after another saved write, and holds one genuine read until MCP cancellation. All other HTTP requests reach the named API."
+  ],
+  "steps": [
+    {
+      "name": "A genuine delayed 401 preserves a fresh valid sign-in and the next call works",
+      "observedAt": "2026-10-15T18:23:15.219Z",
+      "evidence": {
+        "rejectedStatus": 401,
+        "nextStatus": 200,
+        "freshSignInPreserved": true,
+        "invalidOptionalMetadataOmitted": true
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "An unreadable genuine read returns an error and a later read recovers",
+      "observedAt": "2026-10-15T18:23:15.415Z",
+      "evidence": {
+        "invalidCode": "INVALID_RESPONSE",
+        "recovered": true
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "A unreadable-write after saving is flagged, never retried, and the issue can be reopened",
+      "observedAt": "2026-10-15T18:23:15.907Z",
+      "evidence": {
+        "issueId": "d7921ed7-bdce-4dc9-bb03-2fd689ca0b01",
+        "acceptedWriteCount": 1,
+        "rateLimitRefusals": 0,
+        "persistedIssueCount": 1,
+        "reopenedTitle": "harness-run-mcp-edge-1792088595794"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "A disconnect-write after saving is flagged, never retried, and the issue can be reopened",
+      "observedAt": "2026-10-15T18:23:16.354Z",
+      "evidence": {
+        "issueId": "4b115cd9-a3fe-4ad6-8629-62a32cd35bc8",
+        "acceptedWriteCount": 1,
+        "rateLimitRefusals": 0,
+        "persistedIssueCount": 2,
+        "reopenedTitle": "harness-run-mcp-edge-1792088595794"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Cancelling a genuine pending read closes its HTTP connection and the next call works",
+      "observedAt": "2026-10-15T18:23:16.797Z",
+      "evidence": {
+        "cancelledConnectionClosed": true,
+        "recovered": true,
+        "serverRollbackClaimed": false
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "scan_accessibility completes through the real queue and returns findings",
+      "observedAt": "2026-10-15T18:23:17.015Z",
+      "evidence": {
+        "scanUrl": "https://example.com",
+        "jobPath": "/api/mcp/scan/status/1fb7e084f23d4d85",
+        "status": "complete",
+        "violationCount": 1,
+        "httpRequests": 7
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "scan_contrast completes through the real queue and returns findings",
+      "observedAt": "2026-10-15T18:23:28.079Z",
+      "evidence": {
+        "scanUrl": "https://example.com",
+        "jobPath": "/api/mcp/scan/status/4acb201393874cec",
+        "status": "complete",
+        "violationCount": 0,
+        "httpRequests": 5
+      },
+      "status": "PASS"
+    }
+  ],
+  "cleanup": [
+    {
+      "projectId": "256c9766-e685-4c85-9f6e-dbdbfaeee21f",
+      "deleted": true
+    }
+  ],
+  "upstream": [
+    {
+      "path": "/api/mcp/projects",
+      "method": "GET",
+      "status": 401,
+      "observedAt": "2026-10-15T18:23:15.284Z"
+    },
+    {
+      "path": "/api/mcp/projects",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:15.413Z"
+    },
+    {
+      "path": "/api/mcp/projects",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:15.526Z"
+    },
+    {
+      "path": "/api/mcp/projects",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:15.793Z"
+    },
+    {
+      "path": "/api/mcp/issues",
+      "method": "POST",
+      "status": 201,
+      "observedAt": "2026-10-15T18:23:16.045Z"
+    },
+    {
+      "path": "/api/mcp/issues/d7921ed7-bdce-4dc9-bb03-2fd689ca0b01",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:16.201Z"
+    },
+    {
+      "path": "/api/mcp/issues?projectId=256c9766-e685-4c85-9f6e-dbdbfaeee21f",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:16.352Z"
+    },
+    {
+      "path": "/api/mcp/issues",
+      "method": "POST",
+      "status": 201,
+      "observedAt": "2026-10-15T18:23:16.497Z"
+    },
+    {
+      "path": "/api/mcp/issues/4b115cd9-a3fe-4ad6-8629-62a32cd35bc8",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:16.643Z"
+    },
+    {
+      "path": "/api/mcp/issues?projectId=256c9766-e685-4c85-9f6e-dbdbfaeee21f",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:16.795Z"
+    },
+    {
+      "path": "/api/mcp/projects",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:16.901Z"
+    },
+    {
+      "path": "/api/mcp/projects",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:17.014Z"
+    },
+    {
+      "path": "/api/mcp/scan/accessibility",
+      "method": "POST",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:17.148Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/1fb7e084f23d4d85",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:17.258Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/1fb7e084f23d4d85",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:19.535Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/1fb7e084f23d4d85",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:21.676Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/1fb7e084f23d4d85",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:23.768Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/1fb7e084f23d4d85",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:25.877Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/1fb7e084f23d4d85",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:27.991Z"
+    },
+    {
+      "path": "/api/mcp/scan/contrast",
+      "method": "POST",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:28.201Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/4acb201393874cec",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:28.307Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/4acb201393874cec",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:30.427Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/4acb201393874cec",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:32.543Z"
+    },
+    {
+      "path": "/api/mcp/scan/status/4acb201393874cec",
+      "method": "GET",
+      "status": 200,
+      "observedAt": "2026-10-15T18:23:34.664Z"
+    }
+  ],
+  "finishedAt": "2026-10-15T18:23:35.046Z",
+  "passed": 7,
+  "failed": 0,
+  "status": "PASS"
+}

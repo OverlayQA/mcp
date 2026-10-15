@@ -19,7 +19,7 @@ if (!password) throw new Error('Designated fixture password missing');
 const out = resolve(process.env.MCP_REPORT_DIR || `verification/reports/issue-parity-${production ? 'production' : 'local'}`);
 mkdirSync(out, { recursive: true });
 const clientRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const entry = join(clientRoot, 'dist/index.js');
+const entry = process.env.MCP_TEST_ENTRY ? resolve(process.env.MCP_TEST_ENTRY) : join(clientRoot, 'dist/index.js');
 const result = { apiBase, machine: hostname(), account: email, role: 'unverified', clientCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', cwd: clientRoot }).trim(), clientEntrySha256: createHash('sha256').update(readFileSync(entry)).digest('hex'), startedAt: new Date().toISOString(), substitutions: ['Designated extension-session credential supplied to MCP; OAuth exchange and editor UI not exercised.'], steps: [], throttles: [], cleanup: [] };
 const temp = mkdtempSync(join(tmpdir(), 'oq-mcp-parity-'));
 const authFile = join(temp, 'auth.json');

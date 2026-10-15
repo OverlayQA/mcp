@@ -1,0 +1,143 @@
+<!doctype html><meta charset="utf-8"><title>MCP issue parity</title><style>body{font:16px system-ui;max-width:1000px;margin:40px auto}pre{white-space:pre-wrap}td,th{padding:12px;text-align:left;border-bottom:1px solid #ddd}</style><h1>MCP issue parity: PASS</h1><p>http://localhost:3289 · MacBook-Pro.local · harness-journey+clerk_test@overlayqa.com (owner)</p><p>Actual built MCP client over stdio, real API and saved data. No browser surface is rendered by these tools.</p><table><tr><th>Journey</th><th>Verdict</th><th>Evidence</th></tr><tr><td>Actual MCP discovery exposes issue and label tools<br>2026-10-15T18:24:10.352Z</td><td>PASS</td><td><pre>{
+  &quot;names&quot;: [
+    &quot;scan_accessibility&quot;,
+    &quot;scan_contrast&quot;,
+    &quot;scan_and_create_issues&quot;,
+    &quot;compare_visual&quot;,
+    &quot;audit_tokens&quot;,
+    &quot;create_issue&quot;,
+    &quot;list_issues&quot;,
+    &quot;update_issue&quot;,
+    &quot;get_issue&quot;,
+    &quot;list_project_members&quot;,
+    &quot;move_issue&quot;,
+    &quot;verify_issue&quot;,
+    &quot;get_issue_verifications&quot;,
+    &quot;list_comments&quot;,
+    &quot;create_comment&quot;,
+    &quot;update_comment&quot;,
+    &quot;delete_comment&quot;,
+    &quot;get_comment_attachment&quot;,
+    &quot;list_labels&quot;,
+    &quot;create_label&quot;,
+    &quot;rename_label&quot;,
+    &quot;delete_label&quot;,
+    &quot;set_issue_label&quot;,
+    &quot;list_projects&quot;,
+    &quot;create_project&quot;,
+    &quot;list_client_reviews&quot;,
+    &quot;create_client_review&quot;,
+    &quot;update_client_review&quot;,
+    &quot;set_client_review_recipients&quot;
+  ]
+}</pre></td></tr><tr><td>Creation keeps explicit Unassigned and teammate selection<br>2026-10-15T18:24:14.865Z</td><td>PASS</td><td><pre>{
+  &quot;issueIds&quot;: [
+    &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+    &quot;bf31edf3-a7a1-46fc-a419-6493ec91e585&quot;,
+    &quot;1f6d5843-edcb-4702-b44c-c8bce2310190&quot;
+  ],
+  &quot;assignedUserId&quot;: &quot;39fffa44-5f33-4a41-ab67-9aa7face64df&quot;
+}</pre></td></tr><tr><td>Assignment, detail edits and ignore preserve status through restart<br>2026-10-15T18:24:15.357Z</td><td>PASS</td><td><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;status&quot;: &quot;open&quot;,
+  &quot;assigneeId&quot;: null,
+  &quot;ignoredAt&quot;: null
+}</pre></td></tr><tr><td>Full issue detail and teammate discovery use readable project context<br>2026-10-15T18:24:18.238Z</td><td>PASS</td><td><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;detailFields&quot;: [
+    &quot;id&quot;,
+    &quot;projectId&quot;,
+    &quot;createdById&quot;,
+    &quot;assigneeId&quot;,
+    &quot;groupId&quot;,
+    &quot;displayId&quot;,
+    &quot;title&quot;,
+    &quot;description&quot;,
+    &quot;mentionedUserIds&quot;,
+    &quot;severity&quot;,
+    &quot;type&quot;,
+    &quot;status&quot;,
+    &quot;screenshotUrl&quot;,
+    &quot;pageUrl&quot;,
+    &quot;viewportWidth&quot;,
+    &quot;viewportHeight&quot;,
+    &quot;devicePixelRatio&quot;,
+    &quot;screenWidth&quot;,
+    &quot;screenHeight&quot;,
+    &quot;domSelector&quot;,
+    &quot;figmaFileKey&quot;,
+    &quot;figmaNodeId&quot;,
+    &quot;figmaFrameUrl&quot;,
+    &quot;figmaFrameName&quot;,
+    &quot;figmaScreenshotUrl&quot;,
+    &quot;browserName&quot;,
+    &quot;browserVersion&quot;,
+    &quot;os&quot;,
+    &quot;hasAiAnalysis&quot;,
+    &quot;pinX&quot;,
+    &quot;pinY&quot;,
+    &quot;cropRegion&quot;,
+    &quot;scrollOffsetAtCapture&quot;,
+    &quot;viewportAtCapture&quot;,
+    &quot;fullPageScreenshotUrl&quot;,
+    &quot;domSnapshotUrl&quot;,
+    &quot;documentDimensionsAtCapture&quot;,
+    &quot;capturedBreakpoint&quot;,
+    &quot;pinType&quot;,
+    &quot;elementData&quot;,
+    &quot;clientCommentId&quot;,
+    &quot;source&quot;,
+    &quot;reviewToken&quot;,
+    &quot;isDemo&quot;,
+    &quot;exportedTo&quot;,
+    &quot;idempotencyKey&quot;,
+    &quot;lastVerificationId&quot;,
+    &quot;regressed&quot;,
+    &quot;createdAt&quot;,
+    &quot;updatedAt&quot;,
+    &quot;resolvedAt&quot;,
+    &quot;ignoredAt&quot;,
+    &quot;ignoredByUserId&quot;,
+    &quot;notDetectedAt&quot;,
+    &quot;lastDetectedAt&quot;,
+    &quot;createdBy&quot;,
+    &quot;assignee&quot;,
+    &quot;project&quot;,
+    &quot;labels&quot;,
+    &quot;figmaComments&quot;,
+    &quot;comments&quot;,
+    &quot;latestVerification&quot;
+  ],
+  &quot;currentUserId&quot;: &quot;39fffa44-5f33-4a41-ab67-9aa7face64df&quot;
+}</pre></td></tr><tr><td>Pagination and triage filters return matching totals without losing ignored meaning<br>2026-10-15T18:24:19.766Z</td><td>PASS</td><td><pre>{
+  &quot;total&quot;: 3,
+  &quot;pages&quot;: [
+    1,
+    2,
+    3
+  ],
+  &quot;lastHasMore&quot;: false
+}</pre></td></tr><tr><td>Labels create/apply/retry/filter/rename/remove/delete retain issue content<br>2026-10-15T18:25:17.635Z</td><td>PASS</td><td><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;labelRemoved&quot;: true
+}</pre></td></tr><tr><td>Comments keep audience, mentions and files across retries, edit, move and reopen<br>2026-10-15T18:25:26.638Z</td><td>PASS</td><td><pre>{
+  &quot;issueId&quot;: &quot;07a68d39-5cf0-41af-9fc5-cf8fec1bde4f&quot;,
+  &quot;displayId&quot;: &quot;HA2-1&quot;,
+  &quot;retainedPublicCommentId&quot;: &quot;9425ba8f-bee8-4d13-9996-78bf96de76f0&quot;,
+  &quot;deletedCommentId&quot;: &quot;09657d58-fe6d-4117-a034-3391e78e5308&quot;
+}</pre></td></tr></table><h2>Boundaries and provenance</h2><pre>{
+  &quot;clientCommit&quot;: &quot;c80ac5dd68853e587aff350d96c79fc2ac3ed235&quot;,
+  &quot;substitutions&quot;: [
+    &quot;Designated extension-session credential supplied to MCP; OAuth exchange and editor UI not exercised.&quot;
+  ],
+  &quot;cleanup&quot;: [
+    {
+      &quot;projectId&quot;: &quot;630a003e-be41-4920-a218-fc0db9d0fd56&quot;,
+      &quot;deleted&quot;: true
+    },
+    {
+      &quot;projectId&quot;: &quot;408d43dd-759c-4756-8188-c0c6ddc2b042&quot;,
+      &quot;deleted&quot;: true
+    }
+  ]
+}</pre>

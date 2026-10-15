@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-15T18:25:41.710748+00:00",
+  "local": {
+    "host": "http://localhost:3289",
+    "serverCommit": "540ebaba189bc8bd0206c221060857baff84fa91",
+    "serverTree": "70e08040cd51990864d161b81790b9d21bb8bc80",
+    "sharedTree": "cc07b21aece4f6aaf42de526d70e8be3e6748be5",
+    "trackedSourceDiff": "clean"
+  },
+  "production": {
+    "host": "https://api.overlayqa.com",
+    "deployments": [
+      {
+        "id": "43289907-16c4-4003-b8c4-3354f3a292ea",
+        "status": "SUCCESS",
+        "commit": "acbeb3065b69b12b91b31321e517285b8888c1d5"
+      }
+    ]
+  }
+}

@@ -10,10 +10,11 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
+    "prepack": "npm run build",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "test": "npm run build && tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js test/tool-registration.test.mjs",
+    "test": "npm run build && tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js test/*.test.mjs",
     "test:labels-live": "npm run build && node test/labels-live.mjs",
     "test:issues-live": "npm run build && node test/issue-parity-live.mjs",
     "pack:mcpb": "node scripts/pack-mcpb.mjs",

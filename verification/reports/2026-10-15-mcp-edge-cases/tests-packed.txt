@@ -1,0 +1,281 @@
+TAP version 13
+# Subtest: every advertised tool dispatches through the actual stdio entry point
+    # Subtest: scan_accessibility
+    ok 1 - scan_accessibility
+      ---
+      duration_ms: 6.407803
+      type: 'test'
+      ...
+    # Subtest: scan_contrast
+    ok 2 - scan_contrast
+      ---
+      duration_ms: 1.574074
+      type: 'test'
+      ...
+    # Subtest: scan_and_create_issues
+    ok 3 - scan_and_create_issues
+      ---
+      duration_ms: 2.131654
+      type: 'test'
+      ...
+    # Subtest: compare_visual
+    ok 4 - compare_visual
+      ---
+      duration_ms: 1.336222
+      type: 'test'
+      ...
+    # Subtest: audit_tokens
+    ok 5 - audit_tokens
+      ---
+      duration_ms: 1.533286
+      type: 'test'
+      ...
+    # Subtest: create_issue
+    ok 6 - create_issue
+      ---
+      duration_ms: 1.461582
+      type: 'test'
+      ...
+    # Subtest: list_issues
+    ok 7 - list_issues
+      ---
+      duration_ms: 2.053573
+      type: 'test'
+      ...
+    # Subtest: update_issue
+    ok 8 - update_issue
+      ---
+      duration_ms: 1.805841
+      type: 'test'
+      ...
+    # Subtest: get_issue
+    ok 9 - get_issue
+      ---
+      duration_ms: 1.786636
+      type: 'test'
+      ...
+    # Subtest: list_project_members
+    ok 10 - list_project_members
+      ---
+      duration_ms: 1.59162
+      type: 'test'
+      ...
+    # Subtest: move_issue
+    ok 11 - move_issue
+      ---
+      duration_ms: 1.117982
+      type: 'test'
+      ...
+    # Subtest: verify_issue
+    ok 12 - verify_issue
+      ---
+      duration_ms: 0.973316
+      type: 'test'
+      ...
+    # Subtest: get_issue_verifications
+    ok 13 - get_issue_verifications
+      ---
+      duration_ms: 0.929441
+      type: 'test'
+      ...
+    # Subtest: list_comments
+    ok 14 - list_comments
+      ---
+      duration_ms: 0.799439
+      type: 'test'
+      ...
+    # Subtest: create_comment
+    ok 15 - create_comment
+      ---
+      duration_ms: 1.536242
+      type: 'test'
+      ...
+    # Subtest: update_comment
+    ok 16 - update_comment
+      ---
+      duration_ms: 1.224301
+      type: 'test'
+      ...
+    # Subtest: delete_comment
+    ok 17 - delete_comment
+      ---
+      duration_ms: 1.050489
+      type: 'test'
+      ...
+    # Subtest: get_comment_attachment
+    ok 18 - get_comment_attachment
+      ---
+      duration_ms: 0.844333
+      type: 'test'
+      ...
+    # Subtest: list_labels
+    ok 19 - list_labels
+      ---
+      duration_ms: 0.811804
+      type: 'test'
+      ...
+    # Subtest: create_label
+    ok 20 - create_label
+      ---
+      duration_ms: 0.838568
+      type: 'test'
+      ...
+    # Subtest: rename_label
+    ok 21 - rename_label
+      ---
+      duration_ms: 1.000434
+      type: 'test'
+      ...
+    # Subtest: delete_label
+    ok 22 - delete_label
+      ---
+      duration_ms: 0.728707
+      type: 'test'
+      ...
+    # Subtest: set_issue_label
+    ok 23 - set_issue_label
+      ---
+      duration_ms: 0.827594
+      type: 'test'
+      ...
+    # Subtest: list_projects
+    ok 24 - list_projects
+      ---
+      duration_ms: 0.758049
+      type: 'test'
+      ...
+    # Subtest: create_project
+    ok 25 - create_project
+      ---
+      duration_ms: 1.051346
+      type: 'test'
+      ...
+    # Subtest: list_client_reviews
+    ok 26 - list_client_reviews
+      ---
+      duration_ms: 1.11233
+      type: 'test'
+      ...
+    # Subtest: create_client_review
+    ok 27 - create_client_review
+      ---
+      duration_ms: 1.670817
+      type: 'test'
+      ...
+    # Subtest: update_client_review
+    ok 28 - update_client_review
+      ---
+      duration_ms: 1.027079
+      type: 'test'
+      ...
+    # Subtest: set_client_review_recipients
+    ok 29 - set_client_review_recipients
+      ---
+      duration_ms: 1.00423
+      type: 'test'
+      ...
+    # Subtest: invalid input is refused before the handler and the next call still works
+    ok 30 - invalid input is refused before the handler and the next call still works
+      ---
+      duration_ms: 1.860148
+      type: 'test'
+      ...
+    1..30
+ok 1 - every advertised tool dispatches through the actual stdio entry point
+  ---
+  duration_ms: 453.772004
+  type: 'test'
+  ...
+# Subtest: a delayed 401 cannot erase credentials saved after the request started
+ok 2 - a delayed 401 cannot erase credentials saved after the request started
+  ---
+  duration_ms: 426.154564
+  type: 'test'
+  ...
+# Subtest: an expired current token is cleared; a later sign-in works without restarting MCP
+ok 3 - an expired current token is cleared; a later sign-in works without restarting MCP
+  ---
+  duration_ms: 422.668287
+  type: 'test'
+  ...
+# Subtest: malformed saved credentials are refused locally instead of being sent as bearer tokens
+ok 4 - malformed saved credentials are refused locally instead of being sent as bearer tokens
+  ---
+  duration_ms: 397.103995
+  type: 'test'
+  ...
+# Subtest: unreadable successful replies are errors, writes are not retried, and the next read recovers
+ok 5 - unreadable successful replies are errors, writes are not retried, and the next read recovers
+  ---
+  duration_ms: 492.414788
+  type: 'test'
+  ...
+# Subtest: HTTP refusals retain their status; empty 204 deletion replies remain successful
+ok 6 - HTTP refusals retain their status; empty 204 deletion replies remain successful
+  ---
+  duration_ms: 386.40101
+  type: 'test'
+  ...
+# Subtest: optional editor metadata and malformed Unicode context cannot break the tool
+ok 7 - optional editor metadata and malformed Unicode context cannot break the tool
+  ---
+  duration_ms: 373.565276
+  type: 'test'
+  ...
+# Subtest: concurrent calls keep their own metadata and strip context from write payloads
+ok 8 - concurrent calls keep their own metadata and strip context from write payloads
+  ---
+  duration_ms: 367.607131
+  type: 'test'
+  ...
+# Subtest: MCP cancellation aborts the pending HTTP read and leaves other tools usable
+ok 9 - MCP cancellation aborts the pending HTTP read and leaves other tools usable
+  ---
+  duration_ms: 375.347301
+  type: 'test'
+  ...
+# Subtest: failed scan jobs remain errors and missing job IDs never produce a status request
+ok 10 - failed scan jobs remain errors and missing job IDs never produce a status request
+  ---
+  duration_ms: 443.076648
+  type: 'test'
+  ...
+# Subtest: scan polling enforces its deadline even when the HTTP response never arrives
+ok 11 - scan polling enforces its deadline even when the HTTP response never arrives
+  ---
+  duration_ms: 602.378146
+  type: 'test'
+  ...
+# Subtest: cancelling a scan during the polling pause stops further polls and isolates concurrent calls
+ok 12 - cancelling a scan during the polling pause stops further polls and isolates concurrent calls
+  ---
+  duration_ms: 2681.060738
+  type: 'test'
+  ...
+# Subtest: unrecognized scan states fail promptly and job IDs stay in one URL segment
+ok 13 - unrecognized scan states fail promptly and job IDs stay in one URL segment
+  ---
+  duration_ms: 399.618028
+  type: 'test'
+  ...
+# Subtest: cancellation after response headers aborts body reading instead of reporting null success
+ok 14 - cancellation after response headers aborts body reading instead of reporting null success
+  ---
+  duration_ms: 390.641202
+  type: 'test'
+  ...
+# Subtest: a disconnected write reports an uncertain outcome without repeating the request
+ok 15 - a disconnected write reports an uncertain outcome without repeating the request
+  ---
+  duration_ms: 408.073284
+  type: 'test'
+  ...
+1..15
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9116.440694

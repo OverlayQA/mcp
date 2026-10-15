@@ -1,0 +1,72 @@
+{
+  "recordedAt": "2026-10-15T18:27:15.576765+00:00",
+  "status": "VERIFIED_UNPUBLISHED",
+  "clientVersion": "0.4.1",
+  "automated": [
+    {
+      "file": "tests-node22.txt",
+      "tests": 69,
+      "passed": 69,
+      "failed": 0
+    },
+    {
+      "file": "tests-node18.txt",
+      "tests": 69,
+      "passed": 69,
+      "failed": 0
+    },
+    {
+      "file": "tests-packed.txt",
+      "tests": 45,
+      "passed": 45,
+      "failed": 0
+    }
+  ],
+  "serviceJourneys": {
+    "recovery-local": {
+      "passed": 7,
+      "failed": 0,
+      "host": "http://localhost:3289",
+      "role": "owner",
+      "machine": "MacBook-Pro.local",
+      "startedAt": "2026-10-15T18:22:36.062Z",
+      "finishedAt": "2026-10-15T18:23:12.338Z"
+    },
+    "recovery-production": {
+      "passed": 7,
+      "failed": 0,
+      "host": "https://api.overlayqa.com",
+      "role": "owner",
+      "machine": "MacBook-Pro.local",
+      "startedAt": "2026-10-15T18:23:14.026Z",
+      "finishedAt": "2026-10-15T18:23:35.046Z"
+    },
+    "issues-local": {
+      "passed": 7,
+      "failed": 0,
+      "host": "http://localhost:3289",
+      "role": "owner",
+      "machine": "MacBook-Pro.local",
+      "startedAt": "2026-10-15T18:24:08.617Z",
+      "finishedAt": "2026-10-15T18:25:37.366Z"
+    },
+    "issues-production": {
+      "passed": 7,
+      "failed": 0,
+      "host": "https://api.overlayqa.com",
+      "role": "owner",
+      "machine": "MacBook-Pro.local",
+      "startedAt": "2026-10-15T18:23:56.805Z",
+      "finishedAt": "2026-10-15T18:25:20.306Z"
+    }
+  },
+  "cleanup": "All run-owned projects and labels deleted. Scan jobs use the normal temporary server queue; no scan-job deletion was attempted.",
+  "boundaries": [
+    "Actual built stdio client, SDK consumer and real API/persistence exercised. HTTP fault boundary is named in each recovery report.",
+    "Browser OAuth exchange and editor UI not exercised; isolated designated account session tokens supplied.",
+    "Only owner test accounts exercised against live services; no claim about other account roles.",
+    "Malformed credentials, scan ID/state faults, hung status deadline and concurrent polling cancellation exercised at a controlled HTTP boundary, not by damaging production services.",
+    "Cancellation stops client requests and polling; it cannot undo an accepted server write or cancel a server scan job.",
+    "No push, npm publish, deployment or customer communication performed. Registry version checked as 0.4.0."
+  ]
+}

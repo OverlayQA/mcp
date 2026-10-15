@@ -1,16 +1,17 @@
 /**
- * MCP HTTP client. Wraps fetch with Bearer auth, 401-triggered re-auth,
+ * MCP HTTP client. Wraps fetch with Bearer auth, rejected-token cleanup,
  * and token cache I/O at ~/.overlayqa/auth.json.
  *
  * This module does NOT initiate OAuth. It only reads stored credentials and
- * makes API calls. The OAuth browser flow lives in ./auth.ts (Task 15) and
- * the MCP server entry point in ./index.ts (Task 17) orchestrates re-auth on
- * 401.
+ * makes API calls. The entry point starts ./auth.ts's browser sign-in when
+ * launched without credentials. Each request reads the latest saved login.
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { buildTelemetryHeaders } from './telemetry.js';
+import { currentRequestSignal, withRequestSignal } from './request-context.js';
+import { setTimeout as delay } from 'node:timers/promises';
 
 // Isolated credential files allow verification without replacing a user's saved login.
 const AUTH_FILE = process.env.OVERLAYQA_AUTH_FILE ?? join(homedir(), '.overlayqa', 'auth.json');
@@ -33,8 +34,9 @@ export function getStoredAuth(): AuthConfig | null {
   try {
     if (!existsSync(AUTH_FILE)) return null;
     const data = JSON.parse(readFileSync(AUTH_FILE, 'utf-8'));
-    return data.token && data.teamId
-      ? { token: data.token as string, teamId: data.teamId as string }
+    return data && typeof data.token === 'string' && /^[\x21-\x7e]+$/.test(data.token)
+      && typeof data.teamId === 'string' && data.teamId.trim()
+      ? { token: data.token, teamId: data.teamId }
       : null;
   } catch {
     return null;
@@ -57,8 +59,10 @@ export function storeAuth(auth: AuthConfig): void {
  * JSON object so the next call to getStoredAuth() returns null. Swallows
  * I/O errors because there's nothing useful to do on a clear failure.
  */
-export function clearAuth(): void {
+export function clearAuth(rejectedToken?: string): void {
   try {
+    // A late response for an old token must not erase a newer sign-in.
+    if (rejectedToken !== undefined && getStoredAuth()?.token !== rejectedToken) return;
     if (existsSync(AUTH_FILE)) {
       writeFileSync(AUTH_FILE, '{}', { mode: 0o600 });
     }
@@ -76,7 +80,7 @@ export interface McpFetchResult {
  * Make an authenticated HTTPS call to /api/mcp/{path}.
  * - Reads the Bearer token from ~/.overlayqa/auth.json
  * - Returns { status: 401, data: { error, code: 'AUTH_REQUIRED' } } if no token
- * - Clears the stored auth on a server 401 (so callers can re-trigger OAuth)
+ * - Clears the rejected token on a server 401, preserving a newer sign-in
  */
 export async function mcpFetch(
   path: string,
@@ -106,20 +110,54 @@ export async function mcpFetch(
 
   if (options.idempotencyKey) headers['Idempotency-Key'] = options.idempotencyKey;
 
-  const res = await fetch(url, {
-    method: options.method ?? 'GET',
-    headers,
-    body: options.body ? JSON.stringify(options.body) : undefined,
-  });
-
-  const data = await res.json().catch(() => null);
-
-  if (res.status === 401) {
-    // Server rejected our token — wipe it so the next tool call re-triggers OAuth.
-    clearAuth();
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      method: options.method ?? 'GET',
+      headers,
+      body: options.body ? JSON.stringify(options.body) : undefined,
+      signal: currentRequestSignal(),
+    });
+  } catch (error) {
+    if (currentRequestSignal()?.aborted) throw error;
+    return {
+      status: 502,
+      data: { error: true, code: 'REQUEST_FAILED', message: 'Could not receive a response from OverlayQA.' + retryAdvice(options.method) },
+    };
   }
 
+  if (res.status === 401) {
+    clearAuth(auth.token);
+  }
+
+  // No-content replies are valid for mutations such as DELETE. Other tools
+  // require JSON data; an HTML gateway page or null is not a successful result.
+  if (res.status === 204 || res.status === 205) return { status: res.status, data: null };
+  let data: unknown;
+  try {
+    data = await res.json();
+  } catch (error) {
+    if (currentRequestSignal()?.aborted) throw error;
+    return invalidResponse(res.status, options.method);
+  }
+  if (data === null || typeof data !== 'object') return invalidResponse(res.status, options.method);
   return { status: res.status, data };
+}
+
+function retryAdvice(method = 'GET'): string {
+  return method === 'GET'
+    ? ' Retry the read when the service is available.'
+    : ' The action may have completed. Check the saved state before retrying.';
+}
+
+function invalidResponse(httpStatus: number, method = 'GET'): McpFetchResult {
+  return {
+    status: httpStatus >= 200 && httpStatus < 300 ? 502 : httpStatus,
+    data: {
+      error: true, code: 'INVALID_RESPONSE', httpStatus,
+      message: `OverlayQA returned an unreadable response (HTTP ${httpStatus}).` + retryAdvice(method),
+    },
+  };
 }
 
 /**
@@ -133,25 +171,36 @@ export async function pollScanJob(
   timeoutMs = 60_000,
   intervalMs = 2_000,
 ): Promise<McpFetchResult> {
-  const start = Date.now();
-  while (Date.now() - start < timeoutMs) {
-    const result = await mcpFetch(`/scan/status/${jobId}`);
-    if (result.status !== 200) return result;
-
-    const data = result.data as { status?: string } | null;
-    if (data?.status === 'complete' || data?.status === 'failed') {
-      return result;
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, intervalMs));
+  if (typeof jobId !== 'string' || !jobId.trim()) {
+    return { status: 502, data: { error: true, code: 'INVALID_RESPONSE', message: 'OverlayQA accepted the scan but did not return a job ID. The scan may still be running; no second scan was started.' } };
   }
-
-  return {
-    status: 504,
-    data: {
-      error: true,
-      code: 'SCAN_TIMEOUT',
-      message: 'Scan did not complete within 60 seconds',
-    },
-  };
+  const parent = currentRequestSignal();
+  const controller = new AbortController();
+  const abort = () => controller.abort(parent?.reason);
+  parent?.addEventListener('abort', abort, { once: true });
+  if (parent?.aborted) abort();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await withRequestSignal(controller.signal, async () => {
+      while (true) {
+        controller.signal.throwIfAborted();
+        const result = await mcpFetch(`/scan/status/${encodeURIComponent(jobId)}`);
+        if (result.status !== 200) return result;
+        const data = result.data as { status?: string };
+        if (data.status === 'complete' || data.status === 'failed') return result;
+        // The scan queues expose queued/running while work is pending
+        // (server/services/freeCheckerQueue.ts and contrastScanQueue.ts).
+        if (data.status !== 'queued' && data.status !== 'running') {
+          return { status: 502, data: { error: true, code: 'INVALID_RESPONSE', message: 'OverlayQA returned an unrecognized scan status. The scan may still be running.' } };
+        }
+        await delay(intervalMs, undefined, { signal: controller.signal });
+      }
+    });
+  } catch (error) {
+    if (parent?.aborted || !controller.signal.aborted) throw error;
+    return { status: 504, data: { error: true, code: 'SCAN_TIMEOUT', message: `Scan did not complete within ${timeoutMs / 1000} seconds. It may still be running on the server.` } };
+  } finally {
+    clearTimeout(timer);
+    parent?.removeEventListener('abort', abort);
+  }
 }

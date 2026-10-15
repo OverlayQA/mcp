@@ -1,0 +1,15 @@
+
+> overlayqa@0.1.0 with-dev-api /Users/emily/Products/OverlayQA
+> node scripts/with-dev-api/run.mjs --port 3289 -- node /tmp/overlayqa-mcp-edge-cases/test/issue-parity-live.mjs
+
+[with-dev-api] booting dev API on :3289 (server log: /var/folders/3_/t2y324sd09x9qnkct8gx6c080000gp/T/with-dev-api-vIA6ux/server-3289.log)
+[with-dev-api] healthy; running: node /tmp/overlayqa-mcp-edge-cases/test/issue-parity-live.mjs
+PASS Actual MCP discovery exposes issue and label tools
+PASS Creation keeps explicit Unassigned and teammate selection
+PASS Assignment, detail edits and ignore preserve status through restart
+PASS Full issue detail and teammate discovery use readable project context
+WAIT update_issue: respecting server retryAfter=47s
+PASS Pagination and triage filters return matching totals without losing ignored meaning
+PASS Labels create/apply/retry/filter/rename/remove/delete retain issue content
+PASS Comments keep audience, mentions and files across retries, edit, move and reopen
+PASS: 7 passed, 0 failed. Report: /tmp/mcp-edge-parity-final/local

@@ -1,0 +1,204 @@
+{
+  "apiBase": "http://localhost:3289",
+  "machine": "MacBook-Pro.local",
+  "account": "harness-journey+clerk_test@overlayqa.com",
+  "role": "owner",
+  "clientCommit": "c80ac5dd68853e587aff350d96c79fc2ac3ed235",
+  "clientEntrySha256": "7bdc44a6ced1edca80e30a22416072059eb10ebfa7b8f4ecfb4b39c7d6dcda57",
+  "startedAt": "2026-10-15T18:24:08.617Z",
+  "substitutions": [
+    "Designated extension-session credential supplied to MCP; OAuth exchange and editor UI not exercised."
+  ],
+  "steps": [
+    {
+      "name": "Actual MCP discovery exposes issue and label tools",
+      "observedAt": "2026-10-15T18:24:10.352Z",
+      "evidence": {
+        "names": [
+          "scan_accessibility",
+          "scan_contrast",
+          "scan_and_create_issues",
+          "compare_visual",
+          "audit_tokens",
+          "create_issue",
+          "list_issues",
+          "update_issue",
+          "get_issue",
+          "list_project_members",
+          "move_issue",
+          "verify_issue",
+          "get_issue_verifications",
+          "list_comments",
+          "create_comment",
+          "update_comment",
+          "delete_comment",
+          "get_comment_attachment",
+          "list_labels",
+          "create_label",
+          "rename_label",
+          "delete_label",
+          "set_issue_label",
+          "list_projects",
+          "create_project",
+          "list_client_reviews",
+          "create_client_review",
+          "update_client_review",
+          "set_client_review_recipients"
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Creation keeps explicit Unassigned and teammate selection",
+      "observedAt": "2026-10-15T18:24:14.865Z",
+      "evidence": {
+        "issueIds": [
+          "07a68d39-5cf0-41af-9fc5-cf8fec1bde4f",
+          "bf31edf3-a7a1-46fc-a419-6493ec91e585",
+          "1f6d5843-edcb-4702-b44c-c8bce2310190"
+        ],
+        "assignedUserId": "39fffa44-5f33-4a41-ab67-9aa7face64df"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Assignment, detail edits and ignore preserve status through restart",
+      "observedAt": "2026-10-15T18:24:15.357Z",
+      "evidence": {
+        "issueId": "07a68d39-5cf0-41af-9fc5-cf8fec1bde4f",
+        "status": "open",
+        "assigneeId": null,
+        "ignoredAt": null
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Full issue detail and teammate discovery use readable project context",
+      "observedAt": "2026-10-15T18:24:18.238Z",
+      "evidence": {
+        "issueId": "07a68d39-5cf0-41af-9fc5-cf8fec1bde4f",
+        "detailFields": [
+          "id",
+          "projectId",
+          "createdById",
+          "assigneeId",
+          "groupId",
+          "displayId",
+          "title",
+          "description",
+          "mentionedUserIds",
+          "severity",
+          "type",
+          "status",
+          "screenshotUrl",
+          "pageUrl",
+          "viewportWidth",
+          "viewportHeight",
+          "devicePixelRatio",
+          "screenWidth",
+          "screenHeight",
+          "domSelector",
+          "figmaFileKey",
+          "figmaNodeId",
+          "figmaFrameUrl",
+          "figmaFrameName",
+          "figmaScreenshotUrl",
+          "browserName",
+          "browserVersion",
+          "os",
+          "hasAiAnalysis",
+          "pinX",
+          "pinY",
+          "cropRegion",
+          "scrollOffsetAtCapture",
+          "viewportAtCapture",
+          "fullPageScreenshotUrl",
+          "domSnapshotUrl",
+          "documentDimensionsAtCapture",
+          "capturedBreakpoint",
+          "pinType",
+          "elementData",
+          "clientCommentId",
+          "source",
+          "reviewToken",
+          "isDemo",
+          "exportedTo",
+          "idempotencyKey",
+          "lastVerificationId",
+          "regressed",
+          "createdAt",
+          "updatedAt",
+          "resolvedAt",
+          "ignoredAt",
+          "ignoredByUserId",
+          "notDetectedAt",
+          "lastDetectedAt",
+          "createdBy",
+          "assignee",
+          "project",
+          "labels",
+          "figmaComments",
+          "comments",
+          "latestVerification"
+        ],
+        "currentUserId": "39fffa44-5f33-4a41-ab67-9aa7face64df"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Pagination and triage filters return matching totals without losing ignored meaning",
+      "observedAt": "2026-10-15T18:24:19.766Z",
+      "evidence": {
+        "total": 3,
+        "pages": [
+          1,
+          2,
+          3
+        ],
+        "lastHasMore": false
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Labels create/apply/retry/filter/rename/remove/delete retain issue content",
+      "observedAt": "2026-10-15T18:25:17.635Z",
+      "evidence": {
+        "issueId": "07a68d39-5cf0-41af-9fc5-cf8fec1bde4f",
+        "labelRemoved": true
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Comments keep audience, mentions and files across retries, edit, move and reopen",
+      "observedAt": "2026-10-15T18:25:26.638Z",
+      "evidence": {
+        "issueId": "07a68d39-5cf0-41af-9fc5-cf8fec1bde4f",
+        "displayId": "HA2-1",
+        "retainedPublicCommentId": "9425ba8f-bee8-4d13-9996-78bf96de76f0",
+        "deletedCommentId": "09657d58-fe6d-4117-a034-3391e78e5308"
+      },
+      "status": "PASS"
+    }
+  ],
+  "throttles": [
+    {
+      "tool": "update_issue",
+      "retryAfter": 47,
+      "observedAt": "2026-10-15T18:24:25.902Z"
+    }
+  ],
+  "cleanup": [
+    {
+      "projectId": "630a003e-be41-4920-a218-fc0db9d0fd56",
+      "deleted": true
+    },
+    {
+      "projectId": "408d43dd-759c-4756-8188-c0c6ddc2b042",
+      "deleted": true
+    }
+  ],
+  "finishedAt": "2026-10-15T18:25:37.366Z",
+  "passed": 7,
+  "failed": 0,
+  "status": "PASS"
+}

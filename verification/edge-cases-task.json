@@ -1,0 +1,30 @@
+{
+  "objective": "Find and fix edge cases in the unpublished MCP 0.4.1 registration fix and its shared request path.",
+  "authorized": "Emily requested edge-case investigation and fixes on 2026-10-15.",
+  "base": "c80ac5d",
+  "scope": "Tool transport, malformed inputs and responses, sign-in cache recovery, concurrent calls, cancellation, polling and release packaging. Kevin's separate feature requests remain outside this repair.",
+  "acceptance": [
+    "Reproduce each defect through actual product runtime before fixing",
+    "Retain success, refusal, retries and all-tool dispatch controls",
+    "Run the candidate against local and production services with designated accounts and named fault substitutions",
+    "Verify packed artifact, commit and merge locally; no push or publication"
+  ],
+  "completed": [
+    "Rechecked live EmilyWorks board backing data",
+    "Inspected current MCP entry, SDK cancellation signal and request/auth owners",
+    "Created isolated worktree",
+    "Reproduced seven original edge regressions, four polling/cancellation defects, missing packaged executable and unclear disconnected-write outcome",
+    "Implemented request cancellation, polling deadline/validation, conditional auth cleanup, response validation, safe telemetry and prepack build",
+    "Initial real-service checks passed 6 local + 6 production journeys; final disconnected-write recovery validation pending",
+    "Final Node 22 and Node 18 suites: 69/69 each",
+    "Packed artifact dispatch/transport: 45/45; 48 built runtime files match packed files",
+    "Final recovery journeys: 7 local + 7 production; final issue journeys: 7 local + 7 production",
+    "All run-owned projects/labels cleaned; rig released",
+    "Report includes baseline failures, build/deployment identities and explicit coverage boundaries"
+  ],
+  "remaining": [
+    "Local commit and merge, then rebuild main and compare runtime hashes"
+  ],
+  "next": "Commit verified candidate and merge locally. No push/publication authorized.",
+  "state": "verified; ready for local commit and merge"
+}

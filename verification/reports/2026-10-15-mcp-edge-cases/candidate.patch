@@ -1,0 +1,196 @@
+diff --git a/package.json b/package.json
+index 5a0de78..2eb6623 100644
+--- a/package.json
++++ b/package.json
+@@ -12,0 +13 @@
++    "prepack": "npm run build",
+@@ -16 +17 @@
+-    "test": "npm run build && tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js test/tool-registration.test.mjs",
++    "test": "npm run build && tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js test/*.test.mjs",
+diff --git a/src/client.ts b/src/client.ts
+index d04a0d8..33501b1 100644
+--- a/src/client.ts
++++ b/src/client.ts
+@@ -2 +2 @@
+- * MCP HTTP client. Wraps fetch with Bearer auth, 401-triggered re-auth,
++ * MCP HTTP client. Wraps fetch with Bearer auth, rejected-token cleanup,
+@@ -6,3 +6,2 @@
+- * makes API calls. The OAuth browser flow lives in ./auth.ts (Task 15) and
+- * the MCP server entry point in ./index.ts (Task 17) orchestrates re-auth on
+- * 401.
++ * makes API calls. The entry point starts ./auth.ts's browser sign-in when
++ * launched without credentials. Each request reads the latest saved login.
+@@ -13,0 +13,2 @@ import { buildTelemetryHeaders } from './telemetry.js';
++import { currentRequestSignal, withRequestSignal } from './request-context.js';
++import { setTimeout as delay } from 'node:timers/promises';
+@@ -36,2 +37,3 @@ export function getStoredAuth(): AuthConfig | null {
+-    return data.token && data.teamId
+-      ? { token: data.token as string, teamId: data.teamId as string }
++    return data && typeof data.token === 'string' && /^[\x21-\x7e]+$/.test(data.token)
++      && typeof data.teamId === 'string' && data.teamId.trim()
++      ? { token: data.token, teamId: data.teamId }
+@@ -60 +62 @@ export function storeAuth(auth: AuthConfig): void {
+-export function clearAuth(): void {
++export function clearAuth(rejectedToken?: string): void {
+@@ -61,0 +64,2 @@ export function clearAuth(): void {
++    // A late response for an old token must not erase a newer sign-in.
++    if (rejectedToken !== undefined && getStoredAuth()?.token !== rejectedToken) return;
+@@ -79 +83 @@ export interface McpFetchResult {
+- * - Clears the stored auth on a server 401 (so callers can re-trigger OAuth)
++ * - Clears the rejected token on a server 401, preserving a newer sign-in
+@@ -109,7 +113,15 @@ export async function mcpFetch(
+-  const res = await fetch(url, {
+-    method: options.method ?? 'GET',
+-    headers,
+-    body: options.body ? JSON.stringify(options.body) : undefined,
+-  });
+-
+-  const data = await res.json().catch(() => null);
++  let res: Response;
++  try {
++    res = await fetch(url, {
++      method: options.method ?? 'GET',
++      headers,
++      body: options.body ? JSON.stringify(options.body) : undefined,
++      signal: currentRequestSignal(),
++    });
++  } catch (error) {
++    if (currentRequestSignal()?.aborted) throw error;
++    return {
++      status: 502,
++      data: { error: true, code: 'REQUEST_FAILED', message: 'Could not receive a response from OverlayQA.' + retryAdvice(options.method) },
++    };
++  }
+@@ -118,2 +130 @@ export async function mcpFetch(
+-    // Server rejected our token — wipe it so the next tool call re-triggers OAuth.
+-    clearAuth();
++    clearAuth(auth.token);
+@@ -121,0 +133,11 @@ export async function mcpFetch(
++  // No-content replies are valid for mutations such as DELETE. Other tools
++  // require JSON data; an HTML gateway page or null is not a successful result.
++  if (res.status === 204 || res.status === 205) return { status: res.status, data: null };
++  let data: unknown;
++  try {
++    data = await res.json();
++  } catch (error) {
++    if (currentRequestSignal()?.aborted) throw error;
++    return invalidResponse(res.status, options.method);
++  }
++  if (data === null || typeof data !== 'object') return invalidResponse(res.status, options.method);
+@@ -124,0 +147,16 @@ export async function mcpFetch(
++function retryAdvice(method = 'GET'): string {
++  return method === 'GET'
++    ? ' Retry the read when the service is available.'
++    : ' The action may have completed. Check the saved state before retrying.';
++}
++
++function invalidResponse(httpStatus: number, method = 'GET'): McpFetchResult {
++  return {
++    status: httpStatus >= 200 && httpStatus < 300 ? 502 : httpStatus,
++    data: {
++      error: true, code: 'INVALID_RESPONSE', httpStatus,
++      message: `OverlayQA returned an unreadable response (HTTP ${httpStatus}).` + retryAdvice(method),
++    },
++  };
++}
++
+@@ -136,11 +174,31 @@ export async function pollScanJob(
+-  const start = Date.now();
+-  while (Date.now() - start < timeoutMs) {
+-    const result = await mcpFetch(`/scan/status/${jobId}`);
+-    if (result.status !== 200) return result;
+-
+-    const data = result.data as { status?: string } | null;
+-    if (data?.status === 'complete' || data?.status === 'failed') {
+-      return result;
+-    }
+-
+-    await new Promise((resolve) => setTimeout(resolve, intervalMs));
++  if (typeof jobId !== 'string' || !jobId.trim()) {
++    return { status: 502, data: { error: true, code: 'INVALID_RESPONSE', message: 'OverlayQA accepted the scan but did not return a job ID. The scan may still be running; no second scan was started.' } };
++  }
++  const parent = currentRequestSignal();
++  const controller = new AbortController();
++  const abort = () => controller.abort(parent?.reason);
++  parent?.addEventListener('abort', abort, { once: true });
++  if (parent?.aborted) abort();
++  const timer = setTimeout(() => controller.abort(), timeoutMs);
++  try {
++    return await withRequestSignal(controller.signal, async () => {
++      while (true) {
++        controller.signal.throwIfAborted();
++        const result = await mcpFetch(`/scan/status/${encodeURIComponent(jobId)}`);
++        if (result.status !== 200) return result;
++        const data = result.data as { status?: string };
++        if (data.status === 'complete' || data.status === 'failed') return result;
++        // The scan queues expose queued/running while work is pending
++        // (server/services/freeCheckerQueue.ts and contrastScanQueue.ts).
++        if (data.status !== 'queued' && data.status !== 'running') {
++          return { status: 502, data: { error: true, code: 'INVALID_RESPONSE', message: 'OverlayQA returned an unrecognized scan status. The scan may still be running.' } };
++        }
++        await delay(intervalMs, undefined, { signal: controller.signal });
++      }
++    });
++  } catch (error) {
++    if (parent?.aborted || !controller.signal.aborted) throw error;
++    return { status: 504, data: { error: true, code: 'SCAN_TIMEOUT', message: `Scan did not complete within ${timeoutMs / 1000} seconds. It may still be running on the server.` } };
++  } finally {
++    clearTimeout(timer);
++    parent?.removeEventListener('abort', abort);
+@@ -148,9 +205,0 @@ export async function pollScanJob(
+-
+-  return {
+-    status: 504,
+-    data: {
+-      error: true,
+-      code: 'SCAN_TIMEOUT',
+-      message: 'Scan did not complete within 60 seconds',
+-    },
+-  };
+diff --git a/src/index.ts b/src/index.ts
+index d634996..79ce8cb 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -14,3 +14,3 @@
+- *   3. On a server 401 mid-session, the HTTP client clears the cached
+- *      token; the next tool call will trigger a re-auth via the per-tool
+- *      handler below.
++ *   3. A server 401 clears the rejected cached token. Restart to launch
++ *      sign-in again; credentials saved by another session are picked up
++ *      on the next call without restarting.
+@@ -27,0 +28 @@ import { authenticate } from './auth.js';
++import { withRequestSignal } from './request-context.js';
+@@ -126 +127 @@ async function main(): Promise<void> {
+-      async (args: Record<string, unknown>) => {
++      async (args: Record<string, unknown>, extra) => {
+@@ -133 +134 @@ async function main(): Promise<void> {
+-          return await tool.handler(args);
++          return await withRequestSignal(extra.signal, () => tool.handler(args));
+diff --git a/src/telemetry.ts b/src/telemetry.ts
+index 3fa375d..6358bf5 100644
+--- a/src/telemetry.ts
++++ b/src/telemetry.ts
+@@ -100 +100,7 @@ export function buildTelemetryHeaders(): Record<string, string> {
+-    headers['x-overlayqa-mcp-client'] = client.version ? `${client.name}/${client.version}` : client.name;
++    // Match routes/mcp/telemetry.ts:38's CLIENT_FIELD_MAX_CHARS on the API.
++    // That parser does not URI-decode client names. Omit unsafe metadata
++    // rather than letting fetch reject the entire tool request.
++    const name = client.name.slice(0, 64);
++    const version = client.version?.slice(0, 64);
++    const value = version ? `${name}/${version}` : name;
++    if (/^[\x20-\x7e]+$/.test(value)) headers['x-overlayqa-mcp-client'] = value;
+@@ -104 +110,6 @@ export function buildTelemetryHeaders(): Record<string, string> {
+-    headers['x-overlayqa-mcp-intent'] = encodeURIComponent(intent);
++    try {
++      headers['x-overlayqa-mcp-intent'] = encodeURIComponent(intent);
++    } catch {
++      // JSON allows lone UTF-16 surrogates; optional analytics must not
++      // prevent the requested action when URI encoding rejects them.
++    }
+diff --git a/test/issue-parity-live.mjs b/test/issue-parity-live.mjs
+index bd7378d..8a76e54 100644
+--- a/test/issue-parity-live.mjs
++++ b/test/issue-parity-live.mjs
+@@ -22 +22 @@ const clientRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+-const entry = join(clientRoot, 'dist/index.js');
++const entry = process.env.MCP_TEST_ENTRY ? resolve(process.env.MCP_TEST_ENTRY) : join(clientRoot, 'dist/index.js');

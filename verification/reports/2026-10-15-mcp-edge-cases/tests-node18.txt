@@ -1,0 +1,356 @@
+TAP version 13
+# Subtest: review creation requires a web URL and retains explicit false settings
+ok 1 - review creation requires a web URL and retains explicit false settings
+  ---
+  duration_ms: 6.533978
+  ...
+# Subtest: recipient replacement can remove everyone and needs a review UUID
+ok 2 - recipient replacement can remove everyone and needs a review UUID
+  ---
+  duration_ms: 1.848197
+  ...
+# Subtest: an empty update is refused before a request and no tool writes reviewer completion
+ok 3 - an empty update is refused before a request and no tool writes reviewer completion
+  ---
+  duration_ms: 0.983118
+  ...
+# Subtest: old servers and permission failures remain errors, never empty successful lists
+ok 4 - old servers and permission failures remain errors, never empty successful lists
+  ---
+  duration_ms: 0.522072
+  ...
+# Subtest: read, share and invitation annotations survive the telemetry wrapper
+ok 5 - read, share and invitation annotations survive the telemetry wrapper
+  ---
+  duration_ms: 0.49948
+  ...
+# Subtest: issue edits do not need a status change and retain explicit unassignment and un-ignore
+ok 6 - issue edits do not need a status change and retain explicit unassignment and un-ignore
+  ---
+  duration_ms: 5.818109
+  ...
+# Subtest: creation retains an explicit assignee or Unassigned
+ok 7 - creation retains an explicit assignee or Unassigned
+  ---
+  duration_ms: 1.046692
+  ...
+# Subtest: list schema retains filters and pagination instead of silently dropping them
+ok 8 - list schema retains filters and pagination instead of silently dropping them
+  ---
+  duration_ms: 2.865779
+  ...
+# Subtest: list schema keeps the created-after and page filters and refuses a time with no zone
+ok 9 - list schema keeps the created-after and page filters and refuses a time with no zone
+  ---
+  duration_ms: 1.902644
+  ...
+# Subtest: a server that applied the filters is passed through unchanged
+ok 10 - a server that applied the filters is passed through unchanged
+  ---
+  duration_ms: 0.499158
+  ...
+# Subtest: a server that ignored a filter is refused, never returned as if every issue were new
+ok 11 - a server that ignored a filter is refused, never returned as if every issue were new
+  ---
+  duration_ms: 0.389332
+  ...
+# Subtest: CONTROL: without the new filters an older server still answers normally
+ok 12 - CONTROL: without the new filters an older server still answers normally
+  ---
+  duration_ms: 0.300905
+  ...
+# Subtest: a refusal from the server is reported as itself, not as a missing filter
+ok 13 - a refusal from the server is reported as itself, not as a missing filter
+  ---
+  duration_ms: 0.146158
+  ...
+# Subtest: descriptions tell an agent how to find unanswered issues and where the comments are
+ok 14 - descriptions tell an agent how to find unanswered issues and where the comments are
+  ---
+  duration_ms: 0.242044
+  ...
+# Subtest: CONTEXT_FIELD: optional, capped, and its description asks for a purpose and forbids secrets
+ok 15 - CONTEXT_FIELD: optional, capped, and its description asks for a purpose and forbids secrets
+  ---
+  duration_ms: 3.994333
+  ...
+# Subtest: withIntent scopes the purpose to one call; concurrent calls do not bleed
+ok 16 - withIntent scopes the purpose to one call; concurrent calls do not bleed
+  ---
+  duration_ms: 12.898304
+  ...
+# Subtest: buildTelemetryHeaders: intent is URI-encoded, editor is name/version, nothing when unknown
+ok 17 - buildTelemetryHeaders: intent is URI-encoded, editor is name/version, nothing when unknown
+  ---
+  duration_ms: 0.56923
+  ...
+# Subtest: wrapTool: adds context to the schema, strips it from the handler args, and scopes the intent around the call
+ok 18 - wrapTool: adds context to the schema, strips it from the handler args, and scopes the intent around the call
+  ---
+  duration_ms: 0.674314
+  ...
+# Subtest: wrapTool: a call without context runs the handler with no intent
+ok 19 - wrapTool: a call without context runs the handler with no intent
+  ---
+  duration_ms: 0.270028
+  ...
+# Subtest: update_issue: accepts the existing status call and PATCHes /issues/:id
+ok 20 - update_issue: accepts the existing status call and PATCHes /issues/:id
+  ---
+  duration_ms: 1.336118
+  ...
+# Subtest: create_issue accepts the current issue-type vocabulary (improvement, general)
+ok 21 - create_issue accepts the current issue-type vocabulary (improvement, general)
+  ---
+  duration_ms: 1.097849
+  ...
+# Subtest: a verification needs a stable request identity and never accepts caller-provided evidence
+ok 22 - a verification needs a stable request identity and never accepts caller-provided evidence
+  ---
+  duration_ms: 5.898207
+  ...
+# Subtest: both true and false detection filters survive parsing and require a server acknowledgement
+ok 23 - both true and false detection filters survive parsing and require a server acknowledgement
+  ---
+  duration_ms: 2.61964
+  ...
+# Subtest: npm pack builds its executable from fresh source and replaces stale output
+ok 24 - npm pack builds its executable from fresh source and replaces stale output
+  ---
+  duration_ms: 6874.670449
+  ...
+# Subtest: every advertised tool dispatches through the actual stdio entry point
+    # Subtest: scan_accessibility
+    ok 1 - scan_accessibility
+      ---
+      duration_ms: 5.811679
+      ...
+    # Subtest: scan_contrast
+    ok 2 - scan_contrast
+      ---
+      duration_ms: 1.989203
+      ...
+    # Subtest: scan_and_create_issues
+    ok 3 - scan_and_create_issues
+      ---
+      duration_ms: 2.193052
+      ...
+    # Subtest: compare_visual
+    ok 4 - compare_visual
+      ---
+      duration_ms: 1.462242
+      ...
+    # Subtest: audit_tokens
+    ok 5 - audit_tokens
+      ---
+      duration_ms: 1.489985
+      ...
+    # Subtest: create_issue
+    ok 6 - create_issue
+      ---
+      duration_ms: 1.412134
+      ...
+    # Subtest: list_issues
+    ok 7 - list_issues
+      ---
+      duration_ms: 2.516396
+      ...
+    # Subtest: update_issue
+    ok 8 - update_issue
+      ---
+      duration_ms: 1.952529
+      ...
+    # Subtest: get_issue
+    ok 9 - get_issue
+      ---
+      duration_ms: 1.53798
+      ...
+    # Subtest: list_project_members
+    ok 10 - list_project_members
+      ---
+      duration_ms: 1.336531
+      ...
+    # Subtest: move_issue
+    ok 11 - move_issue
+      ---
+      duration_ms: 1.071742
+      ...
+    # Subtest: verify_issue
+    ok 12 - verify_issue
+      ---
+      duration_ms: 1.10441
+      ...
+    # Subtest: get_issue_verifications
+    ok 13 - get_issue_verifications
+      ---
+      duration_ms: 1.26373
+      ...
+    # Subtest: list_comments
+    ok 14 - list_comments
+      ---
+      duration_ms: 0.85312
+      ...
+    # Subtest: create_comment
+    ok 15 - create_comment
+      ---
+      duration_ms: 1.146717
+      ...
+    # Subtest: update_comment
+    ok 16 - update_comment
+      ---
+      duration_ms: 1.705769
+      ...
+    # Subtest: delete_comment
+    ok 17 - delete_comment
+      ---
+      duration_ms: 1.253472
+      ...
+    # Subtest: get_comment_attachment
+    ok 18 - get_comment_attachment
+      ---
+      duration_ms: 1.22029
+      ...
+    # Subtest: list_labels
+    ok 19 - list_labels
+      ---
+      duration_ms: 1.503575
+      ...
+    # Subtest: create_label
+    ok 20 - create_label
+      ---
+      duration_ms: 1.222214
+      ...
+    # Subtest: rename_label
+    ok 21 - rename_label
+      ---
+      duration_ms: 1.039495
+      ...
+    # Subtest: delete_label
+    ok 22 - delete_label
+      ---
+      duration_ms: 1.013844
+      ...
+    # Subtest: set_issue_label
+    ok 23 - set_issue_label
+      ---
+      duration_ms: 1.360743
+      ...
+    # Subtest: list_projects
+    ok 24 - list_projects
+      ---
+      duration_ms: 1.063584
+      ...
+    # Subtest: create_project
+    ok 25 - create_project
+      ---
+      duration_ms: 0.94648
+      ...
+    # Subtest: list_client_reviews
+    ok 26 - list_client_reviews
+      ---
+      duration_ms: 0.950721
+      ...
+    # Subtest: create_client_review
+    ok 27 - create_client_review
+      ---
+      duration_ms: 1.215299
+      ...
+    # Subtest: update_client_review
+    ok 28 - update_client_review
+      ---
+      duration_ms: 0.980575
+      ...
+    # Subtest: set_client_review_recipients
+    ok 29 - set_client_review_recipients
+      ---
+      duration_ms: 0.896275
+      ...
+    # Subtest: invalid input is refused before the handler and the next call still works
+    ok 30 - invalid input is refused before the handler and the next call still works
+      ---
+      duration_ms: 2.500172
+      ...
+    1..30
+ok 25 - every advertised tool dispatches through the actual stdio entry point
+  ---
+  duration_ms: 348.078693
+  ...
+# Subtest: a delayed 401 cannot erase credentials saved after the request started
+ok 26 - a delayed 401 cannot erase credentials saved after the request started
+  ---
+  duration_ms: 412.798458
+  ...
+# Subtest: an expired current token is cleared; a later sign-in works without restarting MCP
+ok 27 - an expired current token is cleared; a later sign-in works without restarting MCP
+  ---
+  duration_ms: 379.27661
+  ...
+# Subtest: malformed saved credentials are refused locally instead of being sent as bearer tokens
+ok 28 - malformed saved credentials are refused locally instead of being sent as bearer tokens
+  ---
+  duration_ms: 281.934363
+  ...
+# Subtest: unreadable successful replies are errors, writes are not retried, and the next read recovers
+ok 29 - unreadable successful replies are errors, writes are not retried, and the next read recovers
+  ---
+  duration_ms: 420.168402
+  ...
+# Subtest: HTTP refusals retain their status; empty 204 deletion replies remain successful
+ok 30 - HTTP refusals retain their status; empty 204 deletion replies remain successful
+  ---
+  duration_ms: 403.50696
+  ...
+# Subtest: optional editor metadata and malformed Unicode context cannot break the tool
+ok 31 - optional editor metadata and malformed Unicode context cannot break the tool
+  ---
+  duration_ms: 417.743359
+  ...
+# Subtest: concurrent calls keep their own metadata and strip context from write payloads
+ok 32 - concurrent calls keep their own metadata and strip context from write payloads
+  ---
+  duration_ms: 422.079957
+  ...
+# Subtest: MCP cancellation aborts the pending HTTP read and leaves other tools usable
+ok 33 - MCP cancellation aborts the pending HTTP read and leaves other tools usable
+  ---
+  duration_ms: 423.611689
+  ...
+# Subtest: failed scan jobs remain errors and missing job IDs never produce a status request
+ok 34 - failed scan jobs remain errors and missing job IDs never produce a status request
+  ---
+  duration_ms: 420.559817
+  ...
+# Subtest: scan polling enforces its deadline even when the HTTP response never arrives
+ok 35 - scan polling enforces its deadline even when the HTTP response never arrives
+  ---
+  duration_ms: 491.593098
+  ...
+# Subtest: cancelling a scan during the polling pause stops further polls and isolates concurrent calls
+ok 36 - cancelling a scan during the polling pause stops further polls and isolates concurrent calls
+  ---
+  duration_ms: 2665.312483
+  ...
+# Subtest: unrecognized scan states fail promptly and job IDs stay in one URL segment
+ok 37 - unrecognized scan states fail promptly and job IDs stay in one URL segment
+  ---
+  duration_ms: 433.167916
+  ...
+# Subtest: cancellation after response headers aborts body reading instead of reporting null success
+ok 38 - cancellation after response headers aborts body reading instead of reporting null success
+  ---
+  duration_ms: 354.487189
+  ...
+# Subtest: a disconnected write reports an uncertain outcome without repeating the request
+ok 39 - a disconnected write reports an uncertain outcome without repeating the request
+  ---
+  duration_ms: 439.995848
+  ...
+1..39
+# tests 69
+# suites 0
+# pass 69
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8806.864201

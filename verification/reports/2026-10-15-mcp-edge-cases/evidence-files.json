@@ -1,0 +1,75 @@
+{
+  "note": "Text logs retain original test output except trailing whitespace and final blank lines, removed for git diff --check. Source mtimes and original hashes are retained here; report write time is not the test time.",
+  "files": [
+    {
+      "file": "before-transport.txt",
+      "source": "/tmp/mcp-edge-before.log",
+      "sourceModifiedAt": "2026-10-15T18:13:34.255854+00:00",
+      "sourceSha256": "a69c125541fe08732a8a50591300e79caa7bb3797283092c6e24e2f0d49baaaf",
+      "storedSha256": "b6f2de833ed784a450ccafbaeca42c15b415574098654128905fc2e8e1e555a8"
+    },
+    {
+      "file": "before-polling.txt",
+      "source": "/tmp/mcp-edge-poll-before.log",
+      "sourceModifiedAt": "2026-10-15T18:18:42.473808+00:00",
+      "sourceSha256": "4f0fdc80c389e39a36e67c84af23e8f3ce66282d785e4921f285450c30300a58",
+      "storedSha256": "e61f3a6847fc504991f803187a2e982b37d707f0a49f04803a9635761042ec2a"
+    },
+    {
+      "file": "before-disconnected-write.txt",
+      "source": "/tmp/mcp-edge-disconnected-before.log",
+      "sourceModifiedAt": "2026-10-15T18:21:25.600914+00:00",
+      "sourceSha256": "18e8485c02b018ead210603680d97dd965ca9a28abb2550df8a36b1d93947ac8",
+      "storedSha256": "9aa1d6f19a7d59d589c6e1ebe62e16126de96b94f9eb932bd55fae2cf8fa9184"
+    },
+    {
+      "file": "before-packaging.json",
+      "source": "/tmp/mcp-edge-pack-before.json",
+      "sourceModifiedAt": "2026-10-15T18:16:14.697030+00:00",
+      "sourceSha256": "52615af4bbcf8d8c90407a827f6bca313feef37ee280e4b8a770e380e9c09aa6",
+      "storedSha256": "e53d4c0733c6921b801f2c51d731f4476e556b62d93c883911c37d028cd00694"
+    },
+    {
+      "file": "tests-node22.txt",
+      "source": "/tmp/mcp-edge-tests.log",
+      "sourceModifiedAt": "2026-10-15T18:21:57.583432+00:00",
+      "sourceSha256": "7a16707e108164849ed8f762bdf965f5b87b98a92248e76bd4e82290643bff4a",
+      "storedSha256": "7a16707e108164849ed8f762bdf965f5b87b98a92248e76bd4e82290643bff4a"
+    },
+    {
+      "file": "tests-node18.txt",
+      "source": "/tmp/mcp-edge-node18-tests.log",
+      "sourceModifiedAt": "2026-10-15T18:22:32.379776+00:00",
+      "sourceSha256": "2b6628b1fce5be01d73c0523db1e1f36e9c891ef11634c3ff5634bb14ae5f129",
+      "storedSha256": "2b6628b1fce5be01d73c0523db1e1f36e9c891ef11634c3ff5634bb14ae5f129"
+    },
+    {
+      "file": "tests-packed.txt",
+      "source": "/tmp/mcp-edge-packed-tests.log",
+      "sourceModifiedAt": "2026-10-15T18:24:05.751081+00:00",
+      "sourceSha256": "837ad3ac61549d27405850f9afd8ec6203762a830001c44fd240140e042c0ae8",
+      "storedSha256": "837ad3ac61549d27405850f9afd8ec6203762a830001c44fd240140e042c0ae8"
+    },
+    {
+      "file": "typecheck.txt",
+      "source": "/tmp/mcp-edge-typecheck.log",
+      "sourceModifiedAt": "2026-10-15T18:23:56.743581+00:00",
+      "sourceSha256": "155c6f794048266e68cbd641df9d29fcbb5594939186f27a55913110e12b70c0",
+      "storedSha256": "35f3cdaa2893254a18a729a11ede88e0b62cb3df5454a26b0183ca3f263a66cb"
+    },
+    {
+      "file": "package.json",
+      "source": "/tmp/mcp-edge-pack.json",
+      "sourceModifiedAt": "2026-10-15T18:22:55.477029+00:00",
+      "sourceSha256": "299d1b7c6996219a93cf4b6e16a98ac33425071b56493289b1e0e9167169c326",
+      "storedSha256": "299d1b7c6996219a93cf4b6e16a98ac33425071b56493289b1e0e9167169c326"
+    },
+    {
+      "file": "runtime-provenance.json",
+      "source": "/tmp/mcp-edge-provenance.json",
+      "sourceModifiedAt": "2026-10-15T18:24:33.983215+00:00",
+      "sourceSha256": "4f4f74139de19f2157cb44250601804b28f2d27ca563213582fb697cf3a3a813",
+      "storedSha256": "4f4f74139de19f2157cb44250601804b28f2d27ca563213582fb697cf3a3a813"
+    }
+  ]
+}

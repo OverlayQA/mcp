@@ -139,16 +139,22 @@ test('failed scan jobs remain errors and missing job IDs never produce a status 
 
 
 test('scan polling enforces its deadline even when the HTTP response never arrives', async t => {
-  const f = await startFixture(t, () => {});
+  const f = await startFixture(t, (req, res) => {
+    if (req.path.endsWith('/projects')) json(res, 200, { projects: [] });
+    // Leave the scan status request open to exercise the real HTTP deadline.
+  });
   const entry = process.env.MCP_TEST_ENTRY ?? resolve('dist/index.js');
   const module = pathToFileURL(resolve(dirname(entry), 'client.js')).href;
   const { stdout } = await promisify(execFile)(process.execPath, ['--input-type=module', '-e',
-    `const { pollScanJob } = await import(${JSON.stringify(module)}); console.log(JSON.stringify(await pollScanJob('slow-job', 100, 2000)));`
+    // The release check on 2026-10-15 timed out before its first request at
+    // 100ms. Warm up fetch in this same process before testing a stalled poll;
+    // still require a status request so timing out before dispatch cannot pass.
+    `const { mcpFetch, pollScanJob } = await import(${JSON.stringify(module)}); await mcpFetch('/projects'); console.log(JSON.stringify(await pollScanJob('slow-job', 1000, 2000)));`
   ], { env: { ...process.env, OVERLAYQA_AUTH_FILE: f.authFile, OVERLAYQA_API_BASE: f.apiBase }, timeout: 5000 });
   const response = JSON.parse(stdout);
   assert.equal(response.status, 504); assert.equal(response.data.code, 'SCAN_TIMEOUT');
-  assert.match(response.data.message, /0\.1 seconds/);
-  assert.equal(f.requests.length, 1);
+  assert.match(response.data.message, /1 seconds/);
+  assert.equal(f.requests.filter(req => req.path.includes('/scan/status/')).length, 1);
 });
 
 test('cancelling a scan during the polling pause stops further polls and isolates concurrent calls', async t => {

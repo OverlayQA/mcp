@@ -36,6 +36,7 @@ const { version: PACKAGE_VERSION } = require('../package.json') as { version: st
 import { scanAccessibilityTool } from './tools/scan-accessibility.js';
 import { scanContrastTool } from './tools/scan-contrast.js';
 import { scanAndCreateIssuesTool } from './tools/scan-and-create-issues.js';
+import { runAutoReviewTool, getReviewResultTool } from './tools/review-workflows.js';
 import { compareVisualTool } from './tools/compare-visual.js';
 import { auditTokensTool } from './tools/audit-tokens.js';
 import { createIssueTool } from './tools/create-issue.js';
@@ -60,7 +61,7 @@ const ALL_TOOLS = (
     scanAccessibilityTool,
     scanContrastTool,
     scanAndCreateIssuesTool,
-    compareVisualTool,
+    compareVisualTool, runAutoReviewTool, getReviewResultTool,
     auditTokensTool,
     createIssueTool,
     listIssuesTool,
@@ -99,7 +100,7 @@ async function main(): Promise<void> {
   const server = new McpServer({
     name: 'overlayqa',
     version: PACKAGE_VERSION,
-  });
+  }, { instructions: 'run_auto_review and compare_visual start persistent reviews. Use get_review_result with the returned jobId until complete or failed, waiting between running results. After a lost start response, retry the same inputs and requestId. Do not start another review to retrieve a result. Public captures have no browser login session. These calls return findings without creating issues.' });
 
   // Which editor is on the other end (Claude Code, Cursor, Windsurf, ...) is
   // known only after the initialize handshake, so the HTTP client reads it

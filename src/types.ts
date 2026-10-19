@@ -21,11 +21,30 @@ export const ScanContrastInput = z.object({
   url: z.string().url().describe('The URL to scan for color contrast issues'),
 });
 
-export const CompareVisualInput = z.object({
-  url: z.string().url().describe('The live URL to compare'),
-  figmaFileKey: z.string().describe('Figma file key (from the Figma URL)'),
-  figmaNodeId: z.string().describe('Figma node ID of the frame to compare against'),
+const reviewIdentity = {
+  url: z.string().url().max(2000).describe('Public page URL'),
+  projectId: z.string().uuid().describe('Readable project UUID'),
+  requestId: z.string().uuid().describe('New UUID for this review; reuse after a lost response'),
+};
+export const RunAutoReviewInput = z.object({
+  ...reviewIdentity,
+  viewport: z.object({ width: z.number(), height: z.number() }).default({ width: 1280, height: 800 }).describe('Browser viewport in CSS pixels'),
+  breakpointLabel: z.string().max(40).optional().describe('Optional label, such as Desktop or Mobile'),
 });
+export const CompareVisualInput = z.object({
+  ...reviewIdentity,
+  figmaFileKey: z.string().min(1).max(128).regex(/^[A-Za-z0-9_-]+$/).optional().describe('Figma file key; use with figmaNodeId instead of reference'),
+  figmaNodeId: z.string().min(1).max(64).optional().describe('Figma frame node ID'),
+  measureSpacing: z.boolean().optional().describe('Include supported element measurements and layout tolerances'),
+  reference: z.discriminatedUnion('kind', [
+    z.object({ kind: z.literal('figma'), fileKey: z.string().min(1).max(128).regex(/^[A-Za-z0-9_-]+$/), nodeId: z.string().min(1).max(64),
+      name: z.string().min(1).max(200), width: z.number().positive().max(20000).optional(), height: z.number().positive().max(40000).optional() }),
+    z.object({ kind: z.literal('saved'), id: z.string().uuid() }),
+    z.object({ kind: z.literal('upload'), name: z.string().min(1).max(200), width: z.number().positive().max(20000).optional(),
+      dataUrl: z.string().min(1).max(Math.ceil(10 * 1024 * 1024 * 4 / 3) + 100).describe('PNG, JPEG, WebP or GIF data URL, up to 10 MiB before base64 encoding') }),
+  ]).optional().describe('Figma, saved design, or uploaded image reference'),
+});
+export const GetReviewResultInput = z.object({ jobId: z.string().uuid().describe('Review job ID returned at start') });
 
 export const AuditTokensInput = z.object({
   url: z.string().url().describe('The URL to audit for design token usage'),

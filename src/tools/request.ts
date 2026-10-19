@@ -8,7 +8,7 @@ export function toolError(message: string, code = 'INVALID_INPUT') {
 export function toolResult(result: { status: number; data: unknown }) {
   return {
     content: [{ type: 'text' as const, text: JSON.stringify(result.data, null, 2) }],
-    ...(result.status < 200 || result.status >= 300 ? { isError: true } : {}),
+    ...(result.status < 200 || result.status >= 300 || (result.data as { status?: string } | null)?.status === 'failed' ? { isError: true } : {}),
   };
 }
 

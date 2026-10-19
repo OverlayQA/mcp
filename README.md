@@ -64,10 +64,14 @@ Tools your agent can call. Each is written so the model picks the right one from
 | `rename_label` | Rename a workspace label (owner/admin). |
 | `delete_label` | Delete a workspace label and its assignments; keep the issues (owner/admin). |
 
-**Coming soon**
+**AI review workflows**
 | Tool | What it does |
 |------|-------------|
-| `compare_visual` | Compare a live page against a Figma frame. |
+| `run_auto_review` | Start Auto Review using project settings, ignored findings and already-filed issues. |
+| `compare_visual` | Start visual comparison against a Figma frame, saved design or uploaded image, with optional measured spacing. |
+| `get_review_result` | Retrieve progress, findings and screenshot evidence from a saved review. |
+
+Both start tools require `projectId`, a public `url`, and a new UUID `requestId`. They return a `jobId` immediately. Read it with `get_review_result` until complete or failed. Reuse the same request ID and inputs after a lost response; do not start another review just to read its result. Reviews use your scan allowance and do not automatically file issues. Visual comparison captures at the design’s authored width and returns AI findings, not a deterministic pixel-difference CI verdict.
 
 ## What the server records
 

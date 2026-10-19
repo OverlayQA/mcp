@@ -1,0 +1,46 @@
+{
+  "objective": "Publish the merged MCP review workflows to npm and the official MCP registry.",
+  "state": "Prepared; publication blocked by missing deployed server endpoints",
+  "checkedAt": "2026-10-19T05:19:29.093Z",
+  "machine": "MacBook-Pro.local",
+  "package": "@overlayqa/mcp",
+  "version": "0.5.0",
+  "sourceParent": "0fc281218fb7dcdec4f1c492df33620f72f049ed",
+  "archive": "/tmp/oq-mcp-release-0.5.0-20261019/overlayqa-mcp-0.5.0.tgz",
+  "archiveSha256": "e9792786547b99d456502f2735559e723d587fc51aa4af7b6fc2ade14181fa4c",
+  "integrity": "sha512-h6q5SCvHEBvY10/wwd9i74J3PY8FtT18gS2vbyALVqXAPt956MH2UXJ5XInhZodnFPpxJ84j2eLr2ndoWK/7eQ==",
+  "packageContents": "53 files: dist runtime and declarations, README.md, package.json, LICENSE; no test credentials or reports.",
+  "tests": {
+    "tests": 73,
+    "pass": 73,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "productionProbe": "production-preflight.json",
+  "deployedServer": {
+    "deploymentId": "ba38fbde-9e7d-4f7c-a159-0afbad757cd7",
+    "status": "SUCCESS",
+    "commit": "c832e996a2925daacf216338ac820a3a766baa7b"
+  },
+  "registryAtCheck": {
+    "version": "0.4.1",
+    "dist-tags": {
+      "latest": "0.4.1"
+    }
+  },
+  "completed": [
+    "Bumped package, npm lock and MCP registry manifest to 0.5.0.",
+    "Built the archive, installed it in an isolated consumer, and passed the local regression suite against its real stdio entry point.",
+    "Probed all three new review tools against production as the designated owner; existing list_projects succeeded."
+  ],
+  "blocker": "The deployed server has no run_auto_review or get_review_result routes and compare_visual still responds NOT_IMPLEMENTED. Publishing latest now would expose tools that cannot work.",
+  "nextAction": "After an authorized server release, rerun the deployed-service preflight and full workflows, then publish the verified archive with npm passkey authentication and update the official MCP registry.",
+  "boundaries": [
+    "No push, deployment, npm publication or registry publication performed.",
+    "No AI or Figma provider calls made in this release check.",
+    "Fresh Figma rendering, complete successful visual comparison and actual editor UI remain unverified."
+  ],
+  "publicationAuthorization": "User: publish the mcp",
+  "deploymentAuthorization": "Not included: project policy requires a separate explicit server push/deployment instruction."
+}

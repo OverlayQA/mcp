@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-19T11:07:38.074Z",
+  "version": "0.5.0",
+  "dist": {
+    "shasum": "68130632a87d1db137f5584bd9973e9f54e79f10",
+    "tarball": "https://registry.npmjs.org/@overlayqa/mcp/-/mcp-0.5.0.tgz",
+    "fileCount": 53,
+    "integrity": "sha512-h6q5SCvHEBvY10/wwd9i74J3PY8FtT18gS2vbyALVqXAPt956MH2UXJ5XInhZodnFPpxJ84j2eLr2ndoWK/7eQ==",
+    "signatures": [
+      {
+        "sig": "MEQCIEtLXjIYYQN/99VSlYSVIVN78s+T7o1uMN3MrxhB8dcOAiBXvMI/RMYqG3rmSaBS0hhG6b1tdtQ+3w8EJ6FsgUsvOA==",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEQCIHuBusQikEo1m55F1WIrXJfHjCAW63xBtF42Hc1tDI24AiAVyC+QXvNl2HvX1+xhQCuYdN9MdafmWuTulOXVALyWig=="
+      }
+    ],
+    "unpackedSize": 142274
+  },
+  "tags": {
+    "latest": "0.5.0"
+  },
+  "publishedAt": "2026-10-19T11:07:08.806Z"
+}

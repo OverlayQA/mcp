@@ -1,0 +1,100 @@
+{
+  "startedAt": "2026-10-19T11:01:47.822Z",
+  "machine": "MacBook-Pro.local",
+  "origin": "https://api.overlayqa.com",
+  "email": "testsprite@overlayqa.com",
+  "entry": "/tmp/oq-mcp-release-0.5.0-20261019/consumer/node_modules/@overlayqa/mcp/dist/index.js",
+  "entrySha256": "922ab08993f2dc3d56883e8b8e8ccebf59f07bddeee5979ebc510c4bdacc17d3",
+  "packageVersion": "0.5.0",
+  "substitutions": [
+    "Designated owner session supplied in an isolated credential file; browser sign-in and editor UI not exercised."
+  ],
+  "scope": "Read projects and invoke reviews with nonexistent project/job IDs. No scan, AI provider or Figma call is requested.",
+  "checks": [
+    {
+      "tool": "list_projects",
+      "checkedAt": "2026-10-19T11:01:51.959Z",
+      "status": "PASS",
+      "expected": "Successful authenticated read",
+      "observed": {
+        "isError": false
+      }
+    },
+    {
+      "tool": "run_auto_review",
+      "checkedAt": "2026-10-19T11:01:52.127Z",
+      "status": "PASS",
+      "expected": "Project not found",
+      "observed": {
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Project not found"
+        }
+      }
+    },
+    {
+      "tool": "compare_visual",
+      "checkedAt": "2026-10-19T11:01:52.279Z",
+      "status": "PASS",
+      "expected": "Project not found",
+      "observed": {
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Project not found"
+        }
+      }
+    },
+    {
+      "tool": "get_review_result",
+      "checkedAt": "2026-10-19T11:01:52.395Z",
+      "status": "PASS",
+      "expected": "Review not found or expired",
+      "observed": {
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Review not found or expired"
+        }
+      }
+    }
+  ],
+  "notVerified": [
+    "Successful deployed Auto Review and visual comparison jobs.",
+    "Fresh Figma rendering, published npm distribution and editor UI."
+  ],
+  "role": "owner",
+  "advertisedTools": [
+    "scan_accessibility",
+    "scan_contrast",
+    "scan_and_create_issues",
+    "compare_visual",
+    "run_auto_review",
+    "get_review_result",
+    "audit_tokens",
+    "create_issue",
+    "list_issues",
+    "update_issue",
+    "get_issue",
+    "list_project_members",
+    "move_issue",
+    "verify_issue",
+    "get_issue_verifications",
+    "list_comments",
+    "create_comment",
+    "update_comment",
+    "delete_comment",
+    "get_comment_attachment",
+    "list_labels",
+    "create_label",
+    "rename_label",
+    "delete_label",
+    "set_issue_label",
+    "list_projects",
+    "create_project",
+    "list_client_reviews",
+    "create_client_review",
+    "update_client_review",
+    "set_client_review_recipients"
+  ],
+  "status": "READY_FOR_JOB_VERIFICATION",
+  "finishedAt": "2026-10-19T11:01:52.409Z"
+}

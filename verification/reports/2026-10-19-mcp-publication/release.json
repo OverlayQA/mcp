@@ -1,7 +1,7 @@
 {
   "objective": "Publish the merged MCP review workflows to npm and the official MCP registry.",
-  "state": "Prepared; publication blocked by missing deployed server endpoints",
-  "checkedAt": "2026-10-19T05:19:29.093Z",
+  "state": "Published; archive integrity, package regressions and production endpoint connectivity verified",
+  "checkedAt": "2026-10-19T11:09:32.051Z",
   "machine": "MacBook-Pro.local",
   "package": "@overlayqa/mcp",
   "version": "0.5.0",
@@ -17,30 +17,64 @@
     "cancelled": 0,
     "skipped": 0
   },
-  "productionProbe": "production-preflight.json",
+  "productionProbe": "published-production-preflight.json",
   "deployedServer": {
-    "deploymentId": "ba38fbde-9e7d-4f7c-a159-0afbad757cd7",
+    "deploymentId": "775194da-c3d4-4a58-aa93-890ad5bfb17f",
     "status": "SUCCESS",
-    "commit": "c832e996a2925daacf216338ac820a3a766baa7b"
+    "commit": "c8e24d227d08d3e4467c0704abd4ee52a075fe0e",
+    "containsMcpMerge": true,
+    "reviewWorkflowsEnabled": true
   },
   "registryAtCheck": {
-    "version": "0.4.1",
+    "version": "0.5.0",
     "dist-tags": {
-      "latest": "0.4.1"
+      "latest": "0.5.0"
     }
   },
   "completed": [
     "Bumped package, npm lock and MCP registry manifest to 0.5.0.",
     "Built the archive, installed it in an isolated consumer, and passed the local regression suite against its real stdio entry point.",
-    "Probed all three new review tools against production as the designated owner; existing list_projects succeeded."
+    "Probed all three new review tools against production as the designated owner; existing list_projects succeeded.",
+    "Rechecked deployed server ancestry and enabled workflow flag; all three packaged review tools reached the live routes as the designated owner.",
+    "Re-ran the 73-test package suite; all passed.",
+    "npm serves 0.5.0 as latest; downloaded tarball bytes and integrity match the tested release archive.",
+    "Fresh public npm installation passed all 73 regression tests and production endpoint preflight.",
+    "Official MCP registry serves com.overlayqa/mcp 0.5.0 as latest."
   ],
-  "blocker": "The deployed server has no run_auto_review or get_review_result routes and compare_visual still responds NOT_IMPLEMENTED. Publishing latest now would expose tools that cannot work.",
-  "nextAction": "After an authorized server release, rerun the deployed-service preflight and full workflows, then publish the verified archive with npm passkey authentication and update the official MCP registry.",
+  "blocker": null,
+  "nextAction": "Publication finished. Existing fresh-Figma and complete visual-comparison acceptance gaps remain separate.",
   "boundaries": [
-    "No push, deployment, npm publication or registry publication performed.",
-    "No AI or Figma provider calls made in this release check.",
+    "No Git push or server deployment performed by this publication workstream.",
+    "No AI or Figma provider calls made in these release checks.",
     "Fresh Figma rendering, complete successful visual comparison and actual editor UI remain unverified."
   ],
   "publicationAuthorization": "User: publish the mcp",
-  "deploymentAuthorization": "Not included: project policy requires a separate explicit server push/deployment instruction."
+  "previousBlocker": {
+    "checkedAt": "2026-10-19T05:19:29.093Z",
+    "deployedServer": {
+      "deploymentId": "ba38fbde-9e7d-4f7c-a159-0afbad757cd7",
+      "status": "SUCCESS",
+      "commit": "c832e996a2925daacf216338ac820a3a766baa7b"
+    },
+    "blocker": "The deployed server has no run_auto_review or get_review_result routes and compare_visual still responds NOT_IMPLEMENTED. Publishing latest now would expose tools that cannot work."
+  },
+  "npmPublishAcceptedAt": "2026-10-19T11:03:44.376Z",
+  "npmPublishOutput": "Your package is being processed and may take a few minutes to become available. + @overlayqa/mcp@0.5.0",
+  "completedAt": "2026-10-19T11:09:32.051Z",
+  "publishedAt": "2026-10-19T11:07:08.806Z",
+  "registryTarballSha256": "e9792786547b99d456502f2735559e723d587fc51aa4af7b6fc2ade14181fa4c",
+  "artifactMatchesVerifiedPackage": true,
+  "publishedPackageTests": {
+    "tests": 73,
+    "pass": 73,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "productionVerificationScope": "Fresh npm installation, real SDK stdio transport, designated production owner: list_projects succeeds, review calls with nonexistent IDs reach the intended routes. Successful paid review execution is not certified by this probe.",
+  "officialRegistry": {
+    "version": "0.5.0",
+    "isLatest": true,
+    "publishedAt": "2026-10-19T11:08:32.109191Z"
+  }
 }

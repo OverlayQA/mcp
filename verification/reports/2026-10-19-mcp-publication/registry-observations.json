@@ -1,0 +1,102 @@
+[
+  {
+    "checkedAt": "2026-10-19T11:03:43.495Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:03:53.658Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:04:03.806Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:04:13.925Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:04:24.123Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:04:34.260Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:04:44.392Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:04:54.527Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:05:04.675Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:05:14.867Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:05:25.858Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:05:36.046Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false
+  },
+  {
+    "checkedAt": "2026-10-19T11:06:07.081Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false,
+    "cache": "MISS"
+  },
+  {
+    "checkedAt": "2026-10-19T11:06:37.432Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false,
+    "cache": "MISS"
+  },
+  {
+    "checkedAt": "2026-10-19T11:07:07.798Z",
+    "status": 200,
+    "latest": "0.4.1",
+    "versionPresent": false,
+    "cache": "MISS"
+  },
+  {
+    "checkedAt": "2026-10-19T11:07:38.074Z",
+    "status": 200,
+    "latest": "0.5.0",
+    "versionPresent": true,
+    "cache": "MISS"
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-10-19T11:08:55.808Z",
+  "url": "https://registry.modelcontextprotocol.io/v0/servers/com.overlayqa%2Fmcp/versions/latest",
+  "status": 200,
+  "data": {
+    "server": {
+      "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+      "name": "com.overlayqa/mcp",
+      "description": "Run accessibility, contrast, and design token audits and file QA issues from your AI coding tool.",
+      "version": "0.5.0",
+      "packages": [
+        {
+          "registryType": "npm",
+          "identifier": "@overlayqa/mcp",
+          "version": "0.5.0",
+          "transport": {
+            "type": "stdio"
+          }
+        }
+      ]
+    },
+    "_meta": {
+      "io.modelcontextprotocol.registry/official": {
+        "status": "active",
+        "statusChangedAt": "2026-10-19T11:08:32.109191Z",
+        "publishedAt": "2026-10-19T11:08:32.109191Z",
+        "updatedAt": "2026-10-19T11:08:32.109191Z",
+        "isLatest": true
+      }
+    }
+  }
+}

@@ -1,50 +1,59 @@
 /**
- * MCP OAuth browser flow.
+ * Hosted sign-in: OAuth 2.1 with PKCE against api.overlayqa.com/mcp/oauth,
+ * the same sign-in Claude and ChatGPT use for the hosted connection.
  *
- * Called by the MCP server entry point (./index.ts) on first run, or after a
- * 401 cleared the stored token. Opens a browser to the dashboard authorize
- * page; the dashboard generates a one-time code and redirects back to a
- * localhost callback we start here. We exchange the code for an MCP session
- * JWT and persist it via ./client.ts.
+ * Called from the entry point (./index.ts) once the editor has introduced
+ * itself and no credential is stored. The editor is registered as an OAuth
+ * client, the browser opens the dashboard consent page, and the redirect
+ * lands on a loopback callback started here. The code is exchanged for a
+ * short-lived access token plus a refresh token and persisted via ./client.ts.
  *
  * Flow:
- *   1. Start a temporary HTTP server on a random port (0 = OS-assigned)
- *   2. Open https://app.overlayqa.com/mcp/authorize?port=<chosen> in the browser
- *   3. Wait for GET http://localhost:<port>/callback?code=<value>
- *   4. POST https://api.overlayqa.com/api/mcp/token with { code }
- *   5. Persist { token, teamId } to ~/.overlayqa/auth.json
- *   6. Show a success page, close the temp server, return the credentials
+ *   1. Start a temporary HTTP server on 127.0.0.1 (port 0 = OS-assigned)
+ *   2. POST /mcp/oauth/register with that callback as the redirect URI
+ *   3. Open /mcp/oauth/authorize (PKCE S256, state, resource) in the browser
+ *   4. Wait for GET http://127.0.0.1:<port>/callback?code=<value>&state=<state>
+ *   5. POST /mcp/oauth/token with the code and PKCE verifier
+ *   6. Persist the credential, show a success page, close the temp server
  *
  * Whole flow times out after 5 minutes.
  */
-import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
-import { getStoredAuth, storeAuth, type AuthConfig } from './client.js';
+import { createServer } from 'node:http';
+import { createHash, randomBytes } from 'node:crypto';
+import { getStoredAuth, storeAuth, requestHostedTokens, OAUTH_ISSUER, MCP_RESOURCE, type AuthConfig } from './client.js';
 import { renderConnectionPage } from './connection-page.js';
 
-const DASHBOARD_URL = 'https://app.overlayqa.com';
-const TOKEN_EXCHANGE_URL = 'https://api.overlayqa.com/api/mcp/token';
 const AUTH_TIMEOUT_MS = 5 * 60 * 1000;
+const HTML = { 'Content-Type': 'text/html' };
 
-interface TokenExchangeResponse {
-  token: string;
-  teamId: string;
+export interface SignInOptions {
+  /** Shown on the consent screen and in Connected AI apps. Defaults to the package name. */
+  clientName?: string;
+  /** Receives the consent URL. Verification harnesses drive the browser themselves. */
+  onAuthorizeUrl?: (url: string) => void;
 }
 
 /**
- * Run the OAuth browser flow and return the resulting MCP credentials.
- * If a valid token already exists in storage, returns it without launching
+ * Run the hosted sign-in and return the resulting credential. If a credential
+ * already exists in storage (hosted or legacy), returns it without launching
  * the browser.
  */
-export async function authenticate(): Promise<AuthConfig> {
+export async function authenticate(options: SignInOptions = {}): Promise<AuthConfig> {
   const existing = getStoredAuth();
   if (existing) {
     return existing;
   }
 
+  const verifier = randomBytes(32).toString('base64url');
+  const challenge = createHash('sha256').update(verifier).digest('base64url');
+  const state = randomBytes(24).toString('base64url');
+
   return new Promise<AuthConfig>((resolve, reject) => {
     let resolved = false;
+    let clientId = '';
+    let redirectUri = '';
 
-    const server = createServer(async (req: IncomingMessage, res: ServerResponse) => {
+    const server = createServer(async (req, res) => {
       const url = new URL(req.url ?? '/', 'http://localhost');
 
       if (url.pathname !== '/callback') {
@@ -53,42 +62,38 @@ export async function authenticate(): Promise<AuthConfig> {
         return;
       }
 
-      const code = url.searchParams.get('code');
-      if (!code) {
+      // Only the consent this process started may land here.
+      if (url.searchParams.get('state') !== state) {
         res.writeHead(400, { 'Content-Type': 'text/plain' });
-        res.end('Missing authorization code');
-        finishWithError(new Error('No authorization code received'));
+        res.end('This sign-in link does not belong to the editor that is waiting. Restart the MCP server and connect again.');
+        return;
+      }
+
+      const code = url.searchParams.get('code');
+      const denied = url.searchParams.get('error');
+      if (denied || !code) {
+        res.writeHead(400, HTML);
+        res.end(renderConnectionPage(false));
+        finishWithError(new Error(url.searchParams.get('error_description') ?? denied ?? 'No authorization code received'));
         return;
       }
 
       try {
-        const tokenRes = await fetch(TOKEN_EXCHANGE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code }),
+        const auth = await requestHostedTokens({
+          grant_type: 'authorization_code',
+          code,
+          redirect_uri: redirectUri,
+          code_verifier: verifier,
+          client_id: clientId,
         });
+        storeAuth(auth);
 
-        if (!tokenRes.ok) {
-          const errPayload = await tokenRes.json().catch(() => null);
-          const message =
-            (errPayload as { error?: { message?: string } } | null)?.error?.message ??
-            `Token exchange failed (HTTP ${tokenRes.status})`;
-          throw new Error(message);
-        }
-
-        const payload = (await tokenRes.json()) as TokenExchangeResponse;
-        if (!payload?.token || !payload?.teamId) {
-          throw new Error('Token exchange response missing token or teamId');
-        }
-
-        storeAuth({ token: payload.token, teamId: payload.teamId });
-
-        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.writeHead(200, HTML);
         res.end(renderConnectionPage(true));
 
-        finishWithSuccess({ token: payload.token, teamId: payload.teamId });
+        finishWithSuccess(auth);
       } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'text/html' });
+        res.writeHead(500, HTML);
         res.end(renderConnectionPage(false));
         finishWithError(err instanceof Error ? err : new Error(String(err)));
       }
@@ -123,21 +128,59 @@ export async function authenticate(): Promise<AuthConfig> {
         finishWithError(new Error('Failed to get local server address'));
         return;
       }
-      const port = address.port;
-      // source=mcp lets the dashboard attribute signups that originate from the
-      // MCP funnel (vs web/extension) in analytics. All directory installs run
-      // the same `npx`, so this distinguishes the MCP channel as a whole, not
-      // individual directories.
-      const authorizeUrl = `${DASHBOARD_URL}/mcp/authorize?port=${port}&source=mcp`;
+      redirectUri = `http://127.0.0.1:${address.port}/callback`;
 
       try {
+        clientId = await registerClient(options.clientName ?? '@overlayqa/mcp', redirectUri);
+      } catch (err) {
+        finishWithError(err instanceof Error ? err : new Error(String(err)));
+        return;
+      }
+
+      const authorizeUrl = new URL(`${OAUTH_ISSUER}/authorize`);
+      authorizeUrl.search = new URLSearchParams({
+        response_type: 'code',
+        client_id: clientId,
+        redirect_uri: redirectUri,
+        resource: MCP_RESOURCE,
+        code_challenge: challenge,
+        code_challenge_method: 'S256',
+        state,
+      }).toString();
+      options.onAuthorizeUrl?.(authorizeUrl.toString());
+      // Always printed: a browser that opened behind the editor, or none at
+      // all (CI, dev container), still leaves the user a link to follow.
+      // stderr only — stdout is the stdio protocol.
+      console.error(`Connect your OverlayQA account in the browser: ${authorizeUrl}`);
+      // OVERLAYQA_SIGNIN_NO_BROWSER is for OverlayQA's own verification, which
+      // drives the consent page itself; a published build always opens the browser.
+      if (process.env.OVERLAYQA_SIGNIN_NO_BROWSER === '1') return;
+      try {
         const open = (await import('open')).default;
-        await open(authorizeUrl);
+        await open(authorizeUrl.toString());
       } catch {
-        // open() can fail in headless environments (CI, dev container, etc.).
-        // Print the URL so the user can paste it into a browser manually.
-        console.error(`Open this URL in your browser: ${authorizeUrl}`);
+        // open() can fail in headless environments; the printed URL is the fallback.
       }
     });
   });
+}
+
+/** Register this editor's loopback callback as an OAuth client; returns its client_id. */
+async function registerClient(clientName: string, redirectUri: string): Promise<string> {
+  const res = await fetch(`${OAUTH_ISSUER}/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      client_name: clientName.slice(0, 100),
+      redirect_uris: [redirectUri],
+      token_endpoint_auth_method: 'none',
+      grant_types: ['authorization_code', 'refresh_token'],
+      response_types: ['code'],
+    }),
+  });
+  const data = (await res.json().catch(() => null)) as { client_id?: unknown; error?: string; error_description?: string } | null;
+  if (!res.ok || typeof data?.client_id !== 'string') {
+    throw new Error(data?.error_description ?? data?.error ?? `Could not register this editor with OverlayQA (HTTP ${res.status}).`);
+  }
+  return data.client_id;
 }

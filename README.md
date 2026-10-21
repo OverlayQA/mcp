@@ -36,7 +36,7 @@ Or add it to your editor's MCP config manually:
 }
 ```
 
-Any MCP-compatible client works the same way. On first run a browser tab opens to connect your OverlayQA account (free, no card). The token caches at `~/.overlayqa/auth.json` for 30 days.
+Any MCP-compatible client works the same way. On first run a browser tab opens to connect your OverlayQA account (free, no card): pick the workspace, allow access, and the connection lasts 30 days. Credentials cache at `~/.overlayqa/auth.json`; the access token is short-lived and refreshes in the background. Disconnect an editor at any time from Connected AI apps in the dashboard (app.overlayqa.com/mcp/connect).
 
 ## Tools
 
@@ -104,7 +104,7 @@ See [overlayqa.com/pricing](https://overlayqa.com/pricing).
 
 **What does it actually scan?** Any public URL. Accessibility uses axe-core mapped to WCAG success criteria; contrast checks foreground/background ratios and returns the failing element pairs.
 
-**Do I need an account?** Yes, a free OverlayQA account. On first run a browser tab opens to connect it; the token caches locally for 30 days.
+**Do I need an account?** Yes, a free OverlayQA account. On first run a browser tab opens to connect it; the connection lasts 30 days and can be disconnected from the dashboard at any time.
 
 **Does it work with the OverlayQA Chrome extension?** Yes. The MCP server and the extension share the same projects and issues, so anything you file from your editor shows up in the extension and the dashboard, and vice versa.
 

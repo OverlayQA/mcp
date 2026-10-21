@@ -1,0 +1,11 @@
+{
+  "name": "overlayqa",
+  "version": "0.6.0",
+  "description": "Run accessibility, contrast, and design token audits and file QA issues from your AI coding tool.",
+  "mcpServers": {
+    "overlayqa": {
+      "command": "npx",
+      "args": ["-y", "@overlayqa/mcp@latest"]
+    }
+  }
+}

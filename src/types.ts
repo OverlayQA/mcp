@@ -102,7 +102,7 @@ export const ListIssuesInput = z.object({
 
 export const ListProjectsInput = z
   .object({})
-  .describe("No input — lists all projects in the user's team");
+  .describe("No input. Lists all projects in the user's team");
 
 export const CreateProjectInput = z.object({
   name: z.string().min(1).max(100).describe('Project name'),

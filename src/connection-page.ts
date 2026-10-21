@@ -14,7 +14,7 @@ export function renderConnectionPage(connected: boolean): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>OverlayQA — ${title}</title>
+  <title>OverlayQA: ${title}</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(135deg,#1e3a8a 0%,#3468f8 100%); font-family: system-ui,-apple-system,sans-serif; }

@@ -1,0 +1,43 @@
+{
+  "name": "@overlayqa/mcp",
+  "version": "0.6.0",
+  "dist-tags": {
+    "latest": "0.6.0"
+  },
+  "dist": {
+    "shasum": "fc4cfd0afd362969550c5fbd710af2bf0166a17d",
+    "tarball": "https://registry.npmjs.org/@overlayqa/mcp/-/mcp-0.6.0.tgz",
+    "fileCount": 53,
+    "integrity": "sha512-jwDv3Z5i5tqqgiiMTFXbCja0rnWGLn12o+hLhlJUWSiJGT/FRN403tHqHJGNhWW1aC+h3kshDfebIkxUrm25VA==",
+    "signatures": [
+      {
+        "sig": "MEQCIFQpGEM1zVVxfJWmsVHA7wUTM7G7dzkV0++/kn81XoTtAiAXAvMUso5BuFH4TSL0uvlB593JMBp7oVOgEnxwaNYJXQ==",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEQCIC/Dg7p7/eyO3Wg7LMTQYFsf9zJa/7acAbml8QJXCCa4AiAjuyLUwxQx5YqaC7yayGAwKSLeIqb3EFcthsRBqUeT4g=="
+      }
+    ],
+    "unpackedSize": 152507
+  },
+  "time": {
+    "created": "2026-06-09T13:14:47.120Z",
+    "modified": "2026-10-21T02:34:36.368Z",
+    "0.1.0": "2026-06-09T13:14:47.402Z",
+    "0.1.1": "2026-06-09T13:52:38.692Z",
+    "0.1.2": "2026-06-09T17:09:46.981Z",
+    "0.1.3": "2026-06-09T18:29:11.795Z",
+    "0.1.4": "2026-06-09T20:46:46.599Z",
+    "0.1.5": "2026-06-10T02:55:34.701Z",
+    "0.1.6": "2026-06-10T05:03:57.778Z",
+    "0.1.7": "2026-07-02T18:19:54.675Z",
+    "0.2.0": "2026-09-23T03:17:14.884Z",
+    "0.3.0": "2026-09-30T16:41:16.165Z",
+    "0.4.0": "2026-10-13T03:19:20.518Z",
+    "0.4.1": "2026-10-15T20:14:54.008Z",
+    "0.5.0": "2026-10-19T11:07:08.806Z",
+    "0.6.0": "2026-10-21T02:34:36.191Z"
+  },
+  "mcpName": "com.overlayqa/mcp"
+}

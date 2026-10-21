@@ -1,0 +1,29 @@
+{
+ "objective": "Publish @overlayqa/mcp 0.6.0: the hosted OAuth sign-in replaces the local 30-day token (OverlayQA security audit 2026-10-20, decision 16 / F10).",
+ "state": "Published to npm and the official MCP registry; Smithery refused the update",
+ "checkedAt": "2026-10-21T02:36:32Z",
+ "machine": "MacBook-Pro.local",
+ "package": "@overlayqa/mcp",
+ "version": "0.6.0",
+ "source": "d558ae3 (GitHub OverlayQA/mcp main, pushed 2026-10-20)",
+ "archiveSha256": "0bb2deeedadc5c3b35ac00a6cfc464ef635a827b0e90a1129ba9c9cec7ea2fc1",
+ "integrity": "sha512-jwDv3Z5i5tqqgiiMTFXbCja0rnWGLn12o+hLhlJUWSiJGT/FRN403tHqHJGNhWW1aC+h3kshDfebIkxUrm25VA==",
+ "packageContents": "53 files; no test, verification or env files.",
+ "tests": {
+  "suite": "npm test",
+  "pass": 81,
+  "fail": 0
+ },
+ "browserVerification": "OverlayQA docs/test-reports/2026-10-20-mcp-hosted-signin/ (local 6/6, production 4/4 against api.overlayqa.com with the candidate build)",
+ "completed": [
+  "Packed the release, installed it into an isolated consumer, stdio handshake reported 0.6.0.",
+  "npm publish of the tested tarball in a pseudo-terminal; Emily approved the passkey challenge in the browser; npm serves 0.6.0 as latest.",
+  "Downloaded npm tarball sha256 equals the tested archive.",
+  "Official MCP registry: dns login then publish; com.overlayqa/mcp 0.6.0 isLatest."
+ ],
+ "blocker": "Smithery: publish-smithery answered 403 {\"error\":\"Updating servers has been removed. Contact support@smithery.ai.\"}. Smithery keeps serving an older MCPB bundle (29 tools) that uses the legacy sign-in.",
+ "boundaries": [
+  "No real editor drove the published package in this workstream.",
+  "Smithery listing not updated."
+ ]
+}

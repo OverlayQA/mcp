@@ -7,13 +7,16 @@
  *   npx @overlayqa/mcp@latest
  *
  * Flow on first run:
- *   1. No token at ~/.overlayqa/auth.json -> launch OAuth browser flow
- *      (./auth.ts). User logs into the dashboard, dashboard issues a
- *      one-time code, we exchange it for a 30-day JWT, persist it.
- *   2. Subsequent runs reuse the cached JWT.
- *   3. A server 401 clears the rejected cached token. Restart to launch
- *      sign-in again; credentials saved by another session are picked up
- *      on the next call without restarting.
+ *   1. No credential at ~/.overlayqa/auth.json -> once the editor has
+ *      introduced itself, launch the hosted sign-in (./auth.ts): the user
+ *      allows access on the dashboard consent page and we persist a
+ *      short-lived access token plus a 30-day refresh token.
+ *   2. Subsequent runs reuse the cached credential; ./client.ts refreshes
+ *      the access token in the background. A credential saved before 0.6.0
+ *      (the 30-day token) is used as stored until it expires.
+ *   3. A server 401 that a refresh cannot cure clears the rejected cached
+ *      credential. Restart to launch sign-in again; credentials saved by
+ *      another session are picked up on the next call without restarting.
  *
  * Each tool handler wraps its underlying call in try/catch so an
  * unexpected throw becomes a structured MCP error response instead of
@@ -77,26 +80,6 @@ const ALL_TOOLS = (
 ).map(wrapTool);
 
 async function main(): Promise<void> {
-  // Connect stdio FIRST, authenticate in the background. Blocking startup on
-  // the OAuth browser flow meant headless environments (registry sandboxes,
-  // CI, directory installability checks) could never even answer tools/list:
-  // open() fails, the flow waits out its 5-minute timeout, and the process
-  // exited. Now the server always comes up; tool calls made before auth
-  // completes return a structured AUTH_REQUIRED error, and mcpFetch re-reads
-  // ~/.overlayqa/auth.json on every call so it picks up the token the moment
-  // the browser flow finishes. (stderr only — stdout is the stdio protocol.)
-  if (!getStoredAuth()) {
-    console.error('No OverlayQA credentials found. Starting authentication...');
-    void authenticate()
-      .then(() => console.error('Authentication successful!'))
-      .catch((err) =>
-        console.error(
-          'Authentication failed (tools will return AUTH_REQUIRED):',
-          err instanceof Error ? err.message : err,
-        ),
-      );
-  }
-
   const server = new McpServer({
     name: 'overlayqa',
     version: PACKAGE_VERSION,
@@ -109,6 +92,28 @@ async function main(): Promise<void> {
     const info = server.server.getClientVersion();
     return info ? { name: info.name, version: info.version } : undefined;
   });
+
+  // Connect stdio FIRST, sign in in the background. Blocking startup on the
+  // browser flow meant headless environments (registry sandboxes, CI,
+  // directory installability checks) could never even answer tools/list.
+  // Whether to sign in is decided once, at startup, as before; the flow
+  // itself starts once the editor has introduced itself, so the consent
+  // screen and Connected AI apps carry its name. Tool calls made before it
+  // completes return a structured AUTH_REQUIRED error, and mcpFetch re-reads
+  // ~/.overlayqa/auth.json on every call so it picks up the credential the
+  // moment the browser flow finishes. (stderr only — stdout is the stdio protocol.)
+  if (!getStoredAuth()) server.server.oninitialized = () => {
+    const editor = server.server.getClientVersion()?.name;
+    console.error('No OverlayQA credentials found. Starting sign-in...');
+    void authenticate({ clientName: editor ? `${editor} via @overlayqa/mcp` : '@overlayqa/mcp' })
+      .then(() => console.error('Connected to OverlayQA.'))
+      .catch((err) =>
+        console.error(
+          'Sign-in failed (tools will return AUTH_REQUIRED):',
+          err instanceof Error ? err.message : err,
+        ),
+      );
+  };
 
   for (const tool of ALL_TOOLS) {
     // Named configuration avoids server.tool's positional overload: SDK
@@ -128,10 +133,11 @@ async function main(): Promise<void> {
       async (args: Record<string, unknown>, extra) => {
         try {
           // Re-check auth on each call. If the HTTP client wiped the
-          // token via a server 401, the next mcpFetch() inside the tool
-          // will return { status: 401, code: 'AUTH_REQUIRED' } and the
-          // user will need to restart. We don't re-launch the browser
-          // mid-session (would be jarring); we surface the auth error.
+          // credential after a server 401 that no refresh could cure, the
+          // next mcpFetch() inside the tool will return { status: 401,
+          // code: 'AUTH_REQUIRED' } and the user will need to restart. We
+          // don't re-launch the browser mid-session (would be jarring); we
+          // surface the auth error.
           return await withRequestSignal(extra.signal, () => tool.handler(args));
         } catch (err) {
           return {

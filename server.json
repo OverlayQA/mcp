@@ -1,8 +1,21 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "com.overlayqa/mcp",
+  "title": "OverlayQA",
   "description": "Run accessibility, contrast, and design token audits and file QA issues from your AI coding tool.",
-  "version": "0.6.0",
+  "version": "0.6.1",
+  "websiteUrl": "https://overlayqa.com/mcp",
+  "repository": {
+    "url": "https://github.com/OverlayQA/mcp",
+    "source": "github"
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/OverlayQA/mcp/main/icon.png",
+      "mimeType": "image/png",
+      "sizes": ["512x512"]
+    }
+  ],
   "packages": [
     {
       "registryType": "npm",
@@ -11,6 +24,12 @@
       "transport": {
         "type": "stdio"
       }
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.overlayqa.com/mcp"
     }
   ]
 }

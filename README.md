@@ -196,3 +196,19 @@ Creating a public link requires the user's intent to share. Adding email address
 The list returns `doneReviewers` and `clients` with `email`, `invitedAt`, `inviteFailed`, `lastReminderAt`, `done`, `commented`, and `unsubscribed`. Done reviewing means a client finished giving feedback; it does not certify fixes or mean everyone is done. Only the client can perform that gesture. Reminder timing and stop conditions remain owned by the existing scheduler; there is no MCP send-now tool.
 
 After an uncertain recipient-update response, retry the same complete list and reopen it; retained addresses are not invited twice. Creating a review does not have a retry key: after a lost response, use `list_client_reviews` to check for the saved link before creating another. Project viewers and read-only hosted connections can read progress but cannot change links or invite people.
+
+### Retained findings, scheduled reviews, and tracker exports
+
+These tools require the matching server update. `create_review_issues` shares the Auto Review/visual-comparison rollout gate.
+
+| Tools | What they do |
+| --- | --- |
+| `create_review_issues` | File selected zero-based indexes from a completed review, preserving saved screenshots, page context and fix guidance. Repeating the same job and indexes recovers existing issues. |
+| `list_scheduled_reviews`, `create_scheduled_review`, `update_scheduled_review`, `delete_scheduled_review` | Manage recurring public-page reviews under the dashboard's existing project permissions, plan limits and cadence rules. |
+| `run_scheduled_review`, `get_scheduled_review_result` | Start a run with a request UUID, then poll that same UUID. Run now sends no email. IDs/results are retained for 24 hours; without a request ID, read the latest saved baseline and available full evidence. |
+| `list_export_connections`, `list_export_destinations` | Discover connected trackers and explicit destinations. Omit `collection` to see the provider's available collections and required inputs. |
+| `export_issues`, `get_issue_export_status` | Export existing issues with their evidence and read saved delivery/sync state. Inspect every result; partial attachments and pending work are not success. |
+
+Exports support Jira, Linear, Asana, Trello, Notion, ClickUp, GitHub and Basecamp through the product's existing adapters. Destination fields are required; the client never chooses the first project or list. Notion lists the database retained at connection, without arbitrary database search. An already-exported issue keeps its original destination. Images, discussion, and supported field synchronization follow the same provider limits as the app; a stored sync timestamp is not proof of a fresh round trip.
+
+Example: call `list_export_destinations` with `{ "provider": "trello" }`, then list `boards` and `lists` for the chosen board. Pass both `boardId` and `listId` in `export_issues.destination`. Scheduling future scans and sharing issues require the user's request. After uncertain results, read saved state before starting new work.

@@ -36,6 +36,7 @@ import { wrapTool, setClientInfoProvider, type RawTool } from './telemetry.js';
 const require = createRequire(import.meta.url);
 const { version: PACKAGE_VERSION } = require('../package.json') as { version: string };
 
+import { workflowActionTools } from './tools/workflow-actions.js';
 import { scanAccessibilityTool } from './tools/scan-accessibility.js';
 import { scanContrastTool } from './tools/scan-contrast.js';
 import { scanAndCreateIssuesTool } from './tools/scan-and-create-issues.js';
@@ -61,6 +62,7 @@ import { listClientReviewsTool, createClientReviewTool, updateClientReviewTool, 
  */
 const ALL_TOOLS = (
   [
+    ...workflowActionTools,
     scanAccessibilityTool,
     scanContrastTool,
     scanAndCreateIssuesTool,
@@ -83,7 +85,7 @@ async function main(): Promise<void> {
   const server = new McpServer({
     name: 'overlayqa',
     version: PACKAGE_VERSION,
-  }, { instructions: 'run_auto_review and compare_visual start persistent reviews. Use get_review_result with the returned jobId until complete or failed, waiting between running results. After a lost start response, retry the same inputs and requestId. Do not start another review to retrieve a result. Public captures have no browser login session. These calls return findings without creating issues.' });
+  }, { instructions: 'run_auto_review and compare_visual start persistent reviews. Use get_review_result with the returned jobId until complete or failed, waiting between running results. After a lost start response, retry the same inputs and requestId. Do not start another review to retrieve a result. Public captures have no browser login session. These calls return findings without creating issues. Use create_review_issues with explicit finding indexes to file selected results. Scheduled run requests use run_scheduled_review then get_scheduled_review_result; retain the same requestId for retries. Export only to the explicitly chosen tracker destination and inspect partial results.' });
 
   // Which editor is on the other end (Claude Code, Cursor, Windsurf, ...) is
   // known only after the initialize handshake, so the HTTP client reads it

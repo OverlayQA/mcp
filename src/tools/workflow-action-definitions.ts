@@ -26,7 +26,7 @@ export const exportDestinationsInput = z.object({
 });
 export const exportIssuesInput = z.object({
   provider: exportProvider, issueIds: z.array(id).min(1).max(50),
-  destination: z.record(z.string().max(100), z.string().max(2000)).describe('Explicit destination fields from the destination discovery results; no first/default destination is selected'),
+  destination: z.record(z.string().max(100), z.union([z.string().max(2000), z.array(z.string().max(200)).max(100)])).describe('Explicit destination fields from the destination discovery results; no first/default destination is selected'),
   metadata: z.record(z.string().max(100), z.unknown()).optional().describe('Optional destination fields from the provider schema, such as status or assignee'),
 });
 const query = (args: Record<string, unknown>) => new URLSearchParams(Object.entries(args).filter(([, v]) => v !== undefined).map(([k, v]) => [k, String(v)])).toString();

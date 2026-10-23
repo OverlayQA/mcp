@@ -12,6 +12,17 @@ const pageUrl = 'https://api.overlayqa.com/sandbox/';
 // Exercise the shipped entry point, not direct handler calls: the 0.4.0
 // regression lived in registration and bypassed the existing handler tests.
 const calls = {
+  create_review_issues: { jobId: id, findingIndexes: [0] },
+  list_scheduled_reviews: {},
+  create_scheduled_review: { projectId: id, url: pageUrl, scanType: 'accessibility', cadence: 'weekly' },
+  update_scheduled_review: { scheduleId: id, action: 'pause' },
+  delete_scheduled_review: { scheduleId: id },
+  run_scheduled_review: { scheduleId: id, requestId: id },
+  get_scheduled_review_result: { scheduleId: id },
+  list_export_connections: {},
+  list_export_destinations: { provider: 'trello' },
+  export_issues: { provider: 'trello', issueIds: [id], destination: { boardId: 'board', listId: 'list' } },
+  get_issue_export_status: { issueId: id },
   scan_accessibility: { url: pageUrl },
   scan_contrast: { url: pageUrl },
   scan_and_create_issues: { url: pageUrl, projectId: id },

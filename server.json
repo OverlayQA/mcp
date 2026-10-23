@@ -3,7 +3,7 @@
   "name": "com.overlayqa/mcp",
   "title": "OverlayQA",
   "description": "Run accessibility, contrast, and design token audits and file QA issues from your AI coding tool.",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "websiteUrl": "https://overlayqa.com/mcp",
   "repository": {
     "url": "https://github.com/OverlayQA/mcp",
@@ -13,14 +13,16 @@
     {
       "src": "https://raw.githubusercontent.com/OverlayQA/mcp/main/icon.png",
       "mimeType": "image/png",
-      "sizes": ["512x512"]
+      "sizes": [
+        "512x512"
+      ]
     }
   ],
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@overlayqa/mcp",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "transport": {
         "type": "stdio"
       }

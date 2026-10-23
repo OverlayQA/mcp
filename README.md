@@ -155,7 +155,7 @@ For mentions, use `@[userId]` in the text and include the same ID in `mentionedU
 
 To poll for new feedback, pass `createdAfter` with the `createdAt` of the newest issue you have already seen (an ISO-8601 time with a zone, such as `2026-10-05T22:00:00Z`); only issues created after it come back. `pageUrl` narrows the list to one page and ignores the query string. Each listed issue carries `source` (`client` means a reviewer filed it on a share link), `commentCount`, `lastCommentAt` and `lastCommentBy` (`reviewer` or `team`), so an issue still needs a reply when `source` is `client` and `commentCount` is 0, or `lastCommentBy` is `reviewer`. If the server has not been updated for a filter yet, the tool answers `FILTER_NOT_SUPPORTED` instead of an unfiltered list.
 
-The label tools listed above are included in this release. Saved designs, scheduled reviews and Figma visual comparison remain outside this issue-management release. Client review tools are described below and require their matching server update.
+The label tools listed above were included in 0.3.0. The later review workflows, client review tools and scheduled reviews are described below and require their matching server updates. Saved-design discovery is not included.
 
 ### Verify before release
 
